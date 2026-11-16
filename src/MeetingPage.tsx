@@ -1,6 +1,6 @@
 // Layout adapted from Astryx's MIT-licensed documentation template.
 // Copyright (c) Meta Platforms, Inc. and affiliates. See NOTICE.md.
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AppShell } from '@astryxdesign/core/AppShell';
 import { TopNav } from '@astryxdesign/core/TopNav';
 import { SideNav, SideNavItem, SideNavSection } from '@astryxdesign/core/SideNav';
@@ -20,8 +20,10 @@ type Route = { kind: 'page'; id: PageId }
   | { kind: 'slide'; presentation: Presentation; index: number }
   | { kind: 'missing' };
 
+const contentAnchor = '#astryx-app-shell-main';
+
 function readRoute(): Route {
-  const path = window.location.hash.slice(1) || 'oversikt';
+  const path = window.location.hash === contentAnchor ? 'oversikt' : window.location.hash.slice(1) || 'oversikt';
   const page = pages.find(page => page.id === path);
   if (page) return { kind: 'page', id: page.id };
   const match = /^presentation\/([a-z-]+)\/([1-9][0-9]*)$/.exec(path);
@@ -225,17 +227,32 @@ function PageContent({ route }: { route: Route }) {
 export default function MeetingPage() {
   const [route, setRoute] = useState(readRoute);
   const [menuOpen, setMenuOpen] = useState(false);
+  const firstRender = useRef(true);
   const compact = useMediaQuery('(max-width: 48rem)');
   const activeId = route.kind === 'slide' ? 'presentationer' : route.kind === 'page' ? route.id : undefined;
   useEffect(() => {
-    const navigate = () => { setRoute(readRoute()); setMenuOpen(false); };
+    let lastPageUrl = window.location.href;
+    const navigate = () => {
+      // AppShell transfers focus to main; its native fragment is not a page.
+      if (window.location.hash === contentAnchor) {
+        window.history.replaceState(null, '', lastPageUrl);
+        return;
+      }
+      lastPageUrl = window.location.href;
+      setRoute(readRoute());
+      setMenuOpen(false);
+    };
     window.addEventListener('hashchange', navigate);
     return () => window.removeEventListener('hashchange', navigate);
   }, []);
   useEffect(() => {
     const heading = document.getElementById('page-title');
     document.title = `${heading?.textContent ?? meeting.title} · Eneo 17 november`;
-    if (heading) { heading.tabIndex = -1; heading.focus({ preventScroll: true }); }
+    if (heading) {
+      heading.tabIndex = -1;
+      if (!firstRender.current) heading.focus({ preventScroll: true });
+    }
+    firstRender.current = false;
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [route]);
   return <AppShell height="auto" variant="section"

@@ -32,7 +32,7 @@ npm run build
 
 På den lokala utvecklingsdatorn ska potentiellt tunga kommandon köras genom resursvakten enligt `AGENTS.md`. Starta inte lokala servrar, fulla byggen eller webbläsartester utan uttrycklig begäran.
 
-Dokploy bygger Dockerfilen från det publika repot under organisationen **Eneo-dev**. Byggsteget installerar den låsta beroendegrafen, kör typkontroll och skapar de statiska filerna. HTTPS termineras i Dokploy. Koden innehåller inga driftuppgifter eller API-nycklar.
+Dokploy bygger Dockerfilen från det publika repot under organisationen **Eneo-dev**. Byggsteget installerar den låsta beroendegrafen, kör typkontroll och skapar de statiska filerna. HTTPS termineras i Dokploy. Koden innehåller inga driftuppgifter eller API-nycklar. En GitHub-webhook publicerar ändringar på `main` automatiskt.
 
 ## Återställning
 
