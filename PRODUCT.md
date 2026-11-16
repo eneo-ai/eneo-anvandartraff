@@ -24,6 +24,8 @@ Publikvyn ska vara läsbar på stor skärm och inte rendera talaranteckningar. P
 
 Programmet ska återge PDF-inbjudans igenkännbara design men renderas från kodens programdata, så att tider och pass kan uppdateras. Original-PDF:en finns kvar för nedladdning.
 
+Integrationsexemplen ska inspirera andra med det som redan är byggt i Sundsvall. Använd samma bildkort som presentationerna, med ett eget representativt omslag per exempel och Scenarioverktyget först. AI-backend ingår inte. Korten leder till egna sidor med nytta, integrationsupplägg, idéer att ta med och källkod. Omslagen är illustrationer, inte skärmbilder av applikationerna.
+
 ## Evidence
 
 Programmet kommer från användarens inbjudan, `public/program.pdf`. Beskrivningen av AI-arbetssättet kommer från samtalet och är ett diskussionsunderlag; den är inte en verifierad beskrivning av hela Eneos utvecklingsorganisation. Inga presentationer från arrangörerna har levererats.

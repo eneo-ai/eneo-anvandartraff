@@ -20,4 +20,6 @@ Projektor och anteckningar: publikvyn använder samma bildinnehåll med större 
 
 Programmet återger inbjudans blå spårhuvuden, mörka gemensamma rader och tidskolumn från samma koddata. Vid smal innehållsyta staplas spåren med tydliga etiketter. Original-PDF:en förblir en egen nedladdning.
 
+Integrationsexempel utökar den befintliga läsytan: samma bildkort och rutnät som presentationsbiblioteket, med Scenarioverktyget först och utan AI-backend. Första vyn visar kortfattad nytta och ett eget blått illustrerat omslag för varje exempel. Korten leder till delbara detaljsidor med användning, integrationsupplägg, inspirationspunkter och verifierad källänk. Illustrationerna har dokumenterad proveniens; de föreställer användningsområden och gör inga anspråk på att visa verkliga applikationsskärmar. Inga nya färg-, typografi- eller rörelseregler införs.
+
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

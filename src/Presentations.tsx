@@ -2,7 +2,7 @@ import { useRef, useState, type CSSProperties } from 'react';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { HStack, VStack } from '@astryxdesign/core/Stack';
 import { Grid } from '@astryxdesign/core/Grid';
-import { ClickableCard } from '@astryxdesign/core/ClickableCard';
+import { LibraryCard } from './LibraryCard';
 import { Card } from '@astryxdesign/core/Card';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Button } from '@astryxdesign/core/Button';
@@ -23,15 +23,10 @@ export function PresentationLibrary() {
       <Text as="p" type="large" color="secondary">Öppna en presentation för att visa bildspelet, gå till helskärm eller hämta en PowerPoint-fil. Materialet fylls på efter hand.</Text>
     </VStack>
     <Grid columns={{ minWidth: 280, max: 3 }} gap={6}>
-      {presentations.map(presentation => <ClickableCard key={presentation.id} padding={0}
-        href={`#presentation/${presentation.id}`} label={`Öppna ${presentation.title}`}>
-        <img src={presentation.cover} alt="" style={coverImage} />
-        <VStack gap={3} padding={5}>
-          <Heading level={2}>{presentation.title}</Heading>
-          <Text color="secondary">{presentation.description}</Text>
-          <Text type="supporting">{presentation.format === 'pptx' ? 'PowerPoint · PPTX' : 'HTML · Bildspel i webbläsaren'}</Text>
-        </VStack>
-      </ClickableCard>)}
+      {presentations.map(presentation => <LibraryCard key={presentation.id}
+        title={presentation.title} description={presentation.description} cover={presentation.cover}
+        href={`#presentation/${presentation.id}`}
+        detail={presentation.format === 'pptx' ? 'PowerPoint · PPTX' : 'HTML · Bildspel i webbläsaren'} />)}
     </Grid>
     <Text as="p" type="supporting">Fler presentationer och dokument läggs till inför och efter träffen.</Text>
   </VStack>;

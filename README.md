@@ -8,9 +8,13 @@ Här samlas program, presentationer och länkar. Besökare kan läsa materialet 
 
 ## Ändra innehållet
 
-[`src/content.ts`](src/content.ts) äger datum, navigation, program, presentationer och länkar. Lägg dokument i `public/` och länka till dem med `/filnamn.pdf`.
+[`src/content.ts`](src/content.ts) äger datum, navigation, program, presentationer, Sundsvallsexempel och länkar. Lägg dokument i `public/` och länka till dem med `/filnamn.pdf`.
 
 Programmet är återgivet från [`public/program.pdf`](public/program.pdf). Teknikspårets bildspel är den levererade HTML-presentationen om hur Eneo utvecklas med hjälp av AI.
+
+Avsnittet `/#exempel` visar bildkort för Scenarioverktyget, Serviceassistenten, Confluence till Eneo (AI Data Collector) och Self Service AI. Varje kort leder till en egen sida, till exempel `/#exempel/scenario`, med beskrivning, integrationsupplägg, idéer att ta med och GitHub-länk. `sundsvallExamples` i innehållsregistret äger allt innehåll och bildreferenser. Uppgifterna kontrollerades mot respektive publikt repos README den 16 november 2026; de beskriver tillgänglig kod och innebär inte att produktionsdrift är bekräftad. Tal till text länkas separat under resurser eftersom det repot ligger under `eneo-ai`.
+
+Omslagen i `public/integrations/` är AI-genererade illustrationer av användningsområdena. De är komprimerade JPEG-bilder med inbäddade bildpromptar. Generator och exakta promptar finns även i [bildregistret](.impeccable/assets/integrations.json). Lägg till ett exempel med ett unikt `id`, rubrik, kort `summary`, `cover`, beskrivning, `connection`, inspirationspunkter och en verifierad källänk.
 
 Varje avsnitt och presentation har en egen delbar adress, till exempel `/#teknikspar` och `/#presentation/hur-eneo-utvecklas-med-ai`. Presentationsbiblioteket visar klickbara kort med omslagsbild och rubrik. HTML-bildspel kan styras med föregående/nästa eller piltangenter och visas i helskärm där webbläsaren stöder det. Esc lämnar helskärm.
 
@@ -47,6 +51,7 @@ För inbyggda bildspel anges anteckningar i bildens valfria `notes`-fält i `src
 - React, TypeScript och Astryx. Dokumentationsmallen från Astryx äger innehållsramen.
 - `src/MeetingPage.tsx` äger sidram, navigation och mötets innehållsvyer.
 - `src/Presentations.tsx` äger bibliotek, presentationssidor och visning av HTML/PPTX.
+- `src/LibraryCard.tsx` äger det gemensamma bildkortet för presentationer och integrationsexempel.
 - `src/Projection.tsx` äger publik- och presentatörsvyn; `src/presentation-session.ts` äger bildsynkronisering, tangentbord och helskärm.
 - `src/Programme.tsx` återger PDF-programmets design från samma redigerbara programdata. Det använder tabell på breda innehållsytor och staplade rader på smala.
 - `src/astryx-themes.ts` äger färger och komponenternas anpassningar.
