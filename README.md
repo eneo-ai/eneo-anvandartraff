@@ -32,7 +32,7 @@ Det tidigare exempelbildspelet har tagits bort. Ingen PPTX-fil har levererats ä
 
 ### Presentera med talaranteckningar
 
-Teknikspårets HTML-fil är ersatt med den levererade versionen `index(5).html`. På presentationssidan:
+Teknikspårets HTML-fil är ersatt med den levererade versionen `index(6).html`. På presentationssidan:
 
 1. Välj **Öppna manus** och flytta manusfönstret till din egen skärm. Det öppnas vid aktuell bild och aktuellt klicksteg.
 2. Flytta presentationssidan till projektorn och välj **Presentera i helskärm**. Bara bildspelet fyller projektorn; manus, sidram och verktygsrad visas inte där.

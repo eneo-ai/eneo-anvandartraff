@@ -100,17 +100,8 @@ ul,ol{padding:0;list-style:none}
 .tl.below .pair .blk{margin-bottom:0}
 .seg.agent .blk{background:var(--blue)}
 .seg.other .blk{background:transparent;border:3px solid var(--line)}
-.seg.joint .blk{background:var(--slate)}
-.tl.above .seg{justify-content:flex-end}
-.tl.above .blk{margin-top:var(--g1)}
 .tl.below .blk{margin-bottom:var(--g2)}
-.tl.above .nm{font-size:var(--t-s);font-weight:400;line-height:1.3}
 .seg.other .at,.seg.other .nm{color:var(--slate)}
-.seg .bars{display:flex;gap:6px;margin-top:var(--g1)}
-.seg .bars .blk{flex:var(--f,1);padding:0}
-.tl.above .bars .blk{margin-top:0}
-.seg .blk.brk{background:transparent;border:3px solid var(--line)}
-.zoom{height:60px;background:var(--line);clip-path:polygon(12.12% 0,38.16% 0,100% 100%,0 100%)}
 .tl.phase .nm{font-size:var(--t-l);line-height:1.15}
 .tl.phase .ds{font-size:var(--t-m);line-height:1.35;color:var(--ink);margin-top:var(--g1)}
 .tl.phase{gap:10px}
@@ -138,6 +129,9 @@ ul,ol{padding:0;list-style:none}
 .rows .b{font-weight:650}
 .rows .v{font-weight:600;line-height:1.25}
 .rows .big{font-size:var(--t-l);font-weight:650;line-height:1.18}
+.rows.sched > div{padding-top:7px;padding-bottom:7px}
+.rows .t{font-weight:650;font-variant-numeric:tabular-nums}
+.rows .t.off{font-weight:400;color:var(--slate)}
 .rows.flat > div{border-bottom:0}
 .rows.tight > div{padding-top:15px;padding-bottom:15px}
 .rows.tight .hd{padding-top:10px;padding-bottom:10px}
@@ -302,31 +296,24 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Start" data-title="Dagen och förmiddagen" data-at="09.32" data-min="1" data-who="Çagri">
-  <h2 class="h">Dagen och förmiddagen</h2>
+<section class="slide" data-ch="Start" data-title="Så här ser dagen ut" data-at="09.32" data-min="1" data-who="Çagri">
+  <h2 class="h">Så här ser dagen ut</h2>
   <div class="body">
-    <div class="tl above">
-      <div class="seg joint" style="flex:0 0 200px"><span class="at">09.00</span><span class="nm">Alla tillsammans</span><span class="blk"></span></div>
-      <div class="seg" style="flex:135"><span class="at">09.30</span><span class="nm">Det här passet, med paus 10.30</span>
-        <span class="bars"><span class="blk" style="--f:60"></span><span class="blk brk" style="--f:15"></span><span class="blk" style="--f:60"></span></span></div>
-      <div class="seg other" style="flex:75"><span class="at">11.45</span><span class="nm">Lunch</span><span class="blk"></span></div>
-      <div class="seg" style="flex:150"><span class="at">13.00</span><span class="nm">Praktiskt pass: ni bygger själva, med fika 14.30</span>
-        <span class="bars"><span class="blk" style="--f:90"></span><span class="blk brk" style="--f:30"></span><span class="blk" style="--f:30"></span></span></div>
-      <div class="seg joint" style="flex:90"><span class="at">15.30</span><span class="nm">Alla tillsammans: vart Eneo är på väg</span><span class="blk"></span></div>
-    </div>
-    <div class="zoom"></div>
-    <div class="tl below">
-      <div class="seg" style="flex:15"><span class="blk"></span><span class="at">09.30</span><span class="nm">Resan</span></div>
-      <div class="seg" style="flex:30"><span class="blk"></span><span class="at">09.45</span><span class="nm">Arbetssättet</span><span class="ds">Team, kontext, verifiering och förvaltning</span></div>
-      <div class="seg ppl" style="flex:15"><span class="blk"></span><span class="at">10.15</span><span class="nm">Frågor</span></div>
-      <div class="seg other" style="flex:15"><span class="blk"></span><span class="at">10.30</span><span class="nm">Paus</span></div>
-      <div class="seg" style="flex:45"><span class="blk"></span><span class="at">10.45</span><span class="nm">Eneo</span><span class="ds">Frontendbytet, och tal till text live med moduler och flöden</span></div>
-      <div class="seg ppl" style="flex:15"><span class="blk"></span><span class="at">11.30</span><span class="nm">Frågor</span></div>
+    <div class="rows sched" style="--cols:190px 440px 1fr">
+      <div class="t">09.30</div><div class="b">Resan</div><div class="k">Från handskriven kod till AI-native</div>
+      <div class="t">09.45</div><div class="b">Arbetssättet</div><div class="k">Team, kontext, verifiering och förvaltning</div>
+      <div class="t">10.15</div><div class="b hum">Frågor</div><div></div>
+      <div class="t off">10.30</div><div class="k">Paus</div><div></div>
+      <div class="t">10.45</div><div class="b">Eneo</div><div class="k">Frontendbytet, och tal till text live</div>
+      <div class="t">11.30</div><div class="b hum">Frågor</div><div></div>
+      <div class="t off">11.45</div><div class="k">Lunch</div><div></div>
+      <div class="t">13.00</div><div class="b">Ni bygger själva</div><div class="k">Praktiskt pass, med fika 14.30</div>
+      <div class="t">15.30</div><div class="b">Alla tillsammans</div><div class="k">Vart Eneo är på väg</div>
     </div>
   </div>
   <aside class="notes">
-    <p>Trettio sekunder. Övre raden är hela dagen, nedre raden är förmiddagen fram till lunch.</p>
-    <p>Säg tre saker: vi håller på till 11.45 med paus 10.30, efter lunch bygger alla själva fram till 15.30, och frågor om roadmap tar vi när alla ses 15.30.</p>
+    <p>Trettio sekunder. Läs inte upp listan.</p>
+    <p>Säg tre saker: vi håller på till lunch 11.45 med paus 10.30, efter lunch bygger alla själva fram till 15.30, och frågor om roadmap tar vi när alla ses 15.30.</p>
     <p class="next">Övergång: ”Vi börjar med en fråga.”</p>
   </aside>
 </section>
