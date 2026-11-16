@@ -13,7 +13,7 @@ Never prints the key.
 import sys
 import uuid
 
-from eneo_env import EneoError, base_url, call, load_dotenv
+from eneo_env import EneoError, base_url, call, load_dotenv, use_utf8_output
 
 
 def fail(message):
@@ -28,6 +28,7 @@ def space_kind(space):
 
 
 def main():
+    use_utf8_output()
     values = load_dotenv()
     if not (values.get("ENEO_API_KEY") or "").strip():
         fail(

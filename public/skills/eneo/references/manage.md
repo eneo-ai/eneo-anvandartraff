@@ -4,7 +4,12 @@ The recipe for requests like: "Skapa en upphandlingsassistent i Eneo som hjälpe
 handläggare att granska förfrågningsunderlag mot våra riktlinjer. Välj en
 lämplig modell, skriv en systemprompt och testa assistenten."
 
-`CALL` below stands for `python3 <this-skill-folder>/scripts/eneo_call.py`.
+`CALL` below is shorthand for
+`python3 <this-skill-folder>/scripts/eneo_call.py` (`python` or `py -3` on
+Windows). Write it out in full in each command. Do not store it in a shell
+variable: zsh, the default shell on macOS, does not split a variable into
+command and arguments, so `$CALL GET ...` fails there.
+
 The key needs scope **Yta** (or wider) and permission **Skriv**.
 
 Contents: [Clarify](#1-clarify-before-building) · [Space](#2-find-the-space) ·
@@ -42,8 +47,7 @@ create the space in the interface (**Skapa yta**) and make a key for it.
 A space offers the models its administrators have allowed. List them:
 
 ```bash
-CALL GET "/api/v1/spaces/<space_id>/" --select completion_models \
-  --fields id,name,nickname,description,vision,reasoning,max_input_tokens,hosting,is_org_default,is_deprecated,is_locked,can_access
+CALL GET "/api/v1/spaces/<space_id>/" --select completion_models --fields id,name,nickname,description,vision,reasoning,max_input_tokens,hosting,is_org_default,is_deprecated,is_locked,can_access
 ```
 
 Leave out models that are deprecated, locked or not accessible. Then choose by
