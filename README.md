@@ -6,6 +6,8 @@ Publik mötessajt inför Eneos användarträff den **17 november 2026** i Solna,
 
 Här samlas program, presentationer och länkar. Besökare kan läsa materialet på telefon och dator. Innehållet uppdateras i repot.
 
+Deltagare kan skapa egna konton till övningarna på [Testkonto](https://eneo-anvandartraff.sundsvall.dev/#testkonto) med arrangörens gemensamma träffkod. QR-koden på sidan leder till samma formulär. Konton, konfiguration och återställning beskrivs i [WORKSHOP.md](WORKSHOP.md).
+
 ## Ändra innehållet
 
 [`src/content.ts`](src/content.ts) äger datum, navigation, program, presentationer, moduler, API-integrationer och länkar. Lägg dokument i `public/` och länka till dem med `/filnamn.pdf`.
@@ -57,8 +59,8 @@ För inbyggda bildspel anges anteckningar i bildens valfria `notes`-fält i `src
 - `src/Projection.tsx` äger publik- och presentatörsvyn; `src/presentation-session.ts` äger bildsynkronisering, tangentbord och helskärm.
 - `src/Programme.tsx` återger PDF-programmets design från samma redigerbara programdata. Det använder tabell på breda innehållsytor och staplade rader på smala.
 - `src/astryx-themes.ts` äger färger och komponenternas anpassningar.
-- Vite skapar statiska filer; Nginx serverar dem på port 8080 i en container.
-- Ingen databas eller inloggning behövs för lässidan.
+- Vite skapar statiska filer; Node serverar dem och kontotjänstens API på port 8080 i en container.
+- Läsmaterialet är publikt. Testkonton skapas via en separat serverdel och en beständig SQLite-databas; se [WORKSHOP.md](WORKSHOP.md).
 
 ## Kontroller och drift
 
@@ -74,7 +76,7 @@ Dokploy bygger Dockerfilen från det publika repot under organisationen **Eneo-d
 
 ## Återställning
 
-Återställ en innehållsändring med en Git-revert och publicera den committen via Dokploy. Applikationen har ingen beständig användardata att migrera.
+Återställ en innehållsändring med en Git-revert och publicera den committen via Dokploy. Bevara workshopvolymen och dess krypteringsnyckel vid återställning; se [WORKSHOP.md](WORKSHOP.md).
 
 ## Ursprung
 

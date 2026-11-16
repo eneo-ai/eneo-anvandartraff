@@ -232,6 +232,25 @@
         "public/integrations/confluence.jpg",
         "public/integrations/self-service.jpg"
       ]
+    },
+    "workshopAccounts": {
+      "mode": "Operate",
+      "source": "src/WorkshopAccounts.tsx",
+      "route": "/#testkonto",
+      "asset": "public/workshop-account-qr.svg",
+      "components": [
+        "TextInput",
+        "Button",
+        "Banner",
+        "Grid",
+        "VStack",
+        "HStack",
+        "Heading",
+        "Text",
+        "Link"
+      ],
+      "newTokens": [],
+      "review": "Independent source review passed; deployed visual and live account checks recorded in WORKSHOP.md."
     }
   },
   "components": [

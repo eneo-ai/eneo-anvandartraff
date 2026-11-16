@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Delegated: React, TypeScript, Astryx and Vite. Static output served by Nginx in Dokploy.
+Delegated: React, TypeScript, Astryx and Vite. Static output and workshop account API served by Node in Dokploy.
 
 ## Users and purpose
 
@@ -16,7 +16,7 @@ Deltagare på Eneos användarträff den 17 november 2026 använder sidan på tel
 
 ## Capabilities and constraints
 
-Publik lässida, bekräftat av användaren. Innehållet uppdateras tillsammans med Codex i källkoden. Eget publikt GitHub-repo under eneo-ai och egen Dokploy-applikation under Eneo-dev på panel.sundsvall.dev.
+Publikt läsmaterial, bekräftat av användaren. En uttryckligen begärd kontosida skapar testkonton i eneo-modules.sundsvall.dev via servern, skyddad av en gemensam träffkod. QR och länk öppnar samma formulär; inga administratörsuppgifter eller träffkoder publiceras i frontend. Innehållet uppdateras tillsammans med Codex i källkoden. Eget publikt GitHub-repo under eneo-ai och egen Dokploy-applikation under Eneo-dev på panel.sundsvall.dev.
 
 Användaren har också begärt Eneos logga, ett bibliotek med bild/rubrik per presentation, en egen sida per presentation samt val för helskärm. Presentationer kan vara HTML eller PPTX. HTML kan visas i webbläsaren; PPTX-filer laddas ner för visning i PowerPoint. Inga PPTX-filer har tillhandahållits ännu.
 

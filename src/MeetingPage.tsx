@@ -18,6 +18,7 @@ import { PresentationLibrary, PresentationPage } from './Presentations';
 import { ProjectionView } from './Projection';
 import { Programme } from './Programme';
 import { LibraryCard } from './LibraryCard';
+import { WorkshopAccounts } from './WorkshopAccounts';
 
 type Route = { kind: 'page'; id: PageId }
   | { kind: 'example'; example: SolutionExample }
@@ -70,6 +71,7 @@ function Overview() {
         <Text as="p" weight="semibold">{meeting.date} · {meeting.location}</Text>
         <HStack gap={3} wrap="wrap">
           <Button href="#program" label="Se dagens program" variant="primary" size="lg" />
+          <Button href="#testkonto" label="Skapa testkonto" size="lg" />
         </HStack>
       </VStack>
     </Card>
@@ -91,6 +93,7 @@ function Overview() {
       <ListItem href="#program" label={<Text weight="semibold">Program</Text>} description={<Text color="secondary">Tider, gemensamma pass och båda spåren.</Text>} />
       <ListItem href="#exempel" label={<Text weight="semibold">Moduler och integrationer</Text>} description={<Text color="secondary">Tal till text som Eneo-modul och API-integrationer från Sundsvall.</Text>} />
       <ListItem href="#presentationer" label={<Text weight="semibold">Presentationer</Text>} description={<Text color="secondary">Bildspel och underlag att öppna på dator eller telefon.</Text>} />
+      <ListItem href="#testkonto" label={<Text weight="semibold">Testkonto till det praktiska passet</Text>} description={<Text color="secondary">Skapa ett eget konto i Eneos testmiljö med träffkoden.</Text>} />
       <ListItem href="#lankar" label={<Text weight="semibold">Länkar</Text>} description={<Text color="secondary">Kod och resurser för att utforska vidare.</Text>} />
     </List>
   </>;
@@ -182,6 +185,7 @@ function PageContent({ route }: { route: Exclude<Route, { kind: 'projection' }> 
     case 'program': return <Programme />;
     case 'exempel': return <ExamplesLibrary />;
     case 'presentationer': return <PresentationLibrary />;
+    case 'testkonto': return <WorkshopAccounts />;
     case 'lankar': return <Links />;
   }
 }

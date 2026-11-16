@@ -3,3 +3,7 @@ dist
 .git
 .impeccable
 *.md
+.env
+.env.*
+data
+server/*.test.mjs

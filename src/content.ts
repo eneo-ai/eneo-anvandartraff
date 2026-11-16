@@ -12,6 +12,7 @@ export const pages = [
   { id: 'program', title: 'Program' },
   { id: 'exempel', title: 'Moduler och integrationer' },
   { id: 'presentationer', title: 'Presentationer' },
+  { id: 'testkonto', title: 'Testkonto' },
   { id: 'lankar', title: 'Länkar' },
 ] as const;
 

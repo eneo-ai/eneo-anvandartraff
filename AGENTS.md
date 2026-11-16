@@ -4,7 +4,7 @@ Project-specific guidance for AI coding agents.
 
 ## Project scope
 
-This is a public read-only resource site for the Eneo user meeting. `src/content.ts` is the canonical content registry. Keep programme facts faithful to `public/program.pdf`; label preparation material as discussion material.
+This is a public resource site for the Eneo user meeting. Meeting content is read-only; the explicitly authorized workshop account form provisions Eneo test accounts through the server owner described in WORKSHOP.md. `src/content.ts` is the canonical content registry. Keep programme facts faithful to `public/program.pdf`; label preparation material as discussion material.
 
 Never commit credentials. The Dokploy project belongs to Eneo-dev. Build remotely in Dokploy for publication.
 
