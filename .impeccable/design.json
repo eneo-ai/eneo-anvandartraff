@@ -1,0 +1,337 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-16T10:02:54.801Z",
+  "title": "Design System: Eneo användarträff",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Invitation blue"
+      },
+      "text-accent": {
+        "role": "primary",
+        "displayName": "Link and focus blue"
+      },
+      "on-accent": {
+        "role": "neutral",
+        "displayName": "White action label"
+      },
+      "accent-muted": {
+        "role": "primary",
+        "displayName": "Pale invitation blue"
+      },
+      "background-body": {
+        "role": "neutral",
+        "displayName": "Cool page wash"
+      },
+      "background-surface": {
+        "role": "neutral",
+        "displayName": "White reading surface"
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Dark blue reading text"
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Supporting slate text"
+      },
+      "neutral": {
+        "role": "neutral",
+        "displayName": "Quiet control overlay"
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Quiet divider"
+      },
+      "programme-paper": {
+        "role": "neutral",
+        "displayName": "Programme paper and gutters"
+      },
+      "programme-ink": {
+        "role": "neutral",
+        "displayName": "Programme dark ink"
+      },
+      "programme-main-header": {
+        "role": "primary",
+        "displayName": "Main-track invitation blue"
+      },
+      "programme-technical-header": {
+        "role": "primary",
+        "displayName": "Technical-track light blue"
+      },
+      "programme-shared": {
+        "role": "neutral",
+        "displayName": "Shared-session navy"
+      },
+      "programme-shared-label": {
+        "role": "primary",
+        "displayName": "Shared-session light-blue label"
+      },
+      "programme-shared-detail": {
+        "role": "neutral",
+        "displayName": "Shared-session pale detail"
+      },
+      "programme-main-surface": {
+        "role": "primary",
+        "displayName": "Pale main-track field"
+      },
+      "programme-technical-surface": {
+        "role": "neutral",
+        "displayName": "Cool technical-track field"
+      }
+    },
+    "typographyMeta": {
+      "display-2": {
+        "displayName": "Opening display",
+        "purpose": "Overview title, retaining semantic heading level 1."
+      },
+      "display-3": {
+        "displayName": "Inline slide title",
+        "purpose": "Reading-size title in the generic SlideCanvas."
+      },
+      "body": {
+        "displayName": "Reading text",
+        "purpose": "Figtree-first system fallback stack; the optional remote stylesheet is not imported."
+      },
+      "large": {
+        "displayName": "Large reading text",
+        "purpose": "Shell introductions inherit semibold; generic inline slides explicitly request normal weight."
+      },
+      "supporting": {
+        "displayName": "Supporting text",
+        "purpose": "Format labels, dates, provenance and footer context."
+      },
+      "projection-heading": {
+        "displayName": "Audience heading",
+        "purpose": "Generic inline audience canvas and fullscreen inline heading size."
+      },
+      "projection-body": {
+        "displayName": "Audience body",
+        "purpose": "Normal-weight generic inline audience text and points."
+      },
+      "programme-title": {
+        "displayName": "Programme title",
+        "purpose": "Invitation-style programme heading in normal and fullscreen views."
+      },
+      "programme-session": {
+        "displayName": "Session title and time",
+        "purpose": "Semibold session names and tabular time rail."
+      },
+      "programme-detail": {
+        "displayName": "Session detail",
+        "purpose": "Normal-weight supporting detail within programme rows."
+      },
+      "programme-label": {
+        "displayName": "Programme track label",
+        "purpose": "Bold uppercase track labels with wider tracking."
+      }
+    },
+    "motion": [
+      {
+        "name": "duration-fast",
+        "value": "125ms",
+        "purpose": "Inherited Astryx button state transitions; reduced motion removes the transition."
+      },
+      {
+        "name": "duration-medium",
+        "value": "300ms",
+        "purpose": "Inherited Astryx mobile drawer transition."
+      },
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.24, 1, 0.4, 1)",
+        "purpose": "Inherited Astryx state and drawer easing."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "page-compact",
+        "value": "(max-width: 48rem)"
+      },
+      {
+        "name": "app-shell-md",
+        "value": "(width < 768px)"
+      },
+      {
+        "name": "neutral-touch-type",
+        "value": "(width < 1024px) and (pointer: coarse)"
+      },
+      {
+        "name": "programme-wide-content",
+        "value": "44rem",
+        "purpose": "ResizeObserver compares the programme frame content width with 44 times the computed root font size. This is not a viewport media query."
+      }
+    ],
+    "sources": [
+      "src/astryx-themes.ts",
+      "src/MeetingPage.tsx",
+      "src/Presentations.tsx",
+      "src/Projection.tsx",
+      "src/presentation-session.ts",
+      "src/Programme.tsx",
+      "src/content.ts",
+      "src/main.tsx",
+      "public/eneo-logo.svg",
+      "public/presentations/utveckling-med-ai.svg",
+      "public/presentations/hur-eneo-utvecklas-med-ai.html",
+      "@astryxdesign/core@0.7.3",
+      "@astryxdesign/theme-neutral@0.7.3",
+      ".impeccable/surfaces/meeting.md",
+      "src/LibraryCard.tsx",
+      ".impeccable/assets/integrations.json"
+    ],
+    "review": {
+      "disposition": "SHIP within reviewed scope",
+      "scope": "Programme with corrected time column, earlier captured presentation library/detail wrapper and generic inline projection/presenter engine.",
+      "method": "Source extraction by this documenter, with manual browser evidence supplied by the root agent. The documenter ran no shell command, browser, server, build or test.",
+      "suppliedEvidence": [
+        "All ten wide-table time cells measured 112px without clipping at viewport widths 1440 and 1024.",
+        "No horizontal overflow reported at viewport widths 390, 768, 1024 and 1440.",
+        "Native fullscreen worked in the main viewer and programme.",
+        "Two-way audience/presenter popup synchronization worked with the former inline demo before its authorized removal; it is evidence for the generic engine, not for the currently registered standalone deck."
+      ],
+      "limitation": "The SHIP verdict applies only to the stated reviewed scope. Native fullscreen in the separate generic audience popup was denied in the IAB/focus context; support in every browser is not established. Earlier main-viewer fullscreen evidence predates the new iframe-targeted fullscreen control.",
+      "captureRoot": "/Users/maxeriksson/Desktop/Repo/eneo-anvandartraff/.impeccable/review",
+      "captures": [
+        "programme-desktop-final.jpg",
+        "programme-mobile-final.jpg",
+        "programme-tablet-768-final.jpg",
+        "programme-tablet-1024-final.jpg",
+        "programme-fullscreen-final.jpg",
+        "library-mobile-final.jpg",
+        "presentation-mobile-final.jpg"
+      ],
+      "assets": "Shipping media includes the existing Eneo SVG wordmark, SVG presentation cover, supplied programme PDF, authored standalone HTML file and four generated JPEG integration illustrations. The raster provenance and exact prompts are in .impeccable/assets/integrations.json and embedded in the JPEGs. Review captures are evidence, not shipping assets.",
+      "sourceRevision": "4346a28",
+      "sourceOnlyScope": "External deck content, newer manuscript/iframe-fullscreen controls and illustrated integration surfaces are described from latest source; they were not independently reviewed in this pass."
+    },
+    "layout": {
+      "programmeGridLine": {
+        "token": "--programme-grid-line",
+        "value": "0.125rem",
+        "purpose": "White programme field gutters."
+      },
+      "programmeTable": {
+        "tableLayout": "fixed",
+        "wrapperMarginInline": "0",
+        "wrapperWidth": "100%",
+        "timeHeaderMaxWidth": "none",
+        "tracks": "Equal shares of the remaining width."
+      },
+      "sourceOwnership": "Meeting, projection and programme tokens belong to src/astryx-themes.ts. src/LibraryCard.tsx owns the shared cover card. The standalone HTML file owns its embedded design and presenter behavior; the file adapter supplies optional presenterUrl controls and targets the iframe for fullscreen."
+    },
+    "assets": {
+      "provenanceRegistry": ".impeccable/assets/integrations.json",
+      "generator": "Built-in image_gen",
+      "generatedOn": "2026-11-16",
+      "purpose": "Conceptual illustrations of integration use cases, not screenshots.",
+      "files": [
+        "public/integrations/scenario.jpg",
+        "public/integrations/serviceassistent.jpg",
+        "public/integrations/confluence.jpg",
+        "public/integrations/self-service.jpg"
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Astryx primary link action; overview actions use the large height.",
+      "html": "<a class=\"ds-primary-button\" href=\"#program\">Se dagens program</a>",
+      "css": ".ds-primary-button { display:inline-flex; align-items:center; justify-content:center; gap:var(--spacing-2,0.5rem); padding:var(--spacing-2,0.5rem) var(--spacing-3,0.75rem); height:var(--size-element-lg,36px); border:0; border-radius:var(--radius-element,0.625rem); background-color:var(--color-accent,#176CC5); color:var(--color-on-accent,#FFFFFF); font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif); font-size:var(--text-label-size,0.875rem); font-weight:500; line-height:var(--text-label-leading,1.4286); text-decoration:none; transition:background-color var(--duration-fast,125ms) var(--ease-standard,cubic-bezier(0.24,1,0.4,1)),transform var(--duration-fast,125ms) var(--ease-standard,cubic-bezier(0.24,1,0.4,1)); } @media (hover:hover) { .ds-primary-button:hover { background-image:linear-gradient(var(--color-overlay-hover,#0000000D),var(--color-overlay-hover,#0000000D)); } } .ds-primary-button:active { background-image:linear-gradient(var(--color-overlay-pressed,#0000001A),var(--color-overlay-pressed,#0000001A)); transform:scale(0.98); } .ds-primary-button:focus-visible { outline:var(--focus-outline-width,2px) solid var(--focus-outline-color,#145EA9); outline-offset:var(--focus-outline-offset,3px); } @media (prefers-reduced-motion:reduce) { .ds-primary-button { transition-duration:0s; } } @media (pointer:coarse) { .ds-primary-button:active { transform:scale(1); } }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Neutral secondary action for fullscreen, link copying and slide navigation.",
+      "html": "<button class=\"ds-secondary-button\" type=\"button\">Helskärm</button>",
+      "css": ".ds-secondary-button { display:inline-flex; align-items:center; justify-content:center; padding:var(--spacing-2,0.5rem) var(--spacing-3,0.75rem); height:var(--size-element-md,32px); border:0; border-radius:var(--radius-element,0.625rem); background-color:var(--color-neutral,#0000000F); color:var(--color-text-primary,#1B2435); font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif); font-size:var(--text-label-size,0.875rem); font-weight:500; line-height:var(--text-label-leading,1.4286); cursor:pointer; transition:background-color var(--duration-fast,125ms) var(--ease-standard,cubic-bezier(0.24,1,0.4,1)),transform var(--duration-fast,125ms) var(--ease-standard,cubic-bezier(0.24,1,0.4,1)); } @media (hover:hover) { .ds-secondary-button:hover { background-image:linear-gradient(var(--color-overlay-hover,#0000000D),var(--color-overlay-hover,#0000000D)); } } .ds-secondary-button:active { background-image:linear-gradient(var(--color-overlay-pressed,#0000001A),var(--color-overlay-pressed,#0000001A)); transform:scale(0.98); } .ds-secondary-button:focus-visible { outline:var(--focus-outline-width,2px) solid var(--focus-outline-color,#145EA9); outline-offset:var(--focus-outline-offset,3px); } @media (prefers-reduced-motion:reduce) { .ds-secondary-button { transition-duration:0s; } } @media (pointer:coarse) { .ds-secondary-button:active { transform:scale(1); } }"
+    },
+    {
+      "name": "Section Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-item",
+      "description": "Shared section links; Astryx supplies the full responsive menu and focus lifecycle.",
+      "html": "<nav class=\"ds-section-nav\" aria-label=\"Mötets avsnitt\"><a class=\"ds-nav-item\" href=\"#oversikt\">Översikt</a><a class=\"ds-nav-item\" href=\"#program\" aria-current=\"page\">Program</a><a class=\"ds-nav-item\" href=\"#presentationer\">Presentationer</a></nav>",
+      "css": ".ds-section-nav { width:15rem; } .ds-nav-item { display:flex; align-items:center; height:var(--size-element-md,32px); padding:0 var(--spacing-2,0.5rem); border-radius:var(--radius-element,0.625rem); color:var(--color-text-primary,#1B2435); font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif); font-size:var(--text-label-size,0.875rem); font-weight:400; line-height:var(--text-label-leading,1.4286); text-decoration:none; } @media (hover:hover) { .ds-nav-item:hover { background-image:linear-gradient(var(--color-overlay-hover,#0000000D),var(--color-overlay-hover,#0000000D)); } } .ds-nav-item:active { background-image:linear-gradient(var(--color-overlay-pressed,#0000001A),var(--color-overlay-pressed,#0000001A)); } .ds-nav-item[aria-current=page] { background-color:var(--color-neutral,#0000000F); background-image:none; font-weight:500; } .ds-nav-item:focus-visible { outline:var(--focus-outline-width,2px) solid var(--focus-outline-color,#145EA9); outline-offset:var(--focus-outline-offset,3px); }"
+    },
+    {
+      "name": "Opening Card",
+      "kind": "card",
+      "refersTo": "hero-card",
+      "description": "Flat pale blue overview card with the implemented generous reading inset.",
+      "html": "<section class=\"ds-opening-card\"><h1 class=\"ds-opening-title\">Vi ses på Eneos användarträff.</h1><p class=\"ds-opening-copy\">Program, presentationer och länkar samlade på ett ställe. Med fokus på teknikspåret.</p></section>",
+      "css": ".ds-opening-card { display:flex; flex-direction:column; gap:var(--spacing-4,1rem); padding:var(--spacing-10,2.5rem); border-radius:var(--radius-container,0.75rem); background-color:var(--color-accent-muted,#EAF3FC); color:var(--color-text-primary,#1B2435); font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif); } .ds-opening-title { max-width:72ch; margin:0; font-size:var(--text-display-2-size,2.1875rem); font-weight:var(--text-heading-1-weight,600); line-height:var(--text-display-2-leading,1.2571); text-wrap:balance; overflow-wrap:anywhere; } .ds-opening-copy { max-width:72ch; margin:0; font-size:var(--text-large-size,1.0625rem); font-weight:600; line-height:var(--text-large-leading,1.4118); overflow-wrap:anywhere; }"
+    },
+    {
+      "name": "Shared Library Cover Card",
+      "kind": "card",
+      "refersTo": "library-card",
+      "description": "src/LibraryCard.tsx owns this 16:9 cover card for presentation and integration libraries. The representative preview uses the currently registered presentation SVG cover.",
+      "html": "<a class=\"ds-library-card\" href=\"#presentation/hur-eneo-utvecklas-med-ai\"><svg class=\"ds-library-cover\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 960 540\" fill=\"none\">\n<title>Utveckling med AI</title>\n<rect width=\"960\" height=\"540\" fill=\"#EAF3FC\"/>\n<g transform=\"translate(64 52) scale(.25)\"><path d=\"M589 24.5005C622.535 24.5005 649.5 51.9336 649.5 85.5005C649.5 119.067 622.535 146.5 589 146.5C559.742 146.5 535.486 125.619 529.774 98.0005H493C486.096 98.0005 480.5 92.404 480.5 85.5005C480.5 78.5969 486.096 73.0005 493 73.0005H526.305C521.28 59.2291 508.195 49.5005 493 49.5005C473.516 49.5005 457.5 65.4958 457.5 85.5005C457.5 105.505 473.516 121.5 493 121.5C501.708 121.5 509.722 118.303 515.925 112.983C518.905 121.001 523.153 128.41 528.429 134.955C518.485 142.212 506.256 146.5 493 146.5C479.712 146.5 467.456 142.192 457.5 134.903V145.5H432.5V85.5005C432.5 65.4958 416.484 49.5005 397 49.5005C377.516 49.5005 361.5 65.4958 361.5 85.5005V145.5H336.5V98.0005H301C294.096 98.0005 288.5 92.404 288.5 85.5005C288.5 78.5969 294.096 73.0005 301 73.0005H334.305C329.28 59.2291 316.195 49.5005 301 49.5005C281.516 49.5005 265.5 65.4958 265.5 85.5005C265.5 105.505 281.516 121.5 301 121.5C307.552 121.5 313.71 119.689 319 116.528V143.758C313.319 145.54 307.275 146.5 301 146.5C267.465 146.5 240.5 119.067 240.5 85.5005C240.5 51.9336 267.465 24.5005 301 24.5005C320.603 24.5005 337.961 33.875 349 48.3687C360.039 33.875 377.397 24.5005 397 24.5005C416.603 24.5005 433.961 33.875 445 48.3687C456.039 33.875 473.397 24.5005 493 24.5005C512.603 24.5005 529.961 33.875 541 48.3687C552.039 33.875 569.397 24.5005 589 24.5005ZM589 49.5005C569.516 49.5005 553.5 65.4958 553.5 85.5005C553.5 105.505 569.516 121.5 589 121.5C608.484 121.5 624.5 105.505 624.5 85.5005C624.5 65.4958 608.484 49.5005 589 49.5005Z\" fill=\"black\"/><path d=\"M58.907 25.2079C92.3974 -8.28227 146.632 -7.74821 180.04 25.6601C213.448 59.0684 213.981 113.302 180.491 146.792C147.001 180.282 92.7675 179.749 59.3591 146.341L42.3884 129.37L102.728 69.0302C112.101 59.6577 127.297 59.6577 136.67 69.0302C146.042 78.4027 146.042 93.5982 136.67 102.971L116.21 123.431C127.132 124.616 138.361 121.04 146.55 112.852C160.964 98.4371 161.094 74.5971 146.098 59.6015C131.103 44.6059 107.262 44.7349 92.8474 59.1493L75.8767 76.1191L41.9362 42.1786L58.907 25.2079ZM66.3328 85.7548L32.5876 119.5L1.67155 88.583C0.109466 87.0209 0.109504 84.4888 1.67155 82.9267L32.5876 52.0097L66.3328 85.7548Z\" fill=\"#055594\"/></g>\n<text x=\"64\" y=\"260\" fill=\"#1B2435\" font-family=\"Arial, sans-serif\" font-size=\"58\" font-weight=\"700\">Utveckling med AI</text>\n<text x=\"64\" y=\"324\" fill=\"#536174\" font-family=\"Arial, sans-serif\" font-size=\"26\">Arkitektur, implementation och validering</text>\n<path d=\"M64 416H896\" stroke=\"#145EA9\" stroke-width=\"2\"/>\n<text x=\"64\" y=\"468\" fill=\"#145EA9\" font-family=\"Arial, sans-serif\" font-size=\"24\">Eneo användarträff · 17 november 2026</text>\n</svg>\n<section class=\"ds-library-copy\"><h2>Hur Eneo utvecklas med hjälp av AI</h2><p>Teknikspåret den 17 november 2026. Bildspel om vårt arbetssätt med AI och det praktiska passet, med talaranteckningar och egen presentatörsvy.</p><small>HTML · Bildspel i webbläsaren</small></section></a>",
+      "css": ".ds-library-card{display:block;position:relative;max-width:30rem;min-width:0;overflow:clip;border:1px solid var(--color-border,#00000014);border-radius:var(--radius-container,0.75rem);background:var(--color-background-card,#FFFFFF);color:var(--color-text-primary,#1B2435);font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif);text-decoration:none}.ds-library-card::after{content:\"\";position:absolute;inset:0;pointer-events:none;background:transparent;transition:background-color var(--duration-fast,125ms) var(--ease-standard,cubic-bezier(0.24,1,0.4,1))}.ds-library-cover{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}.ds-library-copy{display:flex;flex-direction:column;gap:var(--spacing-3,0.75rem);padding:var(--spacing-5,1.25rem)}.ds-library-copy h2{margin:0;font-size:var(--text-heading-2-size,1.25rem);font-weight:600;line-height:var(--text-heading-2-leading,1.4);overflow-wrap:anywhere}.ds-library-copy p{margin:0;color:var(--color-text-secondary,#536174);font-size:var(--text-body-size,0.875rem);line-height:var(--text-body-leading,1.4286);overflow-wrap:anywhere}.ds-library-copy small{font-size:var(--text-supporting-size,0.75rem);line-height:var(--text-supporting-leading,1.6667)}@media(hover:hover){.ds-library-card:hover::after{background:var(--color-overlay-hover,#0000000D)}}.ds-library-card:active::after{background:var(--color-overlay-pressed,#0000001A)}.ds-library-card:focus-visible{outline:var(--focus-outline-width,2px) solid var(--focus-outline-color,#145EA9);outline-offset:var(--focus-outline-offset,3px)}@media(prefers-reduced-motion:reduce){.ds-library-card::after{transition-duration:0s}}"
+    },
+    {
+      "name": "Programme Table",
+      "kind": "custom",
+      "description": "Signature invitation table: fixed time rail, equal track columns, blue headers and navy shared rows. The real component uses this layout only when its content width reaches 44rem.",
+      "html": "<table class=\"ds-programme-table\"><colgroup><col class=\"ds-programme-time-col\"><col span=\"2\" class=\"ds-programme-track-col\"></colgroup><thead><tr><th scope=\"col\">Tid</th><th scope=\"col\" class=\"ds-programme-main-head\">Huvudspår</th><th scope=\"col\" class=\"ds-programme-tech-head\">Teknikspår – för utvecklare</th></tr></thead><tbody><tr class=\"ds-programme-shared\"><th scope=\"row\">09.00</th><td colspan=\"2\"><section class=\"ds-programme-shared-content\"><strong class=\"ds-programme-shared-label\">Gemensamt</strong><section><p>Introduktion</p></section></section></td></tr><tr><th scope=\"row\">09.30</th><td class=\"ds-programme-main\"><p>Införa AI i verksamheten – från pilot till produktion</p><p class=\"ds-programme-detail\">Erfarenheter från Herrljunga och Borlänge</p></td><td class=\"ds-programme-tech\"><p>Hur Eneo utvecklas med hjälp av AI</p></td></tr><tr class=\"ds-programme-shared\"><th scope=\"row\">15.30–17.00</th><td colspan=\"2\"><section class=\"ds-programme-shared-content\"><strong class=\"ds-programme-shared-label\">Gemensamt</strong><section><p>Med tanke på framtiden</p><p class=\"ds-programme-detail\">Framtida roadmap och samtal om vart Eneo är på väg</p></section></section></td></tr></tbody></table>",
+      "css": ".ds-programme-table{width:100%;table-layout:fixed;border-collapse:collapse;background:var(--programme-paper,#FFFFFF);color:var(--programme-ink,#1B2435);font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif)}.ds-programme-time-col{width:var(--programme-time-width,7rem)}.ds-programme-track-col{width:calc((100% - var(--programme-time-width,7rem))/2)}.ds-programme-table th,.ds-programme-table td{padding:var(--spacing-3,0.75rem);border:var(--programme-grid-line,0.125rem) solid var(--programme-paper,#FFFFFF);vertical-align:top;text-align:start;overflow-wrap:anywhere}.ds-programme-table th{max-width:none}.ds-programme-table thead th{font-size:var(--programme-label-size,0.8125rem)}.ds-programme-table thead th:first-child{color:var(--color-text-secondary,#536174)}.ds-programme-main-head{background:var(--programme-main-header,#1976CC);color:var(--programme-paper,#FFFFFF);text-transform:uppercase;letter-spacing:var(--programme-label-tracking,0.12em)}.ds-programme-tech-head{background:var(--programme-technical-header,#8CBDEA);text-transform:uppercase;letter-spacing:var(--programme-label-tracking,0.12em)}.ds-programme-table tbody th{font-size:var(--programme-session-size,clamp(1rem,1.15vw,1.45rem));font-weight:600;font-variant-numeric:tabular-nums}.ds-programme-table p{margin:0;font-size:var(--programme-session-size,clamp(1rem,1.15vw,1.45rem));font-weight:600;line-height:1.35}.ds-programme-table p+p{margin-top:var(--spacing-1,0.25rem)}.ds-programme-table .ds-programme-detail{font-weight:400;line-height:1.4;color:var(--color-text-secondary,#536174)}.ds-programme-main{background:var(--programme-main-surface,#E8F2FC)}.ds-programme-tech{background:var(--programme-technical-surface,#F0F2F5)}.ds-programme-shared{background:var(--programme-shared,#191D2D);color:var(--programme-paper,#FFFFFF)}.ds-programme-shared-content{display:flex;align-items:flex-start;gap:var(--spacing-3,0.75rem);flex-wrap:wrap}.ds-programme-shared-content>section{min-width:0}.ds-programme-shared-label{display:block;padding-top:var(--spacing-1,0.25rem);font-size:var(--programme-label-size,0.8125rem);font-weight:700;letter-spacing:var(--programme-label-tracking,0.12em);text-transform:uppercase;color:var(--programme-shared-label,#8CBDEA)}.ds-programme-shared .ds-programme-detail{color:var(--programme-shared-detail,#CFD4DF)}"
+    },
+    {
+      "name": "Stacked Programme Row",
+      "kind": "custom",
+      "description": "Narrow programme row: compact time rail and explicitly labelled main/technical fields from the same typed programme entry.",
+      "html": "<ol class=\"ds-stacked-programme\"><li class=\"ds-stacked-row\"><time class=\"ds-stacked-time\">09.30</time><section class=\"ds-stacked-tracks\"><section class=\"ds-stacked-main\"><h3>Huvudspår</h3><p>Införa AI i verksamheten – från pilot till produktion</p><p class=\"ds-stacked-detail\">Erfarenheter från Herrljunga och Borlänge</p></section><section class=\"ds-stacked-tech\"><h3>Teknikspår – för utvecklare</h3><p>Hur Eneo utvecklas med hjälp av AI</p></section></section></li></ol>",
+      "css": ".ds-stacked-programme{margin:0;padding:0;list-style:none;background:var(--programme-paper,#FFFFFF);color:var(--programme-ink,#1B2435);font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif)}.ds-stacked-row{display:flex;align-items:stretch;border-bottom:var(--programme-grid-line,0.125rem) solid var(--programme-paper,#FFFFFF)}.ds-stacked-time{width:var(--programme-compact-time-width,4.5rem);flex-shrink:0;box-sizing:border-box;padding:var(--spacing-3,0.75rem) var(--spacing-2,0.5rem);font-size:var(--programme-session-size,clamp(1rem,1.15vw,1.45rem));font-weight:600;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.ds-stacked-tracks{flex:1;min-width:0}.ds-stacked-main,.ds-stacked-tech{display:flex;flex-direction:column;gap:var(--spacing-2,0.5rem);padding:var(--spacing-3,0.75rem)}.ds-stacked-main{background:var(--programme-main-surface,#E8F2FC)}.ds-stacked-tech{background:var(--programme-technical-surface,#F0F2F5)}.ds-stacked-tracks h3{margin:0;font-size:var(--programme-label-size,0.8125rem);font-weight:700;letter-spacing:var(--programme-label-tracking,0.12em);text-transform:uppercase;overflow-wrap:anywhere}.ds-stacked-main h3{color:var(--programme-main-header,#1976CC)}.ds-stacked-tracks p{margin:0;font-size:var(--programme-session-size,clamp(1rem,1.15vw,1.45rem));font-weight:600;line-height:1.35;overflow-wrap:anywhere}.ds-stacked-tracks .ds-stacked-detail{color:var(--color-text-secondary,#536174);font-weight:400;line-height:1.4}"
+    },
+    {
+      "name": "Generic Audience SlideCanvas",
+      "kind": "custom",
+      "refersTo": "projection-slide-card",
+      "description": "The retained generic inline engine uses a full-width pale-blue audience canvas with scalable normal-weight body text. This snippet is structural; no inline example deck is registered.",
+      "html": "<section class=\"ds-audience-canvas\" aria-label=\"Bildinnehåll\"><h1>Bildens rubrik</h1><p>Bildens inledning</p><ul><li>Bildens punkt</li></ul></section>",
+      "css": ".ds-audience-canvas{display:flex;flex-direction:column;gap:var(--spacing-8,2rem);width:100%;padding:var(--spacing-8,2rem);box-sizing:border-box;border-radius:var(--radius-container,0.75rem);background:var(--color-accent-muted,#EAF3FC);color:var(--color-text-primary,#1B2435);font-family:var(--font-family-body,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif)}.ds-audience-canvas h1{margin:0;font-size:var(--presentation-heading-size,clamp(2rem,4vw,5.5rem));font-weight:var(--text-heading-1-weight,600);line-height:1.15;text-wrap:balance;overflow-wrap:anywhere}.ds-audience-canvas p,.ds-audience-canvas li{margin:0;font-size:var(--presentation-body-size,clamp(1.25rem,2.1vw,2.75rem));font-weight:400;line-height:1.45;overflow-wrap:anywhere}.ds-audience-canvas ul{margin:0;padding-inline-start:var(--spacing-6,1.5rem)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "En läsbar mötesmapp",
+    "overview": "The supplied invitation establishes the blue and white palette and plain sans serif character. Astryx's documentation template supplies the navigation and reading frame. The existing Eneo SVG wordmark anchors the shell, programme and presentation tools; preserve its proportions and artwork.\n\nExtend this same visual identity across reading, material selection and projection. Timetable rows stay dense and ordered, presentation covers make the library easy to scan, and the audience canvas gives the slide more space and larger type. The standalone HTML presentation retains its own authored design inside its file.",
+    "keyCharacteristics": [
+      "Blue actions, dark blue text, white surfaces and pale blue reading panels.",
+      "A familiar documentation shell with readable text widths and wrapping actions.",
+      "Invitation-style programme rows with a persistent time column and distinct track fields.",
+      "Image-led presentation cards and a restrained, scalable audience canvas.",
+      "Astryx-owned focus, interaction and mobile navigation states."
+    ],
+    "rules": [
+      {
+        "name": "The Theme Owner Rule",
+        "body": "Keep the meeting, projection and programme palettes in `src/astryx-themes.ts`; extend their semantic tokens instead of adding page-level palette overrides.",
+        "section": "colors"
+      },
+      {
+        "name": "The Time Rail Rule",
+        "body": "Preserve the dedicated time width and equal track columns; switch to labelled stacked rows when the programme's own content area is too narrow.",
+        "section": "layout"
+      }
+    ],
+    "dos": [
+      "Do reuse Astryx components, the documentation frame and the existing Eneo wordmark.",
+      "Do keep palette decisions in the theme and programme/presentation content in the typed registry.",
+      "Do preserve readable widths, wrapping tools and the programme's measured time-rail layout.",
+      "Do keep notes in their format's owner and render them only in its presenter view.",
+      "Do distinguish preparation material from the invitation's programme facts."
+    ],
+    "donts": [
+      "Don't replace dense programme or resource rows with card-wrapped lists.",
+      "Don't apply generic inline-slide styling or controls to the standalone HTML file's internals.",
+      "Don't bypass Astryx's focus, mobile navigation or reduced-motion behavior.",
+      "Don't introduce a second palette, spacing scale or altered wordmark."
+    ]
+  }
+}
