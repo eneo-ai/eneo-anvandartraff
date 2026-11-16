@@ -76,6 +76,7 @@ export const programmeTheme = defineTheme({
     '--programme-wide-min-rem': '44',
   },
   components: {
+    'table-scroll-wrapper': { base: { marginInline: '0', width: '100%', maxWidth: '100%' } },
     stack: { base: {
       ':fullscreen': {
         backgroundColor: 'var(--programme-paper)',

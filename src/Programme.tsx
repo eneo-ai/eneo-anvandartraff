@@ -51,9 +51,13 @@ function ScheduleTable() {
   return <Table density="balanced" dividers="none" aria-label="Dagens program med huvudspår och teknikspår" style={{
     width: '100%', tableLayout: 'fixed', borderCollapse: 'collapse',
   }}>
+    <colgroup>
+      <col style={{ width: 'var(--programme-time-width)' }} />
+      <col span={2} style={{ width: 'calc((100% - var(--programme-time-width)) / 2)' }} />
+    </colgroup>
     <TableHeader>
       <TableRow>
-        <TableHeaderCell scope="col" style={{ ...cellStyle, width: 'var(--programme-time-width)' }}>
+        <TableHeaderCell scope="col" style={{ ...cellStyle, maxWidth: 'none' }}>
           <Text weight="semibold" color="secondary">Tid</Text>
         </TableHeaderCell>
         <TableHeaderCell scope="col" style={{ ...cellStyle, backgroundColor: 'var(--programme-main-header)', color: 'var(--programme-paper)' }}>
@@ -68,6 +72,8 @@ function ScheduleTable() {
       {programme.map(entry => <TableRow key={entry.time}>
         <TableHeaderCell scope="row" style={{
           ...cellStyle,
+          maxWidth: 'none',
+          whiteSpace: 'normal',
           backgroundColor: entry.kind === 'shared' ? 'var(--programme-shared)' : 'var(--programme-paper)',
           color: entry.kind === 'shared' ? 'var(--programme-paper)' : 'var(--programme-ink)',
         }}>
