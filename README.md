@@ -26,13 +26,13 @@ Varje presentation i `presentations` har `id`, `title`, `description` och `cover
 - `format: 'html-file'`: lägg en fristående HTML-presentation i `public/presentations/` och ange dess adress i `file`. Den visas i en inbäddad vy med helskärm och kan öppnas separat. Om filen har en egen synkroniserad manusvy, ange dess adress i `presenterUrl` för att visa knappen **Öppna manus**. Båda adresserna ska ligga på sajtens egen domän; filen äger synkroniseringen.
 - `format: 'pptx'`: lägg PowerPoint-filen i `public/presentations/` och ange dess adress i `file`. Presentationssidan visar omslaget och en nedladdningslänk. Filen visas i PowerPoint; ingen tredjepartsvisare tar emot materialet.
 
-Teknikspårets presentation **Hur Eneo utvecklas med hjälp av AI** finns på `/#presentation/hur-eneo-utvecklas-med-ai`. Originalfilen ligger i `public/presentations/hur-eneo-utvecklas-med-ai.html` och registreras som `html-file`. Den innehåller 27 bilder och egna kontroller: piltangenter byter bild/steg, F växlar helskärm och P öppnar den synkroniserade presentatörsvyn med talaranteckningar. Välj **Öppna separat** för att visa presentationen utan sajtens sidram. Tryck H för samtliga kortkommandon.
+Teknikspårets presentation **Hur Eneo utvecklas med hjälp av AI** finns på `/#presentation/hur-eneo-utvecklas-med-ai`. Originalfilen ligger i `public/presentations/hur-eneo-utvecklas-med-ai.html` och registreras som `html-file`. Den innehåller 29 bilder och egna kontroller: piltangenter byter bild/steg, F växlar helskärm och P öppnar den synkroniserade presentatörsvyn med talaranteckningar. Välj **Öppna separat** för att visa presentationen utan sajtens sidram. Tryck H för samtliga kortkommandon.
 
 Det tidigare exempelbildspelet har tagits bort. Ingen PPTX-fil har levererats ännu.
 
 ### Presentera med talaranteckningar
 
-Teknikspårets HTML-fil är ersatt med den levererade versionen `index(4).html`. På presentationssidan:
+Teknikspårets HTML-fil är ersatt med den levererade versionen `index(5).html`. På presentationssidan:
 
 1. Välj **Öppna manus** och flytta manusfönstret till din egen skärm. Det öppnas vid aktuell bild och aktuellt klicksteg.
 2. Flytta presentationssidan till projektorn och välj **Presentera i helskärm**. Bara bildspelet fyller projektorn; manus, sidram och verktygsrad visas inte där.

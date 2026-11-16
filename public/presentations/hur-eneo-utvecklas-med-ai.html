@@ -105,8 +105,12 @@ ul,ol{padding:0;list-style:none}
 .tl.above .blk{margin-top:var(--g1)}
 .tl.below .blk{margin-bottom:var(--g2)}
 .tl.above .nm{font-size:var(--t-s);font-weight:400;line-height:1.3}
-.tl.above .seg.other .at,.tl.above .seg.other .nm{color:var(--slate)}
-.zoom{height:60px;background:var(--line);clip-path:polygon(0 0,13.15% 0,100% 100%,0 100%)}
+.seg.other .at,.seg.other .nm{color:var(--slate)}
+.seg .bars{display:flex;gap:6px;margin-top:var(--g1)}
+.seg .bars .blk{flex:var(--f,1);padding:0}
+.tl.above .bars .blk{margin-top:0}
+.seg .blk.brk{background:transparent;border:3px solid var(--line)}
+.zoom{height:60px;background:var(--line);clip-path:polygon(12.12% 0,38.16% 0,100% 100%,0 100%)}
 .tl.phase .nm{font-size:var(--t-l);line-height:1.15}
 .tl.phase .ds{font-size:var(--t-m);line-height:1.35;color:var(--ink);margin-top:var(--g1)}
 .tl.phase{gap:10px}
@@ -281,9 +285,9 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
 <div id="wrap">
 <main id="stage">
 
-<!-- ================= DEL 1: FÖRMIDDAG 09.30–10.30 ================= -->
+<!-- ================= DEL 1: FÖRMIDDAG 09.30–11.45 ================= -->
 
-<section class="slide dark" data-ch="Start" data-title="Hur Eneo utvecklas med hjälp av AI" data-at="09.30" data-min="1" data-who="Båda">
+<section class="slide dark" data-ch="Start" data-title="Hur Eneo utvecklas med hjälp av AI" data-at="09.30" data-min="2" data-who="Båda">
   <h1 class="statement">Hur Eneo utvecklas med hjälp av AI</h1>
   <p class="lead mute mt3">Teknikspåret på Eneos användarträff, 17 november 2026</p>
   <div class="people">
@@ -298,46 +302,48 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Start" data-title="Dagen och den här timmen" data-at="09.31" data-min="1" data-who="Çagri">
-  <h2 class="h">Dagen och den här timmen</h2>
+<section class="slide" data-ch="Start" data-title="Dagen och förmiddagen" data-at="09.32" data-min="1" data-who="Çagri">
+  <h2 class="h">Dagen och förmiddagen</h2>
   <div class="body">
     <div class="tl above">
-      <div class="seg" style="flex:60"><span class="at">09.30</span><span class="nm">Det här passet</span><span class="blk"></span></div>
-      <div class="seg other" style="flex:150"><span class="at">10.30</span><span class="nm">Paus, huvudspåret och lunch</span><span class="blk"></span></div>
-      <div class="seg" style="flex:90"><span class="at">13.00</span><span class="nm">Praktiskt pass: ni bygger själva</span><span class="blk"></span></div>
-      <div class="seg other" style="flex:60"><span class="at">14.30</span><span class="nm">Fika och huvudspåret</span><span class="blk"></span></div>
+      <div class="seg joint" style="flex:0 0 200px"><span class="at">09.00</span><span class="nm">Alla tillsammans</span><span class="blk"></span></div>
+      <div class="seg" style="flex:135"><span class="at">09.30</span><span class="nm">Det här passet, med paus 10.30</span>
+        <span class="bars"><span class="blk" style="--f:60"></span><span class="blk brk" style="--f:15"></span><span class="blk" style="--f:60"></span></span></div>
+      <div class="seg other" style="flex:75"><span class="at">11.45</span><span class="nm">Lunch</span><span class="blk"></span></div>
+      <div class="seg" style="flex:150"><span class="at">13.00</span><span class="nm">Praktiskt pass: ni bygger själva, med fika 14.30</span>
+        <span class="bars"><span class="blk" style="--f:90"></span><span class="blk brk" style="--f:30"></span><span class="blk" style="--f:30"></span></span></div>
       <div class="seg joint" style="flex:90"><span class="at">15.30</span><span class="nm">Alla tillsammans: vart Eneo är på väg</span><span class="blk"></span></div>
     </div>
     <div class="zoom"></div>
     <div class="tl below">
-      <div class="seg" style="flex:10"><span class="blk"></span><span class="at">09.30</span><span class="nm">Resan</span><span class="ds">Från handskriven kod till AI-native</span></div>
-      <div class="seg" style="flex:17"><span class="blk"></span><span class="at">09.40</span><span class="nm">Arbetssättet</span><span class="ds">Team, kontext, verifiering och förvaltning</span></div>
-      <div class="seg ppl" style="flex:4;min-width:132px"><span class="blk"></span><span class="at">09.57</span><span class="nm">Frågor</span></div>
-      <div class="seg" style="flex:17"><span class="blk"></span><span class="at">10.01</span><span class="nm">Eneo</span><span class="ds">Frontendbytet och tal till text, live</span></div>
-      <div class="seg ppl" style="flex:12"><span class="blk"></span><span class="at">10.18</span><span class="nm">Frågor och samtal</span></div>
+      <div class="seg" style="flex:15"><span class="blk"></span><span class="at">09.30</span><span class="nm">Resan</span></div>
+      <div class="seg" style="flex:30"><span class="blk"></span><span class="at">09.45</span><span class="nm">Arbetssättet</span><span class="ds">Team, kontext, verifiering och förvaltning</span></div>
+      <div class="seg ppl" style="flex:15"><span class="blk"></span><span class="at">10.15</span><span class="nm">Frågor</span></div>
+      <div class="seg other" style="flex:15"><span class="blk"></span><span class="at">10.30</span><span class="nm">Paus</span></div>
+      <div class="seg" style="flex:45"><span class="blk"></span><span class="at">10.45</span><span class="nm">Eneo</span><span class="ds">Frontendbytet, och tal till text live med moduler och flöden</span></div>
+      <div class="seg ppl" style="flex:15"><span class="blk"></span><span class="at">11.30</span><span class="nm">Frågor</span></div>
     </div>
   </div>
   <aside class="notes">
-    <p>Trettio sekunder. Övre raden är dagen för teknikspåret, nedre raden är den här timmen.</p>
-    <p>Säg tre saker: det finns två frågestopp, klockan 13.00 bygger alla själva, och frågor om roadmap tar vi när alla ses 15.30.</p>
-    <p>Bestäm i förväg vad teknikspåret gör 10.45–11.45 och 15.00–15.30, då programmet inte har något eget pass. Bilden utgår från att ni går till huvudspåret.</p>
+    <p>Trettio sekunder. Övre raden är hela dagen, nedre raden är förmiddagen fram till lunch.</p>
+    <p>Säg tre saker: vi håller på till 11.45 med paus 10.30, efter lunch bygger alla själva fram till 15.30, och frågor om roadmap tar vi när alla ses 15.30.</p>
     <p class="next">Övergång: ”Vi börjar med en fråga.”</p>
   </aside>
 </section>
 
-<section class="slide dark" data-ch="Start" data-title="Frågan: agenterna skriver koden, vad gör vi?" data-at="09.32" data-min="1" data-who="Çagri">
+<section class="slide dark" data-ch="Start" data-title="Frågan: agenterna skriver koden, vad gör vi?" data-at="09.33" data-min="1" data-who="Çagri">
   <div class="body">
     <p class="statement">Agenterna skriver koden. Vad gör vi?</p>
-    <p class="lead mute mt4">Den här timmen handlar om vår del: behovet, arkitekturen, kontrollen och förvaltningen.</p>
+    <p class="lead mute mt4">Förmiddagen handlar om vår del: behovet, arkitekturen, kontrollen och förvaltningen.</p>
   </div>
   <aside class="notes">
-    <p>Ställ frågan och låt den hänga en sekund. Det är den här frågan hela timmen svarar på.</p>
+    <p>Ställ frågan och låt den hänga en sekund. Det är den här frågan hela förmiddagen svarar på.</p>
     <p>Lova de fyra sakerna på bilden. De kommer tillbaka i tur och ordning: behovet, arkitekturen, kontrollen och förvaltningen.</p>
     <p class="next">Övergång: ”För att svara börjar vi där vi själva började.”</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Resan" data-title="Från handskriven kod till AI-native" data-at="09.33" data-min="3" data-who="Çagri">
+<section class="slide" data-ch="Resan" data-title="Från handskriven kod till AI-native" data-at="09.34" data-min="4" data-who="Çagri">
   <h2 class="h">Från handskriven kod till AI-native</h2>
   <div class="body">
     <div class="matrix">
@@ -362,7 +368,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Resan" data-title="Rollen: vi arbetar mer som lösningsarkitekter" data-at="09.36" data-min="2" data-who="Çagri">
+<section class="slide" data-ch="Resan" data-title="Rollen: vi arbetar mer som lösningsarkitekter" data-at="09.38" data-min="3" data-who="Çagri">
   <h2 class="h">Vi arbetar mer som lösningsarkitekter</h2>
   <div class="body">
     <div class="map">
@@ -385,7 +391,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Resan" data-title="Det som var för dyrt går nu att göra" data-at="09.38" data-min="1" data-who="Çagri">
+<section class="slide" data-ch="Resan" data-title="Det som var för dyrt går nu att göra" data-at="09.41" data-min="2" data-who="Çagri">
   <h2 class="h">Det som var för dyrt går nu att göra</h2>
   <div class="body">
     <div class="rows bare" style="--cols:190px 1fr">
@@ -402,7 +408,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Resan" data-title="Flaskhalsen har flyttat" data-at="09.39" data-min="1" data-who="Çagri">
+<section class="slide" data-ch="Resan" data-title="Flaskhalsen har flyttat" data-at="09.43" data-min="2" data-who="Çagri">
   <div class="split">
     <p class="statement">Att skriva koden är inte längre det som tar tid.</p>
     <div class="rows" style="--cols:1fr 1.15fr" data-step="1">
@@ -420,7 +426,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Team: från beställa och leverera till ett team" data-at="09.40" data-min="3" data-who="Çagri">
+<section class="slide" data-ch="Arbetssättet" data-title="Team: från beställa och leverera till ett team" data-at="09.45" data-min="4" data-who="Çagri">
   <h2 class="h">Från beställa och leverera till ett team</h2>
   <div class="body">
     <div class="relay apart">
@@ -445,7 +451,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Prototypen byggs under samtalet" data-at="09.43" data-min="3" data-who="Çagri">
+<section class="slide" data-ch="Arbetssättet" data-title="Prototypen byggs under samtalet" data-at="09.49" data-min="5" data-who="Çagri">
   <h2 class="h">Prototypen byggs under samtalet</h2>
   <div class="loopwrap">
     <svg class="loop" viewBox="0 0 760 680" width="690" height="617" role="img" aria-label="Slinga: behov, prototyp, återkoppling, och tillbaka till behov">
@@ -477,7 +483,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Kontext: samma källa för människor och AI" data-at="09.46" data-min="3" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="Kontext: samma källa för människor och AI" data-at="09.54" data-min="5" data-who="Max">
   <h2 class="h">Samma källa för människor och AI</h2>
   <div class="body">
     <div class="flow">
@@ -504,7 +510,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Från personberoende till organisationens förmåga" data-at="09.49" data-min="2" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="Från personberoende till organisationens förmåga" data-at="09.59" data-min="3" data-who="Max">
   <h2 class="h">Från personberoende till organisationens förmåga</h2>
   <div class="body">
     <div class="rows" style="--cols:330px 1fr 1.05fr">
@@ -521,7 +527,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Verifiering: något måste ta över det vi slutar göra" data-at="09.51" data-min="2" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="Verifiering: något måste ta över det vi slutar göra" data-at="10.02" data-min="4" data-who="Max">
   <h2 class="h">Något måste ta över det vi slutar göra</h2>
   <div class="body">
     <div class="rows tight" style="--cols:520px 270px 1fr">
@@ -543,7 +549,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Human in the loop: före, under och efter" data-at="09.53" data-min="2" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="Human in the loop: före, under och efter" data-at="10.06" data-min="4" data-who="Max">
   <h2 class="h">Vi tänker före och bedömer efter</h2>
   <div class="body">
     <div class="tl below phase">
@@ -566,7 +572,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Förvaltning: högre takt kräver bättre förvaltning" data-at="09.55" data-min="2" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="Förvaltning: högre takt kräver bättre förvaltning" data-at="10.10" data-min="5" data-who="Max">
   <h2 class="h">Högre takt kräver bättre förvaltning</h2>
   <div class="body">
     <div class="rows tight" style="--cols:600px 1fr">
@@ -589,20 +595,32 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide dark" data-ch="Arbetssättet" data-title="Frågestopp" data-at="09.57" data-min="4" data-who="Båda">
+<section class="slide dark" data-ch="Arbetssättet" data-title="Frågestopp" data-at="10.15" data-min="15" data-who="Båda">
   <div class="body">
     <p class="statement">Frågor så här långt?</p>
     <p class="lead mute mt4">Och en till er: vad kräver hos er i dag att en viss person finns på plats?</p>
   </div>
   <aside class="notes">
-    <p>Fyra minuter, håll tiden. Klockan 10.01 går ni vidare oavsett.</p>
+    <p>Femton minuter fram till pausen 10.30. Pausen är gemensam, så sluta i tid.</p>
     <p>Om det är tyst: ställ frågan på bilden och låt två eller tre svara. Svaren är bra exempel att återkomma till i eftermiddag.</p>
     <p>Frågor om roadmap och lansering: ”Den tar vi när alla ses 15.30.” Större tekniska frågor: ”Den tar vi vid datorerna 13.00.”</p>
-    <p class="next">Övergång, till Çagri: ”Nu till exemplet: Eneo självt.”</p>
+    <p class="next">Övergång: ”Paus nu. Vi börjar igen 10.45, med Eneo som exempel.”</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Eneo" data-title="Eneos frontendbyte" data-at="10.01" data-min="4" data-who="Çagri">
+<section class="slide dark" data-ch="Arbetssättet" data-title="Paus till 10.45" data-at="10.30" data-min="15" data-who="">
+  <div class="body">
+    <p class="statement">Paus</p>
+    <p class="lead mute mt4">Vi börjar igen 10.45, med Eneo som exempel.</p>
+  </div>
+  <aside class="notes">
+    <p>Låt bilden ligga uppe under pausen. Smoothie serveras gemensamt.</p>
+    <p>Använd pausen till att kontrollera att demon av tal till text är igång och inloggad.</p>
+    <p class="next">Efter pausen, Çagri: ”Nu till exemplet: Eneo självt.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Eneo" data-title="Eneos frontendbyte" data-at="10.45" data-min="8" data-who="Çagri">
   <h2 class="h">Eneos frontendbyte</h2>
   <div class="body">
     <div class="map">
@@ -627,7 +645,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Eneo" data-title="Har det varit problemfritt? Absolut inte." data-at="10.05" data-min="4" data-who="Çagri">
+<section class="slide" data-ch="Eneo" data-title="Har det varit problemfritt? Absolut inte." data-at="10.53" data-min="7" data-who="Çagri">
   <h2 class="h">Har det varit problemfritt?</h2>
   <div class="split">
     <p class="statement" data-step="1">Absolut inte.</p>
@@ -645,7 +663,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide dark" data-ch="Eneo" data-title="Demo: tal till text" data-at="10.09" data-min="7" data-who="Max">
+<section class="slide dark" data-ch="Eneo" data-title="Demo: tal till text" data-at="11.00" data-min="30" data-who="Max">
   <div class="body">
     <p class="hero">Tal till text</p>
     <div class="rows flat mt4" style="--cols:1fr 1fr 1fr">
@@ -656,13 +674,13 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   <aside class="notes">
     <p>Demo. Visa ett helt flöde från ljud till färdig text, och visa det på mobilbredd också. Det knyter ihop med målen på förra bilden.</p>
     <p>Säg de tre sakerna på bilden högt: det är en modul, den bygger på flöden och den är byggd i den nya frontenden med React, Vite och Astryx. I eftermiddag bygger deltagarna en egen modul.</p>
-    <p>Tipsa om KB-labb 15.00 i huvudspåret för den som vill veta mer om data, träning och utvärdering bakom tal till text.</p>
+    <p>Ni har en halvtimme. Lägg ungefär tio minuter på själva demon och resten på hur den är byggd: visa modulen och flödet bakom, i Eneo och i koden. Det är vad inbjudan lovar teknikspåret, och det förbereder eftermiddagen.</p>
     <p>Reserv: ha en inspelad skärmvideo redo om nätet eller instansen krånglar. Tryck B för svart skärm medan ni växlar fönster.</p>
     <p class="next">Övergång: ”I eftermiddag är det er tur.”</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Eneo" data-title="13.00 bygger ni själva" data-at="10.16" data-min="2" data-who="Max">
+<section class="slide" data-ch="Eneo" data-title="13.00 bygger ni själva" data-at="11.30" data-min="5" data-who="Max">
   <h2 class="h">13.00 bygger ni själva</h2>
   <div class="body">
     <div class="lv">
@@ -671,29 +689,29 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
       <div class="lvl"><span class="n">2</span><div><h3 class="xl">Bygg en egen modul och koppla på den</h3>
         <p>Samma väg som tal till text: agenten får veta hur moduler fungerar, och du bestämmer vad den ska göra.</p></div></div>
     </div>
-    <p class="lead mt4"><span class="strong">Gör det här i pausen:</span> starta Claude Code eller Codex och kontrollera att du är inloggad, även på GitHub.</p>
+    <p class="lead mt4"><span class="strong">Gör det här nu, före lunch:</span> starta Claude Code eller Codex och kontrollera att du är inloggad, även på GitHub.</p>
   </div>
   <aside class="notes">
     <p>Alla gör nivå 1. Nivå 2 är för den som hinner, och det är helt i sin ordning att stanna på nivå 1.</p>
-    <p>Lunchen är en gemensam promenad till restaurangen, så ingen sitter vid datorn då. Be dem kontrollera verktygen nu i pausen, medan ni finns kvar i rummet.</p>
+    <p>Lunchen är en gemensam promenad till restaurangen, så ingen sitter vid datorn då. Be dem kontrollera verktygen nu, medan ni finns i rummet och kan hjälpa till.</p>
     <p class="next">Övergång: ”Nu har vi tid för era frågor.”</p>
   </aside>
 </section>
 
-<section class="slide dark" data-ch="Eneo" data-title="Frågor och samtal" data-at="10.18" data-min="12" data-who="Båda">
+<section class="slide dark" data-ch="Eneo" data-title="Frågor och samtal" data-at="11.35" data-min="10" data-who="Båda">
   <div class="body">
     <p class="statement">Frågor och samtal</p>
     <p class="lead mute mt4">Hur arbetar ni med AI i er utveckling i dag, och vad hindrar er?</p>
     <p class="mute mt3">Frågor om roadmap tar vi när alla ses 15.30. Koden finns på github.com/eneo-ai/eneo.</p>
   </div>
   <aside class="notes">
-    <p>Tolv minuter. Börja med de frågor ni parkerade vid första stoppet.</p>
+    <p>Tio minuter. Börja med de frågor ni parkerade vid första stoppet.</p>
     <p>Om det är tyst: ställ frågan på bilden. Be någon från en annan kommun berätta hur de gör.</p>
-    <p>Pausen 10.30 är gemensam med smoothie. Sluta 10.29 med en mening: ”Vi ses här 13.00, ta med datorn.” Säg också vad teknikspåret gör 10.45.</p>
+    <p>Lunchen 11.45 börjar med en gemensam promenad. Sluta 11.44 med en mening: ”Vi ses här 13.00, ta med datorn.”</p>
   </aside>
 </section>
 
-<!-- ================= DEL 2: EFTERMIDDAG 13.00–14.30 ================= -->
+<!-- ================= DEL 2: EFTERMIDDAG 13.00–15.30 ================= -->
 
 <section class="slide dark" data-ch="Ni bygger" data-title="Praktiskt pass: bygg mot Eneo med din egen agent" data-at="13.00" data-min="2" data-who="Båda">
   <h1 class="statement">Bygg mot Eneo med din egen agent</h1>
@@ -705,25 +723,26 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Ni bygger" data-title="Så här gör vi i 90 minuter" data-at="13.02" data-min="2" data-who="Max">
-  <h2 class="h">Så här gör vi i 90 minuter</h2>
+<section class="slide" data-ch="Ni bygger" data-title="Så här gör vi i eftermiddag" data-at="13.02" data-min="3" data-who="Max">
+  <h2 class="h">Så här gör vi i eftermiddag</h2>
   <div class="body">
     <div class="tl below">
-      <div class="seg" style="flex:15"><span class="blk"></span><span class="at">13.00</span><span class="nm">Kom igång</span><span class="ds">Installera, skapa nyckel, testa</span></div>
+      <div class="seg" style="flex:0 0 200px"><span class="blk"></span><span class="at">13.00</span><span class="nm">Kom igång</span></div>
       <div class="seg" style="flex:30"><span class="blk"></span><span class="at">13.15</span><span class="nm">Nivå 1</span><span class="ds">Skapa en assistent genom din agent</span></div>
-      <div class="seg" style="flex:35"><span class="blk"></span><span class="at">13.45</span><span class="nm">Nivå 2</span><span class="ds">Bygg en egen modul, eller bygg vidare på nivå 1</span></div>
-      <div class="seg ppl" style="flex:10"><span class="blk"></span><span class="at">14.20</span><span class="nm">Visa och summera</span></div>
+      <div class="seg" style="flex:45"><span class="blk"></span><span class="at">13.45</span><span class="nm">Nivå 2</span><span class="ds">Bygg en egen modul, eller bygg vidare på nivå 1</span></div>
+      <div class="seg other" style="flex:30"><span class="blk"></span><span class="at">14.30</span><span class="nm">Fika</span></div>
+      <div class="seg ppl" style="flex:30"><span class="blk"></span><span class="at">15.00</span><span class="nm">Bygg klart, visa och summera</span></div>
     </div>
     <p class="lead mt4">Fastnar du? Räck upp handen eller fråga grannen. Vi går runt hela tiden.</p>
   </div>
   <aside class="notes">
     <p>Alla gör nivå 1. Nivå 2 är valfri. Den som hellre förfinar sin assistent gör det.</p>
     <p>En av er står vid skärmen och visar, den andra går runt i rummet.</p>
-    <p>Fikat 14.30 är gemensamt, så sluttiden är hård. Börja summera 14.20 även om folk är mitt i något.</p>
+    <p>Fikat 14.30 är gemensamt. Efter fikat finns en kvart att bygga klart, sedan visar och summerar ni från 15.15. Klockan 15.30 börjar det gemensamma passet, så sluttiden är hård.</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Ni bygger" data-title="Kom igång: tre steg" data-at="13.04" data-min="11" data-who="Max visar, Çagri går runt">
+<section class="slide" data-ch="Ni bygger" data-title="Kom igång: tre steg" data-at="13.05" data-min="10" data-who="Max visar, Çagri går runt">
   <h2 class="h">Kom igång</h2>
   <div class="body">
     <ol class="steps">
@@ -770,7 +789,7 @@ Välj en lämplig modell, skriv en systemprompt och testa assistenten med tre fr
   </aside>
 </section>
 
-<section class="slide" data-ch="Ni bygger" data-title="Nivå 2: bygg en egen modul" data-at="13.45" data-min="35" data-who="Max visar, Çagri går runt">
+<section class="slide" data-ch="Ni bygger" data-title="Nivå 2: bygg en egen modul" data-at="13.45" data-min="45" data-who="Max visar, Çagri går runt">
   <h2 class="h">Nivå 2: bygg en egen modul</h2>
   <div class="body">
     <ol class="steps">
@@ -788,6 +807,7 @@ Välj en lämplig modell, skriv en systemprompt och testa assistenten med tre fr
     <p>Tal till text är byggd på samma sätt. Visa var modulen syns i Eneo när den är påkopplad.</p>
     <p>Steg 2 är det viktigaste. Den som hoppar över det får en modul som ”fungerar” utan att någon vet vad det betyder.</p>
     <p>Den som inte hinner driftsätta har ändå lärt sig hur moduler hänger ihop. Det räcker.</p>
+    <p>Säg till fem minuter före fikat 14.30, och att ni fortsätter 15.00.</p>
   </aside>
 </section>
 
@@ -808,17 +828,28 @@ Välj en lämplig modell, skriv en systemprompt och testa assistenten med tre fr
   </aside>
 </section>
 
-<section class="slide dark" data-ch="Ni bygger" data-title="Visa och summera" data-at="14.20" data-min="10" data-who="Båda">
+<section class="slide dark" data-ch="Ni bygger" data-title="Fika till 15.00" data-at="14.30" data-min="30" data-who="">
+  <div class="body">
+    <p class="statement">Fika</p>
+    <p class="lead mute mt4">Vi fortsätter 15.00. Då bygger ni klart, och 15.15 visar vi för varandra.</p>
+  </div>
+  <aside class="notes">
+    <p>Låt bilden ligga uppe under fikat.</p>
+    <p>Fråga två eller tre deltagare redan nu om de vill visa sitt bygge 15.15.</p>
+  </aside>
+</section>
+
+<section class="slide dark" data-ch="Ni bygger" data-title="Visa och summera" data-at="15.15" data-min="15" data-who="Båda">
   <div class="body">
     <p class="statement">Vad byggde ni? Och vad saknade agenten?</p>
     <p class="lead mute mt4">Det agenten saknade är det vi ska dokumentera härnäst. Lägg en issue eller en PR på github.com/eneo-ai/eneo.</p>
-    <p class="mute mt3">15.00 KB-labb om tal till text i huvudspåret. 15.30 ses vi alla: vart Eneo är på väg.</p>
+    <p class="mute mt3">15.30 ses vi alla: vart Eneo är på väg.</p>
   </div>
   <aside class="notes">
     <p>Be två eller tre deltagare visa vad de byggde, en minut var.</p>
     <p>Samla svaren på ”vad saknade agenten?”. Det är den bästa återkopplingen ni kan få på skillen och dokumentationen.</p>
-    <p>Ta med det viktigaste till det gemensamma passet 15.30: ”det här byggde teknikspåret på 90 minuter, och det här saknades”. Fråga gärna om någon deltagare vill visa sitt bygge där.</p>
-    <p>Avsluta 14.29. Fikat är gemensamt 14.30.</p>
+    <p>Ta med det viktigaste till det gemensamma passet 15.30: ”det här byggde teknikspåret på en eftermiddag, och det här saknades”. Fråga gärna om någon deltagare vill visa sitt bygge där.</p>
+    <p>Avsluta 15.28. Klockan 15.30 börjar det gemensamma passet.</p>
   </aside>
 </section>
 
