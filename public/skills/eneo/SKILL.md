@@ -75,7 +75,9 @@ python3 <this-skill-folder>/scripts/eneo_call.py POST "/api/v1/assistants/<id>/s
 ```
 
 Responses can be large. Trim them with `--select` and `--fields`, shown in
-`references/manage.md`.
+`references/manage.md`. With `"stream": true` in the body, the caller waits for
+the whole stream and prints the assembled answer; to show the text as it
+arrives, use the example in `references/api.md`.
 
 ## Do not guess the API
 
@@ -84,9 +86,12 @@ A path or field name from memory is often wrong. Before writing a call that the
 reference files do not show, look it up in the installation's own specification:
 
 ```bash
-python3 <this-skill-folder>/scripts/eneo_spec.py search collections
+python3 <this-skill-folder>/scripts/eneo_spec.py search groups
 python3 <this-skill-folder>/scripts/eneo_spec.py show POST "/api/v1/spaces/{id}/applications/assistants/"
 ```
+
+The API has its own names for some things: a collection is a `group`, and a
+document in a collection is an `info-blob`. Search for the API's word.
 
 The full document at `$ENEO_BASE_URL/openapi.json` is about 2 MB. Do not read
 it whole; the script downloads it once and prints only what you ask for.
@@ -118,6 +123,7 @@ You are acting in a system other people use.
 | `401` | The key is mistyped, revoked or expired, or belongs to another installation. |
 | `403` | The key may not do this: the scope does not cover the resource, the permission is too low (`write` to create or change, `admin` to delete), or the key type cannot do it. `code` in the response says which. |
 | `404` | Wrong id. For assistants Eneo looks the assistant up before it checks the key. |
+| `409` | Something still uses the resource. A file attached to a conversation cannot be deleted until the conversation is gone; `details` says what is in the way. |
 | `422` | The body does not match the schema; `details` lists the fields. Check with `eneo_spec.py show`. |
 | `429` | Rate limit. Wait, do not retry in a tight loop. |
 

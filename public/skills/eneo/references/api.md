@@ -28,7 +28,7 @@ Response (`stream` false):
 | --- | --- |
 | `answer` | The assistant's reply as text, usually Markdown. |
 | `session_id` | Keep it to ask follow-up questions. |
-| `references` | Knowledge sources the answer drew on, when the assistant has knowledge attached. |
+| `references` | The knowledge sources that were retrieved for the question, each with a `score`, when the assistant has knowledge attached. They are returned even when the answer did not use them. |
 | `files`, `generated_files` | Files sent with the question and files the assistant produced. |
 
 Other fields describe the model and tools and can be ignored at first.
@@ -50,7 +50,8 @@ Two steps: upload the file, then refer to it in a question.
 Uploads are refused with `415` for file types the installation does not accept
 and `413` when the file is too large. Uploading needs a user key; service keys
 cannot upload. `DELETE /api/v1/files/{id}/` removes a file and needs permission
-**Admin**.
+**Admin**. A file that a conversation still uses answers `409` with code
+`file_in_use`; delete the conversation or its assistant first.
 
 ```bash
 curl -sS -X POST "$ENEO_BASE_URL/api/v1/files/" \
@@ -72,6 +73,39 @@ Send `"stream": true`. The response is `text/event-stream`:
 - `session_id` is present in every event.
 - Lines starting with `:` are keep-alive comments. Ignore them.
 - The stream ends when the server closes the connection.
+
+Python, standard library only, printing the text as it arrives:
+
+```python
+import json
+import os
+import urllib.request
+
+def ask_streaming(question):
+    base = os.environ["ENEO_BASE_URL"].rstrip("/")
+    request = urllib.request.Request(
+        f"{base}/api/v1/assistants/{os.environ['ENEO_ASSISTANT_ID']}/sessions/",
+        data=json.dumps({"question": question, "stream": True}).encode(),
+        headers={
+            "X-API-Key": os.environ["ENEO_API_KEY"],
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    session_id = None
+    with urllib.request.urlopen(request, timeout=120) as response:
+        for raw in response:
+            line = raw.decode("utf-8").strip()
+            if line.startswith("data:"):
+                event = json.loads(line[5:])
+                session_id = event["session_id"]
+                print(event["answer"], end="", flush=True)
+    print()
+    return session_id
+```
+
+The bundled `eneo_call.py` also accepts `"stream": true`. It waits for the whole
+stream and prints the assembled answer.
 
 ## Find an assistant
 

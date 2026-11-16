@@ -62,6 +62,14 @@ two sentences:
 | Personal or otherwise sensitive data | `hosting` and the space's security classification; ask the user if unsure |
 | Short, frequent questions | A smaller, faster model |
 
+The rows can point to different models, for example one with a much larger
+input and one hosted in Sweden. Do not let size outweigh hosting or a security
+classification on your own: pick the model that fits the data, check that the
+documents fit its input with room to spare, and tell the user what you weighed.
+The space's classification is in the same response:
+`CALL GET "/api/v1/spaces/<space_id>/" --fields security_classification`
+(`null` means none is set).
+
 When nothing points elsewhere, the organisation's default (`is_org_default`) is
 a sound choice. Model names say little about suitability; base the choice on
 the fields, not on what you remember about a model family.
@@ -69,11 +77,13 @@ the fields, not on what you remember about a model family.
 ## 4. Create the assistant
 
 ```bash
-CALL POST "/api/v1/spaces/<space_id>/applications/assistants/" --json '{"name": "Upphandlingsassistent"}'
+CALL POST "/api/v1/spaces/<space_id>/applications/assistants/" --json '{"name": "Upphandlingsassistent"}' --fields id,name,space_id
 ```
 
-Keep the `id` from the response. Add `"enabled_capabilities": ["file_analysis"]`
-when users will attach documents to their questions.
+Keep the `id` from the response and write it to `ENEO_ASSISTANT_ID` in `.env`;
+`check_connection.py` and the chat example read it from there. Add
+`"enabled_capabilities": ["file_analysis"]` when users will attach documents to
+their questions.
 
 ## 5. Write the prompt
 
@@ -134,10 +144,12 @@ long text in a shell argument breaks on quotes and line breaks:
 ```
 
 ```bash
-CALL POST "/api/v1/assistants/<assistant_id>/" --json-file assistant-update.json --fields id,name,completion_model,prompt
+CALL POST "/api/v1/assistants/<assistant_id>/" --json-file assistant-update.json --fields id,name,prompt
+CALL GET "/api/v1/assistants/<assistant_id>/" --select completion_model --fields id,name
 ```
 
-Fields you leave out are not changed. `prompt.description` is a note about the
+The second call confirms the model; the model object is too large to print
+together with the prompt. Fields you leave out are not changed. `prompt.description` is a note about the
 change, useful when the prompt is revised.
 
 ## 6. Add knowledge when needed
@@ -153,12 +165,16 @@ How the organisation's material reaches the assistant:
 To create a collection, upload to it and attach it:
 
 ```bash
-CALL GET  "/api/v1/spaces/<space_id>/" --select embedding_models --fields id,name,can_access,is_deprecated
-CALL POST "/api/v1/spaces/<space_id>/knowledge/groups/" --json '{"name": "Riktlinjer för upphandling", "embedding_model": {"id": "<embedding_model_id>"}}'
+CALL GET  "/api/v1/spaces/<space_id>/" --select embedding_models --fields id,name,hosting,can_access,is_deprecated
+CALL POST "/api/v1/spaces/<space_id>/knowledge/groups/" --json '{"name": "Riktlinjer för upphandling", "embedding_model": {"id": "<embedding_model_id>"}}' --fields id,name
 CALL POST "/api/v1/groups/<collection_id>/info-blobs/upload/" --form file=riktlinjer.pdf
 CALL GET  "/api/v1/jobs/<job_id>/" --fields status,failure_code
-CALL POST "/api/v1/assistants/<assistant_id>/" --json '{"groups": [{"id": "<collection_id>"}]}'
+CALL POST "/api/v1/assistants/<assistant_id>/" --json '{"groups": [{"id": "<collection_id>"}]}' --fields id,name
 ```
+
+Choose an embedding model that is accessible and not deprecated. When the
+assistant's model was chosen for where it is hosted, choose the embedding model
+the same way: the documents pass through it too.
 
 The upload returns a job. Wait until its `status` is `complete` before testing;
 `failed` comes with a `failure_code` such as `no_extractable_text` for a scanned
@@ -215,6 +231,15 @@ reach it (`chat-ui.md`).
 - **Model settings** such as `temperature`: `completion_model_kwargs` in the same
   update. Not every model accepts every setting; the model's
   `supported_model_kwargs` says which.
-- **Delete**: `DELETE /api/v1/assistants/<id>/` needs permission **Admin** on the
-  key. Ask first.
+- **Delete**: needs permission **Admin** on the key. Ask first, and say what
+  will be removed. To remove everything you created, go in this order:
+  1. The assistant: `DELETE /api/v1/assistants/<id>/`. Its conversations go
+     with it.
+  2. The collection: `DELETE /api/v1/groups/<collection_id>/`. Its documents go
+     with it.
+  3. Uploaded files: `DELETE /api/v1/files/<id>/`. A file that a conversation
+     still uses answers `409` with code `file_in_use`, which is why the
+     assistant goes first.
+
+  Confirm with a `GET` on each id: `404` means it is gone.
 - **Anything else**: find the operation with `eneo_spec.py search`.

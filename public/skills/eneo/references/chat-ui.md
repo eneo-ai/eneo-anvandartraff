@@ -35,7 +35,9 @@ python3 chat_server.py
 ```
 
 It reads `ENEO_BASE_URL`, `ENEO_API_KEY` and `ENEO_ASSISTANT_ID` from `.env` and
-serves `http://127.0.0.1:8000`. Open that address in a browser.
+serves `http://127.0.0.1:8000`. Make sure `ENEO_ASSISTANT_ID` holds the
+assistant's id before you start it, then open the address in a browser. Stop
+the server with Ctrl+C.
 
 Adapt it instead of rewriting it:
 

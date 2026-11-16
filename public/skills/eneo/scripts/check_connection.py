@@ -7,7 +7,8 @@ Run from the project folder that holds .env:
 
 With ENEO_ASSISTANT_ID set it asks that assistant one question. Without it, it
 lists the spaces the key can see, which is enough to confirm the key works.
-Never prints the key.
+It also prints the key's scope, permission and expiry date when Eneo lets the
+key read them. Never prints the key.
 """
 
 import sys
@@ -27,6 +28,38 @@ def space_kind(space):
     return "organization" if space.get("organization") else "shared"
 
 
+SCOPES = {"tenant": "Organisation", "space": "Yta", "assistant": "Assistent", "app": "App"}
+
+
+def describe_key(values):
+    """Print what the key may do, so a key wider than intended is noticed.
+
+    Looks the key up in the owner's key list by its last characters. Says
+    nothing when the key may not read that list or is not found in it.
+    """
+    key = values["ENEO_API_KEY"].strip()
+    try:
+        listing = call("GET", "/api/v1/api-keys", values=values)
+        match = next(
+            item
+            for item in listing["items"]
+            if item.get("state") == "active" and item.get("key_suffix") and key.endswith(item["key_suffix"])
+        )
+    except (EneoError, SystemExit, StopIteration, KeyError, TypeError, AttributeError):
+        return
+    scope = match.get("scope_type")
+    expires = (match.get("expires_at") or "")[:10] or "never"
+    print(
+        f"Key: scope {SCOPES.get(scope, scope)}, permission {match.get('permission')}, "
+        f"expires {expires}"
+    )
+    if scope == "tenant":
+        print(
+            "  This key covers the whole organisation. To create and test "
+            "assistants, a key scoped to one space (Yta) is enough."
+        )
+
+
 def main():
     use_utf8_output()
     values = load_dotenv()
@@ -37,6 +70,7 @@ def main():
         )
     assistant_id = (values.get("ENEO_ASSISTANT_ID") or "").strip()
     print(f"Eneo: {base_url(values)}")
+    describe_key(values)
 
     try:
         if not assistant_id:

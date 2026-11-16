@@ -94,7 +94,10 @@ ENEO_API_KEY=sk_...
 Files whose names start with a dot are hidden in Finder and in the Windows file
 explorer, so do not leave the user to find `.env` on their own. Open it for
 them in a text editor (`open -e .env` on macOS, `notepad .env` on Windows), or
-point to it in the editor they already have open.
+point to it in the editor they already have open. Say in your message which
+window has opened and what to do there: paste the key directly after
+`ENEO_API_KEY=` and save. A window that opens without a word is easy to miss,
+and the key then ends up in the chat.
 
 Check that `.env` is in `.gitignore` (create the file if the project has none).
 If the user pastes the key into the chat anyway, write it to `.env`, do not
@@ -109,6 +112,11 @@ python3 <this-skill-folder>/scripts/check_connection.py
 
 Without `ENEO_ASSISTANT_ID` it lists the spaces the key can see, which confirms
 the key and the address. The ids it prints are the ones to use as `<space_id>`.
+
+It also prints the key's scope, permission and expiry date. Compare them with
+what you recommended. If the key is wider than the task needs, for example
+Organisation where Yta was enough, say so and let the user decide whether to
+keep it or create a narrower one.
 
 ## If the key stops working
 

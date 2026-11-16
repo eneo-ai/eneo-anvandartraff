@@ -43,12 +43,18 @@ HINTS = {
     "origin_not_allowed": "A public (pk_) key only works from the web "
     "origins it lists. Use a secret (sk_) key on a server.",
     "rate_limit_exceeded": "Rate limit reached. Wait and try again.",
+    "file_in_use": "The file is still used, for example by a conversation. "
+    "Delete what uses it first (deleting an assistant removes its "
+    "conversations), then the file. 'details' lists the uses under 'blockers'.",
     401: "The key was not accepted. Check ENEO_API_KEY.",
     403: "The key is valid but may not do this. Creating or changing needs "
     "permission 'write', deleting needs 'admin', and the key's scope must "
     "cover the resource.",
-    404: "Not found. Check the id in the path. For assistants Eneo looks the "
-    "assistant up before it checks the key.",
+    404: "Not found. Check the id in the path; something already deleted also "
+    "answers 404. An unknown assistant id gives 404 even when the key would "
+    "not have covered it.",
+    409: "The resource is still in use or in a state that blocks this. "
+    "'details' says what is in the way.",
     422: "Eneo rejected the request body. 'details' lists the failing fields.",
     429: "Rate limit reached. Wait and try again.",
 }
@@ -146,6 +152,29 @@ def _multipart(files):
     return b"".join(parts), f"multipart/form-data; boundary={boundary}"
 
 
+def _read_stream(response):
+    """Collect a streamed answer (`stream: true`) into one ordinary response.
+
+    Each event is a `data:` line holding a JSON object shaped like the normal
+    response, whose `answer` is the next fragment of text. Returns the last
+    event with the fragments joined in `answer`.
+    """
+    result, fragments = {}, []
+    for raw in response:
+        line = raw.decode("utf-8", "replace").strip()
+        if not line.startswith("data:"):
+            continue  # blank separator lines and ":" keep-alive comments
+        try:
+            event = json.loads(line[5:])
+        except ValueError:
+            continue
+        if isinstance(event, dict):
+            fragments.append(event.get("answer") or "")
+            result = event
+    result["answer"] = "".join(fragments)
+    return result
+
+
 def call(method, path, *, values=None, json_body=None, files=None, query=None, timeout=120):
     """Make one authenticated call. Returns parsed JSON, or None for an empty body.
 
@@ -171,6 +200,8 @@ def call(method, path, *, values=None, json_body=None, files=None, query=None, t
     request = urllib.request.Request(url, data=data, headers=headers, method=method.upper())
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
+            if response.headers.get_content_type() == "text/event-stream":
+                return _read_stream(response)
             raw = response.read()
     except urllib.error.HTTPError as error:
         raw = error.read().decode("utf-8", "replace")

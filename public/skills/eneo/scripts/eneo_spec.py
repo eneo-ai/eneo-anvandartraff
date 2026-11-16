@@ -2,6 +2,7 @@
 """Look things up in an Eneo installation's OpenAPI document without reading it whole.
 
     python3 eneo_spec.py search <text>          operations whose path, summary or id match
+                                                (their descriptions, when nothing else does)
     python3 eneo_spec.py show <METHOD> <path>   one operation with its schemas expanded
     python3 eneo_spec.py schema <Name>          one schema by name
 
@@ -106,25 +107,43 @@ def print_schema(spec, name, depth, indent="", seen=None):
             print_schema(spec, child, depth - 1, indent + "  ", seen)
 
 
-def search(spec, text):
-    needle = text.lower()
-    hits = []
+def find(spec, needle):
+    """Operations that match in path, summary or id, and those that only mention it."""
+    named, described = [], []
     for path, operations in spec["paths"].items():
         for method in METHODS:
             operation = operations.get(method)
             if not operation:
                 continue
+            line = f"{method.upper():6} {path}  - {operation.get('summary', '')}"
             haystack = " ".join(
                 [path, operation.get("summary", ""), operation.get("operationId", "")]
             ).lower()
             if needle in haystack:
-                hits.append(f"{method.upper():6} {path}  - {operation.get('summary', '')}")
+                named.append(line)
+            elif needle in (operation.get("description") or "").lower():
+                described.append(line)
+    return named, described
+
+
+def search(spec, text):
+    needle = text.lower()
+    hits, described = find(spec, needle)
+    if not hits and not described and len(needle) > 3 and needle.endswith("s"):
+        hits, described = find(spec, needle[:-1])  # "collections" -> "collection"
+    if not hits and described:
+        print(f"No path or summary matches '{text}'. These mention it in their description:")
+        hits = described
     for line in hits[:MAX_RESULTS]:
         print(line)
     if len(hits) > MAX_RESULTS:
         print(f"... {len(hits) - MAX_RESULTS} more; narrow the search.")
     if not hits:
-        print(f"No operation matches '{text}'.")
+        print(
+            f"No operation matches '{text}'. The API has its own names for some "
+            "things: a collection is a 'group', a document in a collection an "
+            "'info-blob'. Try one of those, or a shorter word."
+        )
 
 
 def show(spec, method, path, depth):
