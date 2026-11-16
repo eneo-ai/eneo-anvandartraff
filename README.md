@@ -19,7 +19,7 @@ Varje avsnitt och presentation har en egen delbar adress, till exempel `/#teknik
 Varje presentation i `presentations` har `id`, `title`, `description` och `cover`. Omslaget länkar till en bild under `public/`.
 
 - `format: 'html'`: ange minst en bild i `slides` för sajtens inbyggda HTML-bildspel.
-- `format: 'html-file'`: lägg en fristående HTML-presentation i `public/presentations/` och ange dess adress i `file`. Den visas i en inbäddad vy med helskärm och kan öppnas separat.
+- `format: 'html-file'`: lägg en fristående HTML-presentation i `public/presentations/` och ange dess adress i `file`. Den visas i en inbäddad vy med helskärm och kan öppnas separat. Om filen har en egen synkroniserad manusvy, ange dess adress i `presenterUrl` för att visa knappen **Öppna manus**. Båda adresserna ska ligga på sajtens egen domän; filen äger synkroniseringen.
 - `format: 'pptx'`: lägg PowerPoint-filen i `public/presentations/` och ange dess adress i `file`. Presentationssidan visar omslaget och en nedladdningslänk. Filen visas i PowerPoint; ingen tredjepartsvisare tar emot materialet.
 
 Teknikspårets presentation **Hur Eneo utvecklas med hjälp av AI** finns på `/#presentation/hur-eneo-utvecklas-med-ai`. Originalfilen ligger i `public/presentations/hur-eneo-utvecklas-med-ai.html` och registreras som `html-file`. Den innehåller 27 bilder och egna kontroller: piltangenter byter bild/steg, F växlar helskärm och P öppnar den synkroniserade presentatörsvyn med talaranteckningar. Välj **Öppna separat** för att visa presentationen utan sajtens sidram. Tryck H för samtliga kortkommandon.
@@ -28,7 +28,13 @@ Det tidigare exempelbildspelet har tagits bort. Ingen PPTX-fil har levererats ä
 
 ### Presentera med talaranteckningar
 
-För teknikspårets fristående HTML-fil: välj **Öppna separat** och tryck **P** för presentatörsvyn. Anteckningarna redigeras i HTML-filen.
+Teknikspårets HTML-fil är ersatt med den levererade versionen `index(4).html`. På presentationssidan:
+
+1. Välj **Öppna manus** och flytta manusfönstret till din egen skärm. Det öppnas vid aktuell bild och aktuellt klicksteg.
+2. Flytta presentationssidan till projektorn och välj **Presentera i helskärm**. Bara bildspelet fyller projektorn; manus, sidram och verktygsrad visas inte där.
+3. Styr bilder och klicksteg med piltangenterna i manusfönstret. **Esc** lämnar helskärm.
+
+Manus och helskärm startas med separata klick så att webbläsarens regler för popupfönster och helskärm kan följas. Om popupfönstret blockeras visas en länk för att öppna manus i en ny flik. Utan helskärmsstöd kan presentationen fortfarande visas inbäddad eller med **Öppna separat**. Anteckningarna redigeras i HTML-filen. **Öppna separat** följt av **P** öppnar också filens manusvy.
 
 För inbyggda bildspel (`format: 'html'`): öppna presentationens **Presentatörsvy**. Välj **Öppna publikvy**, flytta det nya fönstret till projektorn och välj **Helskärm** i publikfönstret. Presentatörsvyn behåller förhandsvisning, kontroller och talaranteckningar på den egna skärmen. Publikvyn renderar inte anteckningarna.
 

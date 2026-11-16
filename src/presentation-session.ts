@@ -99,7 +99,7 @@ export function useSlideKeyboard({ index, total, onSelect }: {
   }, [index, total, onSelect]);
 }
 
-export function usePresentationFullscreen(): {
+export function usePresentationFullscreen(target?: RefObject<HTMLElement | null>): {
   ref: RefObject<HTMLDivElement | null>;
   fullscreen: boolean;
   supported: boolean;
@@ -107,12 +107,13 @@ export function usePresentationFullscreen(): {
   toggle: () => Promise<void>;
 } {
   const ref = useRef<HTMLDivElement>(null);
+  const targetRef = target ?? ref;
   const [fullscreen, setFullscreen] = useState(false);
   const [supported, setSupported] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const frame = ref.current;
+    const frame = targetRef.current;
     setSupported(Boolean(document.fullscreenEnabled && frame?.requestFullscreen && document.exitFullscreen));
     const update = () => setFullscreen(document.fullscreenElement === frame);
     const reportError = () => setError('Helskärm kunde inte öppnas. Fortsätt här eller försök igen med knappen Helskärm.');
@@ -124,11 +125,11 @@ export function usePresentationFullscreen(): {
       document.removeEventListener('fullscreenerror', reportError);
       if (document.fullscreenElement === frame) void document.exitFullscreen().catch(() => {});
     };
-  }, []);
+  }, [targetRef]);
 
   const toggle = useCallback(async () => {
     setError('');
-    const frame = ref.current;
+    const frame = targetRef.current;
     if (!frame || !document.fullscreenEnabled || !frame.requestFullscreen) {
       setError('Webbläsaren stöder inte helskärm här. Presentationen går fortfarande att visa och bläddra i.');
       return;
@@ -139,7 +140,7 @@ export function usePresentationFullscreen(): {
     } catch {
       setError('Helskärm kunde inte öppnas. Fortsätt här eller försök igen med knappen Helskärm.');
     }
-  }, []);
+  }, [targetRef]);
 
   return { ref, fullscreen, supported, error, toggle };
 }

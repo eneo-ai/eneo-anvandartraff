@@ -65,10 +65,10 @@ export interface HtmlPresentation extends PresentationMetadata {
   slides: readonly [Slide, ...Slide[]];
 }
 
-export interface FilePresentation extends PresentationMetadata {
-  format: 'pptx' | 'html-file';
-  file: string;
-}
+export type FilePresentation = PresentationMetadata & (
+  | { format: 'pptx'; file: string }
+  | { format: 'html-file'; file: string; presenterUrl?: string }
+);
 
 export type Presentation = HtmlPresentation | FilePresentation;
 
@@ -85,6 +85,7 @@ export const technicalTrackPresentation: FilePresentation = {
   cover: '/presentations/utveckling-med-ai.svg',
   format: 'html-file',
   file: '/presentations/hur-eneo-utvecklas-med-ai.html',
+  presenterUrl: '/presentations/hur-eneo-utvecklas-med-ai.html?presenter',
 };
 
 export const presentations: readonly Presentation[] = [technicalTrackPresentation];
