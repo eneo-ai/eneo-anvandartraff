@@ -10,9 +10,9 @@ Här samlas program, presentationer och länkar. Besökare kan läsa materialet 
 
 [`src/content.ts`](src/content.ts) äger datum, navigation, program, presentationer och länkar. Lägg dokument i `public/` och länka till dem med `/filnamn.pdf`.
 
-Programmet är återgivet från [`public/program.pdf`](public/program.pdf). Bildspelet om utveckling med AI är ett första diskussionsunderlag från förberedelserna inför träffen, inte arrangörernas presentation.
+Programmet är återgivet från [`public/program.pdf`](public/program.pdf). Teknikspårets bildspel är den levererade HTML-presentationen om hur Eneo utvecklas med hjälp av AI.
 
-Varje avsnitt, presentation och presentationsbild har en egen delbar adress, till exempel `/#teknikspar`, `/#presentation/utveckling-med-ai` och `/#presentation/utveckling-med-ai/1`. Presentationsbiblioteket visar klickbara kort med omslagsbild och rubrik. HTML-bildspel kan styras med föregående/nästa eller piltangenter och visas i helskärm där webbläsaren stöder det. Esc lämnar helskärm.
+Varje avsnitt och presentation har en egen delbar adress, till exempel `/#teknikspar` och `/#presentation/hur-eneo-utvecklas-med-ai`. Presentationsbiblioteket visar klickbara kort med omslagsbild och rubrik. HTML-bildspel kan styras med föregående/nästa eller piltangenter och visas i helskärm där webbläsaren stöder det. Esc lämnar helskärm.
 
 ### Lägg till en presentation
 
@@ -24,15 +24,17 @@ Varje presentation i `presentations` har `id`, `title`, `description` och `cover
 
 Teknikspårets presentation **Hur Eneo utvecklas med hjälp av AI** finns på `/#presentation/hur-eneo-utvecklas-med-ai`. Originalfilen ligger i `public/presentations/hur-eneo-utvecklas-med-ai.html` och registreras som `html-file`. Den innehåller 27 bilder och egna kontroller: piltangenter byter bild/steg, F växlar helskärm och P öppnar den synkroniserade presentatörsvyn med talaranteckningar. Välj **Öppna separat** för att visa presentationen utan sajtens sidram. Tryck H för samtliga kortkommandon.
 
-Det tidigare diskussionsunderlaget finns kvar som ett separat inbyggt HTML-bildspel. Ingen PPTX-fil har levererats ännu.
+Det tidigare exempelbildspelet har tagits bort. Ingen PPTX-fil har levererats ännu.
 
 ### Presentera med talaranteckningar
 
-Öppna HTML-presentationens **Presentatörsvy**. Välj **Öppna publikvy**, flytta det nya fönstret till projektorn och välj **Helskärm** i publikfönstret. Presentatörsvyn behåller förhandsvisning, kontroller och talaranteckningar på den egna skärmen. Publikvyn renderar inte anteckningarna.
+För teknikspårets fristående HTML-fil: välj **Öppna separat** och tryck **P** för presentatörsvyn. Anteckningarna redigeras i HTML-filen.
+
+För inbyggda bildspel (`format: 'html'`): öppna presentationens **Presentatörsvy**. Välj **Öppna publikvy**, flytta det nya fönstret till projektorn och välj **Helskärm** i publikfönstret. Presentatörsvyn behåller förhandsvisning, kontroller och talaranteckningar på den egna skärmen. Publikvyn renderar inte anteckningarna.
 
 Bildbyten synkroniseras mellan fönster på samma dator och i samma webbläsare via lokal lagring. Vid blockerad lagring kan bildbyten göras direkt i respektive fönster.
 
-Anteckningar anges i bildens valfria `notes`-fält i `src/content.ts`. De första anteckningarna är arbetsutkast inför träffen.
+För inbyggda bildspel anges anteckningar i bildens valfria `notes`-fält i `src/content.ts`.
 
 ## Teknik och ägare
 

@@ -14,7 +14,7 @@ import { List, ListItem } from '@astryxdesign/core/List';
 import { Link } from '@astryxdesign/core/Link';
 import { Button } from '@astryxdesign/core/Button';
 import { useMediaQuery } from '@astryxdesign/core/hooks';
-import { meeting, pages, aiPresentation, presentations, programme, resources, type PageId, type Presentation, type HtmlPresentation } from './content';
+import { meeting, pages, technicalTrackPresentation, technicalTrackQuestions, presentations, programme, resources, type PageId, type Presentation, type HtmlPresentation } from './content';
 import { PresentationLibrary, PresentationPage } from './Presentations';
 import { ProjectionView } from './Projection';
 import { Programme } from './Programme';
@@ -80,8 +80,8 @@ function Overview() {
       <VStack gap={4}>
         <Heading level={2}>Börja med utveckling med AI</Heading>
         <Text as="p">Hur förändras utvecklarens arbete när AI skriver en stor del av koden? Vi börjar i arkitekturen och tar med frågor om tillit och validering.</Text>
-        <Link href="#presentation/utveckling-med-ai" isStandalone hasUnderline>Öppna presentationen: Utveckling med AI</Link>
-        <Text as="p" type="supporting">Ett första diskussionsunderlag som vi bygger vidare på inför träffen.</Text>
+        <Link href={`#presentation/${technicalTrackPresentation.id}`} isStandalone hasUnderline>Öppna presentationen: {technicalTrackPresentation.title}</Link>
+        <Text as="p" type="supporting">Bildspel för teknikspåret med talaranteckningar och presentatörsvy.</Text>
       </VStack>
     </Grid>
     <List header={<Heading level={2}>Hitta materialet</Heading>} density="spacious" hasDividers edge="flush">
@@ -93,7 +93,7 @@ function Overview() {
 }
 
 function TechnicalTrack() {
-  const presentation = aiPresentation;
+  const presentation = technicalTrackPresentation;
   return <>
     <Opening title="Teknikspåret" description="Förberedelser för samtalet om hur Eneo utvecklas med hjälp av AI, följt av ett praktiskt pass med egen utveckling." />
     <List header={<Heading level={2}>Teknikpassen</Heading>} edge="flush" hasDividers density="spacious">
@@ -108,11 +108,11 @@ function TechnicalTrack() {
         <Text as="p">Vi lägger mycket av arbetet på att diskutera problemet, arkitekturen och hur lösningen ska passa in i systemet. Uppgifterna behöver inte vara färdigspecificerade från början.</Text>
         <Text as="p">Sedan låter vi AI skriva en stor del av koden. Vi validerar resultatet både mänskligt och med AI, men detaljgranskar inte varje kodrad. Det innebär en viss tillit till implementationen, samtidigt som vi behåller ansvaret för lösningen.</Text>
         <Link href={`#presentation/${presentation.id}`} hasUnderline isStandalone>Öppna presentationen</Link>
-        <Text as="p" type="supporting">Diskussionsunderlag utifrån vårt samtal inför träffen.</Text>
+        <Text as="p" type="supporting">Bildspel för teknikspåret den 17 november 2026.</Text>
       </VStack>
     </Section>
     <List header={<Heading level={2}>Frågor att ta med</Heading>} listStyle="disc" edge="flush" density="spacious">
-      {presentation.slides[presentation.slides.length - 1].points.map(point => <ListItem key={point} label={<Text>{point}</Text>} />)}
+      {technicalTrackQuestions.map(point => <ListItem key={point} label={<Text>{point}</Text>} />)}
     </List>
     <VStack gap={4} maxWidth="72ch">
       <Heading level={2}>Inför det praktiska passet</Heading>

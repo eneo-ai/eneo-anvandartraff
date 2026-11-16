@@ -72,35 +72,11 @@ export interface FilePresentation extends PresentationMetadata {
 
 export type Presentation = HtmlPresentation | FilePresentation;
 
-export const aiPresentation: HtmlPresentation = {
-  id: 'utveckling-med-ai',
-  title: 'Utveckling med AI',
-  description: 'Vårt arbetssätt, från arkitekturdiskussion till implementation och validering. Ett diskussionsunderlag inför teknikspåret.',
-  cover: '/presentations/utveckling-med-ai.svg',
-  format: 'html',
-  slides: [
-    { title: 'Utveckling med AI',
-      opening: 'Vi lägger mer av vårt arbete på arkitektur, krav och bedömning av resultatet. AI skriver en stor del av koden.',
-      points: ['Ett samtal om hur utvecklarens arbete förändras.', 'Diskussionsunderlag inför Eneos användarträff den 17 november 2026.'],
-      notes: ['Börja med hur vi arbetar idag: AI är med i både diskussionen, implementationen och granskningen.', 'Säg att detta är vårt diskussionsunderlag inför träffen. Vi vill jämföra erfarenheter med andra utvecklare.'] },
-    { title: 'Vi arbetar fram lösningen',
-      opening: 'Arbetet börjar med att förstå problemet och diskutera hur lösningen ska passa in i systemet.',
-      points: ['Vi diskuterar arkitektur, ansvar och avgränsningar.', 'Uppgiften behöver inte vara färdigspecificerad från början.', 'Lösningen växer fram i dialog med AI.'],
-      notes: ['Utgå från skillnaden mellan en färdig uppgiftslapp och en dialog om vad som faktiskt behöver lösas.', 'Beskriv hur vi resonerar om ansvar och hur en förändring passar in i systemet innan implementationen tar över.', 'Här kan vi lägga in ett konkret exempel från vårt arbete.'] },
-    { title: 'AI gör en stor del av implementationen',
-      opening: 'När riktningen är tydlig låter vi AI skriva koden, och återkommer till lösningsval när det behövs.',
-      points: ['Människan sätter riktning och bedömer resultatet.', 'Vi detaljgranskar inte varje kodrad.', 'Arbetssättet innebär en viss tillit till AI:s implementation.'],
-      notes: ['Var tydlig med att vi inte går igenom varje kodrad eller varje syntaxdetalj.', 'Det intressanta är hur vi bedömer helheten och var vi väljer att granska djupare.', 'Fråga gärna deltagarna hur mycket av implementationen de själva brukar läsa.'] },
-    { title: 'Vi validerar på flera sätt',
-      opening: 'Vi validerar resultatet både mänskligt och med AI. Ansvaret för lösningen ligger fortfarande hos oss.',
-      points: ['Mänsklig bedömning av lösningen och dess beteende.', 'AI används även för granskning och för att hitta problem.', 'Att koden fungerar och att rätt problem är löst är två saker att bedöma.'],
-      notes: ['Beskriv hur mänsklig bedömning och AI-granskning kompletterar varandra i vårt arbetssätt.', 'Lyft att en tekniskt fungerande implementation fortfarande kan bygga på ett missförstått krav.', 'Ta med frågan om hur granskningen kan utmana de antaganden som lösningen byggdes på.'] },
-    { title: 'Var drar vi gränsen för tilliten?',
-      opening: 'Hur mycket behöver vi förstå av implementationen för att kunna ansvara för den?',
-      points: ['Vilka ändringar behöver alltid mänsklig detaljgranskning?', 'Hur får vi AI-granskningen att utmana lösningens antaganden?', 'Hur behåller vi förmågan att felsöka och vidareutveckla systemet?'],
-      notes: ['Lämna utrymme för diskussion och försök få fram konkreta gränsdragningar.', 'Återknyt till att vi skriver mindre av koden själva men fortfarande behöver kunna bedöma och ansvara för systemet.', 'Samla frågor som vi vill ta med till användarträffen.'] },
-  ],
-};
+export const technicalTrackQuestions = [
+  'Vilka ändringar behöver alltid mänsklig detaljgranskning?',
+  'Hur får vi AI-granskningen att utmana lösningens antaganden?',
+  'Hur behåller vi förmågan att felsöka och vidareutveckla systemet?',
+] as const;
 
 export const technicalTrackPresentation: FilePresentation = {
   id: 'hur-eneo-utvecklas-med-ai',
@@ -111,7 +87,7 @@ export const technicalTrackPresentation: FilePresentation = {
   file: '/presentations/hur-eneo-utvecklas-med-ai.html',
 };
 
-export const presentations: readonly Presentation[] = [technicalTrackPresentation, aiPresentation];
+export const presentations: readonly Presentation[] = [technicalTrackPresentation];
 
 export const resources = [
   { title: 'Eneo på GitHub', description: 'Källkod, ärenden och utveckling av Eneo.', href: 'https://github.com/eneo-ai/eneo' },
