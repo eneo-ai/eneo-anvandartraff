@@ -14,6 +14,7 @@ interface WorkshopStatus {
 }
 
 interface Credentials {
+  passwordReady: boolean;
   email: string;
   password: string;
   loginUrl: string;
@@ -68,7 +69,7 @@ function isStatus(value: unknown): value is WorkshopStatus {
 
 function isCredentials(value: unknown): value is Credentials {
   return isRecord(value) && typeof value.email === 'string' && value.email.length > 0
-    && typeof value.password === 'string' && value.password.length > 0 && isLoginUrl(value.loginUrl);
+    && typeof value.password === 'string' && value.password.length > 0 && typeof value.passwordReady === 'boolean' && isLoginUrl(value.loginUrl);
 }
 
 export function WorkshopAccounts() {
@@ -95,8 +96,13 @@ export function WorkshopAccounts() {
   useEffect(() => { void loadStatus(); }, []);
 
   async function requestAccount(mode: 'create' | 'recover') {
-    if (inFlight.current || account.kind === 'created' || !code.trim()
-      || availability.kind !== 'ready') return;
+    if (inFlight.current || account.kind === 'created' || availability.kind !== 'ready') return;
+    if (!code.trim()) {
+      setAccount({ kind: 'error', message: mode === 'recover'
+        ? 'Ange träffkoden ovan för att hämta ditt tidigare konto.'
+        : 'Ange träffkoden ovan för att skapa ditt testkonto.' });
+      return;
+    }
     if (mode === 'create' && (!availability.status.enabled || !email.trim())) return;
     inFlight.current = true;
     setAccount({ kind: 'creating', mode });
@@ -169,7 +175,7 @@ export function WorkshopAccounts() {
               onClick={() => { void requestAccount('create'); }} />}
             <Button label="Hämta mitt tidigare konto" variant={status.enabled ? 'secondary' : 'primary'} size="lg"
               isLoading={account.kind === 'creating' && account.mode === 'recover'}
-              isDisabled={!code.trim() || (account.kind === 'creating' && account.mode !== 'recover')}
+              isDisabled={creating}
               onClick={() => { void requestAccount('recover'); }} />
           </HStack>
           <Text as="p" type="supporting">Hämta ditt tidigare konto med träffkoden i samma flik. Då behöver du inte ange e-postadressen igen.</Text>
@@ -179,7 +185,9 @@ export function WorkshopAccounts() {
         {!identity.persisted && <Banner status="warning" title="Webbläsaren kan inte komma ihåg ditt konto" description="Stanna kvar på sidan och kopiera uppgifterna innan du laddar om eller lämnar den." />}
         {account.kind === 'created' && <VStack gap={5}>
           <Banner status="success" role="status" title="Ditt testkonto är klart" description="Kopiera uppgifterna innan du öppnar Eneo. Använd kontot till övningarna under träffen." />
-          <Text as="p">Första gången du loggar in ber Eneo dig att välja ett eget lösenord. Därefter använder du ditt nya lösenord.</Text>
+          <Text as="p">{account.credentials.passwordReady
+            ? 'Du kan logga in direkt med lösenordet nedan.'
+            : 'Det här kontot skapades tidigare och kan kräva ett lösenordsbyte vid inloggning. Om du redan har bytt använder du ditt eget lösenord.'}</Text>
           <TextInput label="E-post för inloggning" value={account.credentials.email} isReadOnly autoComplete="off" width="100%" />
           <TextInput label="Lösenord" value={account.credentials.password} isReadOnly autoComplete="off" width="100%" />
           <HStack gap={3} wrap="wrap">

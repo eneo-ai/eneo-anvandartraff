@@ -256,6 +256,13 @@
         "recovery": "Same request ID and code, without email, including existing generated addresses",
         "login": "Ordinary same-tab link available before and after creation",
         "validation": "Typecheck and 26 focused behavior tests passed"
+      },
+      "passwordOnboarding": {
+        "format": "Five independent random Swedish ASCII words plus four digits, hyphen-separated",
+        "readiness": "New credentials returned only after Eneo confirms self-service password change",
+        "legacy": "Existing credential recovery remains unchanged; passwordReady false signals older setup",
+        "recoveryAction": "Clickable before code entry; missing code produces local guidance without a request",
+        "validation": "Typecheck and 41 focused behavior tests passed"
       }
     }
   },

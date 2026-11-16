@@ -29,7 +29,9 @@ Montera en beständig volym på `/app/data`. Kör en enda applikationsreplik. Da
 
 Workshoprollen ger tillgång till chatt, AI, flöden, egna API-nycklar och de resurser som behövs för övningarna. Den ger inte `admin` eller `modules`; organisationsgemensam modulkonfiguration görs av arrangören. Varje konto får 50 MB lagringskvot. Den kvoten är inte ett tak för modellkostnad.
 
-Den första lösenordsinloggningen följer Eneos ordinarie krav på att välja eget lösenord. Återhämtning på träffsidan visar det ursprungliga lösenordet; efter bytet använder deltagaren sitt nya lösenord. Träffsidan kan inte återställa det.
+Nya testkonton får en färdig lösenfras som kan användas direkt: fem slumpmässigt valda vanliga svenska ord och fyra siffror, med bindestreck mellan delarna. Den fasta ordlistan har 256 unika ord med enbart a–z; varje ord och sifferdelen väljs oberoende med `crypto.randomInt`. Lösenfrasen är högst 59 ASCII-byte, inom Eneos gräns på 72 byte. Kontotjänsten skapar kontot med ett separat tillfälligt lösenord, loggar in som just det nya kontot och slutför Eneos ordinarie lösenordsbyte till det lösenord som visas för deltagaren. Hela kedjan har en gemensam tidsgräns på 15 sekunder. Administratörsnyckeln används bara för skapandet; lösenordsbytet använder det nya kontots egen inloggning.
+
+Återhämtning visar det lösenord som tjänsten tidigare lämnade ut. Äldre konton kan fortfarande kräva ett byte vid första inloggning; de märks med `passwordReady: false`. Nya konton märks klara först när Eneo har godkänt lösenordsbytet. Om deltagaren själv senare byter lösenord använder hen sitt eget; tjänsten återställer det inte.
 
 ## Egen mejladress och inloggningslänk
 
@@ -74,3 +76,11 @@ Typkontrollen och samtliga 16 fokuserade backendtester godkändes den 16 novembe
 ### Egen mejladress och direktlänk
 
 Utökningen till egen mejladress godkändes med typkontroll och 26 fokuserade tester den 16 november 2026 (resursvaktens toppar 245,0 MiB respektive 12,7 MiB). Testerna täcker normalisering av internationella domäner, upptagna adresser, rättning efter definitivt nekande, nya flikar efter misslyckade försök samt återhämtning av tidigare genererade adresser. Den levererade presentationen och programmets data ändras inte.
+
+### Direkt användbara lösenord och hämtaknapp
+
+Nya konton slutför `POST /api/v1/users/login/token/` och `POST /api/v1/users/me/password/` efter att Eneo har skapat användaren. Först därefter lämnas de färdiga uppgifterna ut. Om något misslyckas efter skapandet blir beställningen osäker och återsänds inte som en ny användare. Metadata om färdigt lösenord följer de krypterade uppgifterna; befintliga poster kan läsas utan databasmigrering.
+
+Hämta mitt tidigare konto är klickbar även före inmatning. Ett klick utan kod visar lokal vägledning och gör inget API-anrop. Träffkoden krävs fortfarande för hämtning från servern.
+
+Ändringarna för färdiga lösenfraser och hämtaknapp godkändes med typkontroll och 41 fokuserade backendtester den 16 november 2026. Inga lokala servrar eller fulla byggen startades. Eneos ordinarie lösenordsbytes-API provades separat mot testmiljön och tog bort flaggan för första byte.

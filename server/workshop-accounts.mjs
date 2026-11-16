@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
+import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, randomInt, timingSafeEqual } from 'node:crypto';
 import { chmodSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -11,6 +11,37 @@ const BAD_CODE_WINDOW = 15 * 60 * 1000;
 const UNCERTAIN = 'Vi kunde inte bekräfta att kontot skapades. Försök inte skapa ett nytt konto. Kontakta träffens arrangör för hjälp.';
 const EXISTING_EMAIL = 'Det finns redan ett konto eller en pågående registrering med den e-postadressen. Logga in om kontot är ditt, använd en annan adress eller be arrangören om hjälp.';
 
+// Five uniform choices give 40 bits; four decimal digits add about 13 bits.
+// ASCII avoids keyboard-layout friction while retaining ordinary Swedish words.
+export const WORKSHOP_PASSPHRASE_WORDS = Object.freeze(`
+skog berg dal sten sand jord grus lera mosse myr hav vik udde strand klippa grotta
+vatten flod fors damm regn dimma moln vind storm bris sol ljus skugga frost is vinter
+sommar morgon middag afton natt dag vecka helg timme minut sekund tid stund paus rast vila
+gran tall en asp ek alm bok lind hassel ask al syren ros tulpan lilja pion
+citron lime melon banan kiwi mango kokos hallon nypon plommon lingon aprikos persika nektarin papaya tomat
+potatis morot sallad gurka lins pasta ris bulgur havre korn vete majs salt socker peppar soppa
+gryta bulle kaka kex limpa glass sorbet honung sirap krydda vanilj kanel muskot saffran kummin anis
+katt hund igelkott hare kanin varg ko oxe gris get lamm tacka bagge ren hjort lo
+mink utter haj val torsk lax sill abborre makrill hummer krabba mussla snigel groda igel panda
+tiger lejon zebra elefant giraff kamel lama apa gorilla delfin pingvin pelikan struts fasan trana svala
+hus koja stuga lada loft hall rum sal bastu veranda altan garage port grind staket mur
+lampa bord stol soffa pall hylla matta kudde filt duk gardin spegel korg dosa burk kruka
+jacka kappa skjorta byxa kjol socka strumpa sko sandal hatt keps luva band scarf sjal vante
+cykel bil buss taxi lastbil traktor vagn kanot eka jolle segel roder ankare mast bro tunnel
+penna papper blad krita sudd linjal mapp pensel palett tavla ram sax lim tejp bomull garn
+boll spel kort kub kloss pinne bricka puck ring krona medalj pokal flagga karta kompass teleskop
+`.trim().split(/\s+/));
+
+if (WORKSHOP_PASSPHRASE_WORDS.length !== 256 || new Set(WORKSHOP_PASSPHRASE_WORDS).size !== 256 ||
+    WORKSHOP_PASSPHRASE_WORDS.some(word => !/^[a-z]{2,10}$/.test(word))) {
+  throw new Error('Workshop passphrase dictionary must contain exactly 256 unique ASCII words');
+}
+
+export function createWorkshopPassphrase() {
+  const words = Array.from({ length: 5 }, () => WORKSHOP_PASSPHRASE_WORDS[randomInt(WORKSHOP_PASSPHRASE_WORDS.length)]);
+  return [...words, String(randomInt(10_000)).padStart(4, '0')].join('-');
+}
+
 /** Eneo remains the final email validator. No participant domain is privileged here. */
 function participantEmail(value) {
   if (typeof value !== 'string') throw new AccountError(400, 'Ange din egen e-postadress för att skapa ett testkonto.');
@@ -22,6 +53,10 @@ function participantEmail(value) {
     throw new AccountError(400, 'Ange en giltig e-postadress och försök igen.');
   }
   return email;
+}
+
+function randomPassword() {
+  return `E!a9-${randomBytes(20).toString('base64url')}`;
 }
 
 /**
@@ -38,7 +73,7 @@ function participantEmail(value) {
  * @property {string} databasePath
  * @property {string} loginUrl
  *
- * @typedef {{ email: string, password: string, loginUrl: string }} AccountCredentials
+ * @typedef {{ email: string, password: string, loginUrl: string, passwordReady: boolean }} AccountCredentials
  */
 
 /** An intentional public failure. Never contains upstream responses or credentials. */
@@ -180,7 +215,7 @@ export class WorkshopAccounts {
     decipher.setAAD(Buffer.from(requestId));
     decipher.setAuthTag(bytes.subarray(12, 28));
     const credentials = JSON.parse(Buffer.concat([decipher.update(bytes.subarray(28)), decipher.final()]).toString('utf8'));
-    return { email: credentials.email, password: credentials.password, loginUrl: this.#config.loginUrl };
+    return { email: credentials.email, password: credentials.password, loginUrl: this.#config.loginUrl, passwordReady: credentials.passwordReady === true };
   }
 
   #existing(row, requestId) {
@@ -211,7 +246,7 @@ export class WorkshopAccounts {
       const count = this.#db.prepare("SELECT COUNT(*) AS count FROM accounts WHERE state!='failed'").get().count;
       if (count >= this.#config.maxAccounts) throw new AccountError(409, 'Alla testkonton är upptagna. Be arrangören om hjälp.');
       const username = `traff-${randomBytes(8).toString('hex')}`;
-      const credentials = { email, password: `E!a9-${randomBytes(20).toString('base64url')}` };
+      const credentials = { email, password: createWorkshopPassphrase(), passwordReady: true };
       // Definite refusals own neither an Eneo account nor an email reservation.
       // Clear them in this same transaction before the UNIQUE email insert.
       this.#db.prepare("DELETE FROM accounts WHERE state='failed' AND (request_id=? OR email=?)").run(requestId, email);
@@ -239,12 +274,14 @@ export class WorkshopAccounts {
     const reservation = this.#reserve(requestId, input.email);
     if (reservation.existing) return this.#existing(reservation.existing, requestId);
     const { credentials, username } = reservation;
+    const temporaryPassword = randomPassword();
+    const signal = AbortSignal.timeout(15_000);
     let response;
     try {
       response = await this.#fetch(`${this.#config.baseUrl}/api/v1/admin/users/`, {
-        method: 'POST', redirect: 'error', signal: AbortSignal.timeout(9000),
+        method: 'POST', redirect: 'error', signal,
         headers: { 'Content-Type': 'application/json', [this.#config.apiKeyHeader]: this.#config.apiKey },
-        body: JSON.stringify({ ...credentials, username, quota_limit: 50_000_000, roles: [{ id: this.#config.roleId }] }),
+        body: JSON.stringify({ email: credentials.email, password: temporaryPassword, username, quota_limit: 50_000_000, roles: [{ id: this.#config.roleId }] }),
       });
     } catch {
       this.#db.prepare("UPDATE accounts SET state='uncertain' WHERE request_id=?").run(requestId);
@@ -263,7 +300,30 @@ export class WorkshopAccounts {
     try {
       const created = await response.json();
       if (!created || typeof created.id !== 'string' || participantEmail(created.email) !== credentials.email) throw new Error('Unexpected provisioning response');
-      this.#db.prepare("UPDATE accounts SET state='created', eneo_user_id=? WHERE request_id=?").run(created.id, requestId);
+      this.#db.prepare('UPDATE accounts SET eneo_user_id=? WHERE request_id=?').run(created.id, requestId);
+      // Eneo owns password lifecycle rules. Complete its normal first-password
+      // replacement as this newly created participant, never with admin powers.
+      const login = await this.#fetch(`${this.#config.baseUrl}/api/v1/users/login/token/`, {
+        method: 'POST', redirect: 'error', signal,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ username: credentials.email, password: temporaryPassword }).toString(),
+      });
+      if (!login.ok) {
+        await login.body?.cancel().catch(() => {});
+        throw new Error('Participant login was not confirmed');
+      }
+      const session = await login.json();
+      if (!session || typeof session.access_token !== 'string' || !session.access_token.trim() || /[\r\n]/.test(session.access_token)) {
+        throw new Error('Participant session was not confirmed');
+      }
+      const changed = await this.#fetch(`${this.#config.baseUrl}/api/v1/users/me/password/`, {
+        method: 'POST', redirect: 'error', signal,
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify({ current_password: temporaryPassword, new_password: credentials.password }),
+      });
+      await changed.body?.cancel().catch(() => {});
+      if (changed.status !== 204) throw new Error('Participant password replacement was not confirmed');
+      this.#db.prepare("UPDATE accounts SET state='created' WHERE request_id=?").run(requestId);
     } catch {
       this.#db.prepare("UPDATE accounts SET state='uncertain' WHERE request_id=?").run(requestId);
       throw new AccountError(502, UNCERTAIN);
