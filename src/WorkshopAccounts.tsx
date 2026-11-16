@@ -179,7 +179,7 @@ export function WorkshopAccounts() {
         <Text as="p">Skanna QR-koden för att öppna kontosidan på din telefon eller dator. Samma träffkod gäller.</Text>
         <Link href={accountPageUrl} aria-label="Öppna sidan för testkonton">
           <img src="/workshop-account-qr.svg" alt="QR-kod till sidan för testkonton" width={256} height={256}
-            style={{ width: '100%', maxWidth: '16rem', height: 'auto', display: 'block' }} />
+            style={{ width: '16rem', maxWidth: '100%', height: 'auto', display: 'block' }} />
         </Link>
         <Link href={accountPageUrl} hasUnderline isStandalone>Öppna sidan för testkonton</Link>
       </VStack>
