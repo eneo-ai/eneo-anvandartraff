@@ -52,6 +52,7 @@ ul,ol{padding:0;list-style:none}
 .lead{font-size:var(--t-l);line-height:1.3;max-width:1560px}
 .s{font-size:var(--t-s);line-height:1.35}
 .mute{color:var(--slate)}
+.nb{white-space:nowrap}
 .dark .mute{color:var(--mute-d)}
 .strong{font-weight:650}
 .hum{color:var(--red-ink)}
@@ -650,19 +651,64 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide dark" data-ch="Eneo" data-title="Demo: tal till text" data-at="11.00" data-min="30" data-who="Max">
+<section class="slide dark" data-ch="Eneo" data-title="Demo: tal till text" data-at="11.00" data-min="15" data-who="Max">
   <div class="body">
     <p class="hero">Tal till text</p>
     <div class="rows flat mt4" style="--cols:1fr 1fr 1fr">
       <div class="hd">Byggd som</div><div class="hd">Bygger på</div><div class="hd">Körs i</div>
-      <div class="big">en modul i Eneo</div><div class="big">flöden, ett nytt koncept</div><div class="big">nya frontenden</div>
+      <div class="big">den första modulen</div><div class="big">flöden, ett nytt koncept</div><div class="big">nya frontenden</div>
     </div>
   </div>
   <aside class="notes">
     <p>Demo. Visa ett helt flöde från ljud till färdig text, och visa det på mobilbredd också. Det knyter ihop med målen på förra bilden.</p>
-    <p>Säg de tre sakerna på bilden högt: det är en modul, den bygger på flöden och den är byggd i den nya frontenden med React, Vite och Astryx. I eftermiddag bygger deltagarna en egen modul.</p>
-    <p>Ni har en halvtimme. Lägg ungefär tio minuter på själva demon och resten på hur den är byggd: visa modulen och flödet bakom, i Eneo och i koden. Det är vad inbjudan lovar teknikspåret, och det förbereder eftermiddagen.</p>
+    <p>Säg de tre sakerna på bilden högt: det är en modul, den bygger på flöden och den är byggd i den nya frontenden med React, Vite och Astryx. I eftermiddag börjar deltagarna med grunden, assistenter och ytor.</p>
+    <p>En kvart för demon. De två följande bilderna förklarar vad en modul är och vad module kit ger, så spara den förklaringen dit.</p>
     <p>Reserv: ha en inspelad skärmvideo redo om nätet eller instansen krånglar. Tryck B för svart skärm medan ni växlar fönster.</p>
+    <p class="next">Övergång: ”Tal till text är en modul. Vad betyder det?”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Eneo" data-title="Vad är en modul?" data-at="11.15" data-min="5" data-who="Max">
+  <h2 class="h">En modul är en liten webbapp bredvid Eneo</h2>
+  <div class="body">
+    <div class="flow">
+      <div class="node rh"><b>Användaren</b>öppnar modulen i webbläsaren</div>
+      <div class="conn"><div class="arrow"></div></div>
+      <div class="node page"><b>Modulen</b>
+        <ul><li>Egen adress</li><li>Eget gränssnitt</li><li>Egen backend</li><li>En container</li></ul></div>
+      <div class="conn"><div class="arrow"></div></div>
+      <div class="node ra"><b>Eneo</b>sköter inloggningen och är modulens AI-motor</div>
+    </div>
+    <p class="lead strong mt4">Modulen gör en sak bra. Inloggning, modeller och behörigheter finns redan i Eneo.</p>
+    <p class="lead mute mt1">Tal till text är den första: inspelning, transkribering och redigering av texten.</p>
+  </div>
+  <aside class="notes">
+    <p>En modul är en liten webbapp på en egen adress som använder Eneo. Den har ett eget gränssnitt och en egen backend, och körs som en container.</p>
+    <p>Eneo är fortfarande den enda inloggningen. Användaren loggar in via Eneo och skickas tillbaka till modulen. Modulen registreras i Eneo med en modulnyckel, en callback-adress och en servicenyckel.</p>
+    <p>Att utveckla en modul betyder alltså att bygga det modulen själv ska göra. För tal till text är det inspelning, transkribering och redigering. Resten lånar den av Eneo.</p>
+    <p class="next">Övergång: ”Och det alla moduler behöver har vi lagt på ett ställe.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Eneo" data-title="Module kit: slipp uppfinna hjulet igen" data-at="11.20" data-min="10" data-who="Max">
+  <h2 class="h">Module kit: slipp uppfinna hjulet igen</h2>
+  <div class="body">
+    <div class="rows tight" style="--cols:520px 1fr">
+      <div class="hd">Det här importerar du</div><div class="hd"></div>
+      <div class="big">Inloggning</div><div>Via Eneo. Slås på för de sidor som behöver den.</div>
+      <div class="big">Väg till Eneos API</div><div>Modulen når bara de anrop den uttryckligen tillåter</div>
+      <div class="big">Gränssnitt</div><div>Eneos tema och sidram i Astryx, testat för tillgänglighet</div>
+      <div class="big">Mall</div><div>En fungerande modul att kopiera, med CI och agentinstruktioner</div>
+    </div>
+    <p class="lead strong mt3">Paketen importeras. Mallen kopieras. Du bygger det modulen ska göra.</p>
+    <p class="lead mute mt1">Version 0.1, hämtad ur tal till text.<br>Öppen källkod på github.com/eneo-ai/eneo-module-kit</p>
+  </div>
+  <aside class="notes">
+    <p>Tanken med module kit: lägga grunden så att det nästan blir en SDK. Man importerar de funktioner man vill ha när man bygger en ny modul, i stället för att uppfinna hjulet på nytt.</p>
+    <p>Inloggningen är exemplet. Alla sidor behöver inte kräva inloggning, men när man vill ha den är den inbyggd och går att importera.</p>
+    <p>Kittet har tre delar: ett backend-paket (inloggning, session och en väg till Eneos API som nekar allt som inte är uttryckligen tillåtet), ett gränssnittspaket (Eneos tema i Astryx, sidram och sessionshantering) och en mall som är den minsta fungerande modulen.</p>
+    <p>Tal till text är modulen vi har hämtat lärdomarna ur. Kittet är version 0.1 och gränssnitten kan ändras tills en andra modul har använt dem.</p>
+    <p>Knyt ihop med förmiddagen: samma struktur i varje modul gör förvaltningen billigare, och mallen har instruktioner och en skill för agenten, alltså kontext. Visa gärna repot i en halv minut.</p>
     <p class="next">Övergång: ”I eftermiddag är det er tur.”</p>
   </aside>
 </section>
@@ -671,16 +717,18 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   <h2 class="h">13.00 bygger ni själva</h2>
   <div class="body">
     <div class="lv">
-      <div class="lvl"><span class="n">1</span><div><h3 class="xl">Be din agent skapa en assistent i Eneo</h3>
-        <p>En skill ger agenten kunskap om Eneos API. Du beskriver vad du vill ha, i stället för att klicka fram det.</p></div></div>
-      <div class="lvl"><span class="n">2</span><div><h3 class="xl">Bygg en egen modul och koppla på den</h3>
-        <p>Samma väg som tal till text: agenten får veta hur moduler fungerar, och du bestämmer vad den ska göra.</p></div></div>
+      <div class="lvl"><span class="n">1</span><div><h3 class="xl">Grunden: be din agent bygga i Eneo</h3>
+        <p>Eneo-skillen lär din agent hur Eneo fungerar. Du beskriver assistenten du vill ha, i stället för att klicka fram den.</p></div></div>
+      <div class="lvl"><span class="n">2</span><div><h3 class="xl">Sedan, för den som vill: en egen modul</h3>
+        <p>Valfritt. Mallen i module kit har instruktioner för din agent och en låtsas-Eneo att utveckla mot.</p></div></div>
     </div>
-    <p class="lead mt4"><span class="strong">Gör det här nu, före lunch:</span> starta Claude Code eller Codex och kontrollera att du är inloggad, även på GitHub.</p>
+    <p class="lead mt4"><span class="strong">Gör det här nu, före lunch:</span> skapa ditt testkonto på <span class="nb">eneo-anvandartraff.sundsvall.dev</span>, och kontrollera att Claude Code eller Codex startar.</p>
   </div>
   <aside class="notes">
-    <p>Alla gör nivå 1. Nivå 2 är för den som hinner, och det är helt i sin ordning att stanna på nivå 1.</p>
-    <p>Lunchen är en gemensam promenad till restaurangen, så ingen sitter vid datorn då. Be dem kontrollera verktygen nu, medan ni finns i rummet och kan hjälpa till.</p>
+    <p>Assistenter och ytor är grunden. Den som förstår hur Eneo fungerar har det som krävs för att senare bygga moduler, så alla börjar där.</p>
+    <p>En egen modul är mer komplext och helt valfritt. Ingen ska känna sig tvingad dit under eftermiddagen.</p>
+    <p>Lunchen är en gemensam promenad till restaurangen, så ingen sitter vid datorn då. Be dem skapa testkontot och kontrollera verktygen nu, medan ni finns i rummet och kan hjälpa till.</p>
+    <p>Testkontot skapas under Testkonto på träffsidan, med egen mejladress och träffkoden. Visa koden på skärmen eller säg den högt. Den står inte på bilden.</p>
     <p class="next">Övergång: ”Nu har vi tid för era frågor.”</p>
   </aside>
 </section>
@@ -715,85 +763,91 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   <div class="body">
     <div class="tl below">
       <div class="seg" style="flex:0 0 200px"><span class="blk"></span><span class="at">13.00</span><span class="nm">Kom igång</span></div>
-      <div class="seg" style="flex:30"><span class="blk"></span><span class="at">13.15</span><span class="nm">Nivå 1</span><span class="ds">Skapa en assistent genom din agent</span></div>
-      <div class="seg" style="flex:45"><span class="blk"></span><span class="at">13.45</span><span class="nm">Nivå 2</span><span class="ds">Bygg en egen modul, eller bygg vidare på nivå 1</span></div>
+      <div class="seg" style="flex:30"><span class="blk"></span><span class="at">13.15</span><span class="nm">Första assistenten</span><span class="ds">Skapa den genom din agent</span></div>
+      <div class="seg" style="flex:45"><span class="blk"></span><span class="at">13.45</span><span class="nm">Bygg vidare</span><span class="ds">Förstå, lägg till kunskap, bygg en chattsida. En egen modul för den som vill.</span></div>
       <div class="seg other" style="flex:30"><span class="blk"></span><span class="at">14.30</span><span class="nm">Fika</span></div>
       <div class="seg ppl" style="flex:30"><span class="blk"></span><span class="at">15.00</span><span class="nm">Bygg klart, visa och summera</span></div>
     </div>
     <p class="lead mt4">Fastnar du? Räck upp handen eller fråga grannen. Vi går runt hela tiden.</p>
   </div>
   <aside class="notes">
-    <p>Alla gör nivå 1. Nivå 2 är valfri. Den som hellre förfinar sin assistent gör det.</p>
+    <p>Alla börjar med en assistent. Sedan bygger var och en vidare i sin egen takt. Moduler är valfria.</p>
     <p>En av er står vid skärmen och visar, den andra går runt i rummet.</p>
     <p>Fikat 14.30 är gemensamt. Efter fikat finns en kvart att bygga klart, sedan visar och summerar ni från 15.15. Klockan 15.30 börjar det gemensamma passet, så sluttiden är hård.</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Ni bygger" data-title="Kom igång: tre steg" data-at="13.05" data-min="10" data-who="Max visar, Çagri går runt">
+<section class="slide" data-ch="Ni bygger" data-title="Kom igång: fyra steg" data-at="13.05" data-min="10" data-who="Max visar, Çagri går runt">
   <h2 class="h">Kom igång</h2>
   <div class="body">
     <ol class="steps">
-      <li><div><b>Installera Eneo-skillen i ditt verktyg</b>
-        <span class="d">Den ger din agent kunskap om Eneos API, API-nycklar och moduler.</span>
-        <span class="todo">Fyll i före passet: länk och installationskommando</span></div></li>
-      <li><div><b>Skapa en API-nyckel i Eneo</b>
-        <span class="d">Nyckeln avgör vad din agent får göra.</span>
-        <span class="todo">Fyll i före passet: adress till workshop-instansen</span></div></li>
-      <li><div><b>Testa att agenten har fått sammanhanget</b>
-        <span class="d">Fråga: ”Hur fungerar moduler i Eneo, och vad får min API-nyckel göra?”</span></div></li>
+      <li><div><b>Skapa ett testkonto</b>
+        <span class="d">eneo-anvandartraff.sundsvall.dev, under Testkonto. Din mejladress och koden vi visar.</span></div></li>
+      <li><div><b>Klistra in startuppmaningen i din kodagent</b>
+        <span class="d">Den står på samma sida. Agenten hämtar Eneo-skillen och läser den.</span></div></li>
+      <li><div><b>Skapa en API-nyckel när agenten ber om det</b>
+        <span class="d">Mina API-nycklar i Eneo: hemlig nyckel, omfång Yta, behörighet Skriv. Klistra in den i .env, inte i chatten.</span></div></li>
+      <li><div><b>Kontrollera att det fungerar</b>
+        <span class="d">Agenten listar de ytor nyckeln ser. Då är du i gång.</span></div></li>
     </ol>
   </div>
   <aside class="notes">
-    <p>Gör stegen live på skärmen i samma takt som rummet. Vänta in.</p>
-    <p>Steg 3 är första verifieringen: om agenten svarar rätt har skillen laddats. Samma tanke som i förmiddags, sammanhanget först.</p>
+    <p>Gör stegen live på skärmen i samma takt som rummet. Vänta in. Visa träffkoden på skärmen eller säg den högt.</p>
+    <p>Testkontot går till eneo-modules.sundsvall.dev. Startuppmaningen står under rubriken ”Låt din kodagent arbeta i Eneo” på träffsidan. Den som hellre vill kan ladda ner zip-filen själv och be agenten läsa eneo/SKILL.md.</p>
+    <p>Nyckeln: agenten ger en genomgång i ett meddelande. Välj Hemlig nyckel, omfång Yta (den personliga ytan räcker för att prova), behörighet Skriv och ett utgångsdatum om sju dagar. Dialogen börjar på Organisation och Läs, så båda behöver ändras.</p>
+    <p>Saknas ”Mina API-nycklar” i menyn tillåter kontots roll inte nycklar. Hjälp den deltagaren direkt.</p>
+    <p>Steg 4 är första verifieringen: listar agenten ytorna har skillen laddats och nyckeln fungerar. Samma tanke som i förmiddags, sammanhanget först.</p>
     <p>Låt bilden ligga kvar tills de flesta är klara.</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Ni bygger" data-title="Nivå 1: be om en assistent" data-at="13.15" data-min="30" data-who="Çagri visar, Max går runt">
-  <h2 class="h">Nivå 1: be om en assistent</h2>
+<section class="slide" data-ch="Ni bygger" data-title="Be om en assistent" data-at="13.15" data-min="30" data-who="Çagri visar, Max går runt">
+  <h2 class="h">Be om en assistent</h2>
   <div class="split" style="align-items:start;margin-top:var(--g4)">
     <div>
-      <div class="prompt">&gt; Skapa en upphandlingsassistent i Eneo. Den ska hjälpa handläggare att granska förfrågningsunderlag mot våra riktlinjer.
+      <div class="prompt">&gt; Skapa en upphandlingsassistent i Eneo som hjälper handläggare att granska förfrågningsunderlag mot våra riktlinjer.
 
-Välj en lämplig modell, skriv en systemprompt och testa assistenten med tre frågor. Visa mig svaren.</div>
-      <p class="s mute mt2">Byt gärna till ett exempel från din egen verksamhet.</p>
+Välj en lämplig modell, skriv en systemprompt och testa assistenten.</div>
+      <p class="s mute mt2">Exemplet står på träffsidan. Byt gärna till något från din egen verksamhet.</p>
     </div>
     <div>
       <div class="stack">
-        <div class="sfc a1">Skillen berättar för agenten hur Eneos API fungerar</div>
-        <div class="sfc a1">Agenten anropar API:et med din nyckel</div>
-        <div class="sfc h1">Du läser systemprompten och provar assistenten</div>
+        <div class="sfc a1">Agenten frågar det den inte kan avgöra själv, till exempel era riktlinjer</div>
+        <div class="sfc a1">Den väljer modell, skriver systemprompten och testar med några frågor</div>
+        <div class="sfc h1">Du får namn och länk, läser prompten och provar själv</div>
       </div>
       <p class="lead mt3"><span class="strong">Klart när</span> du har chattat med assistenten i Eneo och håller med om det agenten skrev.</p>
     </div>
   </div>
   <aside class="notes">
     <p>Visa själv först, två minuter. Sedan arbetar alla.</p>
-    <p>Poängen: agenten kan skapa assistenter, appar och prompter och byta modell genom befintliga API:er. Man ber om en upphandlingsassistent i stället för att göra det manuellt.</p>
+    <p>Poängen: man beskriver vad man vill ha, och så skapas assistenten. Agenten slår upp API:et i installationen den arbetar mot, i stället för att gissa.</p>
+    <p>Agenten hittar inte på riktlinjer åt organisationen, den ber om dem som text eller filer. Ha ett kort exempel på riktlinjer redo när ni visar, annars stannar demon där.</p>
+    <p>Assistenten är ett utkast tills den publiceras, och agenten publicerar bara när man ber om det.</p>
     <p>Påminn om förmiddagen: läs vad agenten skrev. Den som bara godkänner har hoppat över sin egen del.</p>
     <p>Efter 20 minuter: fråga om någon vill visa sin assistent.</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Ni bygger" data-title="Nivå 2: bygg en egen modul" data-at="13.45" data-min="45" data-who="Max visar, Çagri går runt">
-  <h2 class="h">Nivå 2: bygg en egen modul</h2>
+<section class="slide" data-ch="Ni bygger" data-title="Bygg vidare i din egen takt" data-at="13.45" data-min="45" data-who="Max visar, Çagri går runt">
+  <h2 class="h">Bygg vidare i din egen takt</h2>
   <div class="body">
-    <ol class="steps">
-      <li><div><b>Be agenten förklara moduler och föreslå en liten modul</b>
-        <span class="d">Välj något litet, och låt agenten ifrågasätta upplägget innan den bygger.</span></div></li>
-      <li><div><b>Bestäm vad klart betyder, innan agenten börjar</b>
-        <span class="d">Skriv ner det. Det är din kontrollpunkt.</span></div></li>
-      <li><div><b>Låt agenten bygga och driftsätta</b>
-        <span class="todo">Fyll i före passet: hur driftsättningen går till</span></div></li>
-      <li><div><b>Koppla på modulen i Eneo och prova den själv</b>
-        <span class="d">Gör den det du skrev i steg 2?</span></div></li>
-    </ol>
+    <div class="rows tight" style="--cols:420px 1fr">
+      <div class="hd">Prova det som passar dig</div><div class="hd"></div>
+      <div class="big">Förstå</div><div>”Förklara hur ytor, assistenter och kunskap hänger ihop i Eneo.”</div>
+      <div class="big">Kunskap</div><div>Ge assistenten egna dokument att svara utifrån</div>
+      <div class="big">Bygg</div><div>”Bygg en enkel chattsida mot min assistent.”</div>
+      <div class="big">Dela</div><div>Publicera assistenten, eller skapa en delad yta och en nyckel för den</div>
+    </div>
+    <p class="lead strong mt3">Assistenter och ytor är grunden. Moduler är nästa steg.</p>
+    <p class="lead mute mt1">Skillen fungerar även mot er egen Eneo. Mallen för moduler finns i <span class="nb">eneo-module-kit</span>.</p>
   </div>
   <aside class="notes">
-    <p>Tal till text är byggd på samma sätt. Visa var modulen syns i Eneo när den är påkopplad.</p>
-    <p>Steg 2 är det viktigaste. Den som hoppar över det får en modul som ”fungerar” utan att någon vet vad det betyder.</p>
-    <p>Den som inte hinner driftsätta har ändå lärt sig hur moduler hänger ihop. Det räcker.</p>
+    <p>Det här är ingen ordning att följa. Var och en väljer det som är mest användbart hemma. De två citaten står också på träffsidan.</p>
+    <p>Testmiljön kör en förhandsversion av Eneo. Skillen slår upp API:et i den installation den arbetar mot, så den går att använda hemma också, men en del funktioner kan saknas där.</p>
+    <p>Att förstå hur Eneo fungerar, med ytor, assistenter, kunskap och modeller, är steg ett innan man börjar med moduler. Därför lägger vi tiden här.</p>
+    <p>Delad yta: en nyckel med omfång Yta kan inte skapa nya ytor. Deltagaren skapar ytan i Eneo med ”Skapa yta” och gör sedan en nyckel för den.</p>
+    <p>För den som ändå vill bygga en modul: det krävs Node 22 och Python 3.12, och vägen är att klona eneo-module-kit och följa guiden för ny modul från en checkout. Installera inte paketen från releasen 0.1.0, den passar inte mallen på main. Mallen har en stub-Eneo, så ingen riktig instans behövs. Testkontots roll kan inte registrera moduler, det gör arrangören.</p>
     <p>Säg till fem minuter före fikat 14.30, och att ni fortsätter 15.00.</p>
   </aside>
 </section>
@@ -811,7 +865,7 @@ Välj en lämplig modell, skriv en systemprompt och testa assistenten med tre fr
   <aside class="notes">
     <p>Låt den här bilden ligga uppe medan folk arbetar. Den är bryggan till förmiddagens tre delar.</p>
     <p>Två och två speglar teamtanken: ingen sitter ensam med sin agent.</p>
-    <p>Hoppa tillbaka till nivå 1 eller nivå 2 med O (översikt) när någon behöver se stegen igen.</p>
+    <p>Hoppa tillbaka till en tidigare bild med O (översikt) när någon behöver se stegen igen.</p>
   </aside>
 </section>
 
