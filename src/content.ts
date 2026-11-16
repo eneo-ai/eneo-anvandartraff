@@ -10,7 +10,6 @@ export const meeting = {
 export const pages = [
   { id: 'oversikt', title: 'Översikt' },
   { id: 'program', title: 'Program' },
-  { id: 'teknikspar', title: 'Teknikspåret' },
   { id: 'exempel', title: 'Exempel från Sundsvall' },
   { id: 'presentationer', title: 'Presentationer' },
   { id: 'lankar', title: 'Länkar' },
@@ -72,12 +71,6 @@ export type FilePresentation = PresentationMetadata & (
 );
 
 export type Presentation = HtmlPresentation | FilePresentation;
-
-export const technicalTrackQuestions = [
-  'Vilka ändringar behöver alltid mänsklig detaljgranskning?',
-  'Hur får vi AI-granskningen att utmana lösningens antaganden?',
-  'Hur behåller vi förmågan att felsöka och vidareutveckla systemet?',
-] as const;
 
 export const technicalTrackPresentation: FilePresentation = {
   id: 'hur-eneo-utvecklas-med-ai',

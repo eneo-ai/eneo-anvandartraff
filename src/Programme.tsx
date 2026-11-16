@@ -167,7 +167,7 @@ export function Programme() {
       {wide ? <ScheduleTable /> : <StackedSchedule />}
       <HStack as="footer" gap={4} hAlign="between" wrap="wrap">
         <Text as="p" type="supporting">Återgivet från arrangörernas inbjudan.</Text>
-        <Link href="#teknikspar" hasUnderline>Förberedelser för teknikspåret</Link>
+        <Link href="#presentationer" hasUnderline>Presentationer och material</Link>
       </HStack>
     </VStack>
   </Theme>;

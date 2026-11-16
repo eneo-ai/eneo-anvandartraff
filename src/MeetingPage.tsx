@@ -8,13 +8,12 @@ import { Layout, LayoutContent } from '@astryxdesign/core/Layout';
 import { Heading, Text } from '@astryxdesign/core/Text';
 import { HStack, VStack } from '@astryxdesign/core/Stack';
 import { Card } from '@astryxdesign/core/Card';
-import { Section } from '@astryxdesign/core/Section';
 import { Grid } from '@astryxdesign/core/Grid';
 import { List, ListItem } from '@astryxdesign/core/List';
 import { Link } from '@astryxdesign/core/Link';
 import { Button } from '@astryxdesign/core/Button';
 import { useMediaQuery } from '@astryxdesign/core/hooks';
-import { meeting, pages, technicalTrackPresentation, technicalTrackQuestions, presentations, programme, resources, sundsvallExamples, type IntegrationExample, type PageId, type Presentation, type HtmlPresentation } from './content';
+import { meeting, pages, technicalTrackPresentation, presentations, resources, sundsvallExamples, type IntegrationExample, type PageId, type Presentation, type HtmlPresentation } from './content';
 import { PresentationLibrary, PresentationPage } from './Presentations';
 import { ProjectionView } from './Projection';
 import { Programme } from './Programme';
@@ -71,7 +70,6 @@ function Overview() {
         <Text as="p" weight="semibold">{meeting.date} · {meeting.location}</Text>
         <HStack gap={3} wrap="wrap">
           <Button href="#program" label="Se dagens program" variant="primary" size="lg" />
-          <Button href="#teknikspar" label="Utforska teknikspåret" size="lg" />
         </HStack>
       </VStack>
     </Card>
@@ -95,37 +93,6 @@ function Overview() {
       <ListItem href="#presentationer" label={<Text weight="semibold">Presentationer</Text>} description={<Text color="secondary">Bildspel och underlag att öppna på dator eller telefon.</Text>} />
       <ListItem href="#lankar" label={<Text weight="semibold">Länkar</Text>} description={<Text color="secondary">Kod och resurser för att utforska vidare.</Text>} />
     </List>
-  </>;
-}
-
-function TechnicalTrack() {
-  const presentation = technicalTrackPresentation;
-  return <>
-    <Opening title="Teknikspåret" description="Förberedelser för samtalet om hur Eneo utvecklas med hjälp av AI, följt av ett praktiskt pass med egen utveckling." />
-    <List header={<Heading level={2}>Teknikpassen</Heading>} edge="flush" hasDividers density="spacious">
-      {programme.flatMap(entry => entry.kind === 'parallel' && entry.technical ? [
-        <ListItem key={entry.time} startContent={<Text hasTabularNumbers weight="semibold">{entry.time}</Text>}
-          label={<Text weight="semibold">{entry.technical.title}</Text>} />,
-      ] : [])}
-    </List>
-    <Section variant="muted" padding={6}>
-      <VStack gap={4} maxWidth="72ch">
-        <Heading level={2}>Så arbetar vi med AI</Heading>
-        <Text as="p">Vi lägger mycket av arbetet på att diskutera problemet, arkitekturen och hur lösningen ska passa in i systemet. Uppgifterna behöver inte vara färdigspecificerade från början.</Text>
-        <Text as="p">Sedan låter vi AI skriva en stor del av koden. Vi validerar resultatet både mänskligt och med AI, men detaljgranskar inte varje kodrad. Det innebär en viss tillit till implementationen, samtidigt som vi behåller ansvaret för lösningen.</Text>
-        <Link href={`#presentation/${presentation.id}`} hasUnderline isStandalone>Öppna presentationen</Link>
-        <Text as="p" type="supporting">Bildspel för teknikspåret den 17 november 2026.</Text>
-      </VStack>
-    </Section>
-    <List header={<Heading level={2}>Frågor att ta med</Heading>} listStyle="disc" edge="flush" density="spacious">
-      {technicalTrackQuestions.map(point => <ListItem key={point} label={<Text>{point}</Text>} />)}
-    </List>
-    <VStack gap={4} maxWidth="72ch">
-      <Heading level={2}>Inför det praktiska passet</Heading>
-      <Text as="p">Ta med egen dator och ha GitHub samt Claude Code och/eller Codex redo, enligt inbjudan. Passet med egen utveckling börjar 13.00.</Text>
-      <Link href="#exempel" hasUnderline isStandalone>Utforska moduler och integrationer från Sundsvall</Link>
-      <Link href="#lankar" hasUnderline isStandalone>Gå till kod och länkar</Link>
-    </VStack>
   </>;
 }
 
@@ -193,7 +160,6 @@ function PageContent({ route }: { route: Exclude<Route, { kind: 'projection' }> 
   switch (route.id) {
     case 'oversikt': return <Overview />;
     case 'program': return <Programme />;
-    case 'teknikspar': return <TechnicalTrack />;
     case 'exempel': return <SundsvallExamples />;
     case 'presentationer': return <PresentationLibrary />;
     case 'lankar': return <Links />;

@@ -16,7 +16,7 @@ Avsnittet `/#exempel` visar bildkort för Scenarioverktyget, Serviceassistenten,
 
 Omslagen i `public/integrations/` är AI-genererade illustrationer av användningsområdena. De är komprimerade JPEG-bilder med inbäddade bildpromptar. Generator och exakta promptar finns även i [bildregistret](.impeccable/assets/integrations.json). Lägg till ett exempel med ett unikt `id`, rubrik, kort `summary`, `cover`, beskrivning, `connection`, inspirationspunkter och en verifierad källänk.
 
-Varje avsnitt och presentation har en egen delbar adress, till exempel `/#teknikspar` och `/#presentation/hur-eneo-utvecklas-med-ai`. Presentationsbiblioteket visar klickbara kort med omslagsbild och rubrik. HTML-bildspel kan styras med föregående/nästa eller piltangenter och visas i helskärm där webbläsaren stöder det. Esc lämnar helskärm.
+Varje avsnitt och presentation har en egen delbar adress, till exempel `/#program` och `/#presentation/hur-eneo-utvecklas-med-ai`. Presentationsbiblioteket visar klickbara kort med omslagsbild och rubrik. HTML-bildspel kan styras med föregående/nästa eller piltangenter och visas i helskärm där webbläsaren stöder det. Esc lämnar helskärm.
 
 ### Lägg till en presentation
 
