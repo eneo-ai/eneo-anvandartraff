@@ -20,7 +20,7 @@ import json
 import sys
 from pathlib import Path
 
-from eneo_env import EneoError, call
+from eneo_env import EneoError, call, use_utf8_output
 
 
 def pairs(items, flag):
@@ -53,6 +53,7 @@ def keep_fields(data, fields):
 
 
 def main():
+    use_utf8_output()
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("method")
     parser.add_argument("path", help='Path starting with /api/v1/, in quotes')
@@ -72,7 +73,11 @@ def main():
         elif args.json_text:
             body = json.loads(args.json_text)
     except ValueError as error:
-        sys.exit(f"The request body is not valid JSON: {error}")
+        sys.exit(
+            f"The request body is not valid JSON: {error}\n"
+            "In PowerShell the quotes inside --json are lost on the way here. "
+            "Put the body in a file and use --json-file."
+        )
 
     try:
         data = call(

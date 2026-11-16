@@ -4,6 +4,7 @@ import json
 import mimetypes
 import os
 import socket
+import sys
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -11,6 +12,19 @@ import uuid
 from pathlib import Path
 
 DEFAULT_BASE_URL = "https://eneo-modules.sundsvall.dev"
+
+# Set explicitly instead of asking the system. On Windows, mimetypes also reads
+# the registry, where installed programs change types (.csv becomes an Excel
+# type), and older Python versions (3.9, for one) do not know .md. Eneo stores
+# the type the upload declares.
+CONTENT_TYPES = {
+    ".md": "text/markdown",
+    ".markdown": "text/markdown",
+    ".txt": "text/plain",
+    ".csv": "text/csv",
+    ".json": "application/json",
+    ".pdf": "application/pdf",
+}
 
 # Keyed by the `code` field of Eneo's error body, then by HTTP status.
 HINTS = {
@@ -58,12 +72,42 @@ class EneoError(Exception):
         return "\n".join(lines)
 
 
+def use_utf8_output():
+    """Print as UTF-8 on every platform.
+
+    On Windows, Python writes with the system code page (cp1252) when the
+    output goes to a pipe, which is how a coding agent runs these scripts.
+    Swedish letters then arrive garbled, and a character outside the code page
+    stops the script with UnicodeEncodeError.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure:
+            reconfigure(encoding="utf-8", errors="replace")
+
+
+def api_path(path):
+    """Return the path as Eneo expects it, starting with /api/.
+
+    Git Bash on Windows rewrites an argument that starts with a slash into a
+    Windows path, so "/api/v1/spaces/" can arrive as
+    "C:/Program Files/Git/api/v1/spaces/". Cut that prefix off again.
+    """
+    path = path.strip()
+    if "/api/" not in path and "\\api\\" in path:
+        path = path.replace("\\", "/")
+    if "/api/" in path and not path.startswith("/api/"):
+        path = path[path.index("/api/"):]
+    return path
+
+
 def load_dotenv(path=".env"):
     """Return KEY=value pairs from a .env file; real environment variables win."""
     values = {}
     file = Path(path)
     if file.is_file():
-        for raw in file.read_text(encoding="utf-8").splitlines():
+        # utf-8-sig: Notepad and PowerShell may save the file with a byte order mark.
+        for raw in file.read_text(encoding="utf-8-sig").splitlines():
             line = raw.strip()
             if not line or line.startswith("#") or "=" not in line:
                 continue
@@ -87,7 +131,11 @@ def _multipart(files):
     parts = []
     for field, path in files.items():
         file = Path(path)
-        content_type = mimetypes.guess_type(file.name)[0] or "application/octet-stream"
+        content_type = (
+            CONTENT_TYPES.get(file.suffix.lower())
+            or mimetypes.guess_type(file.name)[0]
+            or "application/octet-stream"
+        )
         parts.append(
             f'--{boundary}\r\nContent-Disposition: form-data; name="{field}"; '
             f'filename="{file.name}"\r\nContent-Type: {content_type}\r\n\r\n'.encode()
@@ -107,6 +155,9 @@ def call(method, path, *, values=None, json_body=None, files=None, query=None, t
     key = (values.get("ENEO_API_KEY") or "").strip()
     if not key:
         raise SystemExit("ENEO_API_KEY is not set. Add it to .env in this folder.")
+    path = api_path(path)
+    if not path.startswith("/"):
+        raise SystemExit(f"The path must start with /api/v1/, got '{path}'.")
     url = base_url(values) + path
     if query:
         url += ("&" if "?" in url else "?") + urllib.parse.urlencode(query)

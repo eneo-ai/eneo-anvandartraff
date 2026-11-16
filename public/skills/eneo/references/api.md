@@ -58,6 +58,10 @@ curl -sS -X POST "$ENEO_BASE_URL/api/v1/files/" \
   -F "upload_file=@notes.pdf"
 ```
 
+The example is for bash. In PowerShell, `curl` is a different command: use
+`curl.exe` and `$env:ENEO_BASE_URL`, or the bundled caller, which works the same
+everywhere: `eneo_call.py POST "/api/v1/files/" --form upload_file=notes.pdf`.
+
 ## Streaming
 
 Send `"stream": true`. The response is `text/event-stream`:

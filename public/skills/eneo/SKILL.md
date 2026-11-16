@@ -29,6 +29,14 @@ python3 <this-skill-folder>/scripts/check_connection.py
 `.claude/skills/eneo`. Run the scripts from the user's project folder: they
 read `.env` from the current folder. They need Python 3.9 or later.
 
+The commands are written for bash and zsh, which is what a coding agent
+normally runs them in, on Windows too (Git Bash). Two things differ on Windows:
+
+- `python3` is often missing there, or opens Microsoft Store. If so, use
+  `python` or `py -3` instead in every command.
+- In PowerShell, give request bodies with `--json-file`, not `--json`:
+  PowerShell drops the quotes inside a JSON argument.
+
 - **It prints OK**: continue with the task.
 - **No key yet, or the key is refused**: read `references/getting-started.md`
   and guide the user through creating one. Which scope and permission to choose

@@ -21,7 +21,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-from eneo_env import base_url, load_dotenv
+from eneo_env import api_path, base_url, load_dotenv, use_utf8_output
 
 METHODS = ("get", "post", "put", "patch", "delete")
 MAX_RESULTS = 40
@@ -128,6 +128,7 @@ def search(spec, text):
 
 
 def show(spec, method, path, depth):
+    path = api_path(path)
     operations = spec["paths"].get(path) or spec["paths"].get(path.rstrip("/") + "/")
     operation = (operations or {}).get(method.lower())
     if not operation:
@@ -158,6 +159,7 @@ def show(spec, method, path, depth):
 
 
 def main():
+    use_utf8_output()
     # Options are accepted before or after the command. SUPPRESS keeps a
     # subparser from resetting a value given before the command.
     options = argparse.ArgumentParser(add_help=False, argument_default=argparse.SUPPRESS)

@@ -120,7 +120,8 @@ def load_settings():
     values = {}
     env_file = Path(".env")
     if env_file.is_file():
-        for raw in env_file.read_text(encoding="utf-8").splitlines():
+        # utf-8-sig: Notepad and PowerShell may save the file with a byte order mark.
+        for raw in env_file.read_text(encoding="utf-8-sig").splitlines():
             line = raw.strip()
             if line and not line.startswith("#") and "=" in line:
                 key, _, value = line.partition("=")
