@@ -203,6 +203,22 @@ export const solutionExamples: readonly SolutionExample[] = [
   },
 ];
 
+// The skill's files live in public/skills/eneo/; tools/package_skill.py builds the archive.
+export const eneoSkill = {
+  title: 'Låt din kodagent arbeta i Eneo',
+  description: 'Eneo-skillen lär Claude Code, Codex och andra kodagenter hur Eneo fungerar. Agenten guidar dig till en API-nyckel och kan sedan förklara Eneo, skapa och testa assistenter åt dig eller hjälpa dig att bygga en egen integration.',
+  downloadHref: '/skills/eneo.zip',
+  guideHref: '/skills/eneo/SKILL.md',
+  startPrompt: 'Ladda ner https://eneo-anvandartraff.sundsvall.dev/skills/eneo.zip och packa upp den i projektets mapp för skills (.claude/skills/ för Claude Code, annars en mapp i projektet). Läs sedan eneo/SKILL.md och följ den. Jag har ett testkonto i Eneo på https://eneo-modules.sundsvall.dev men ingen API-nyckel än. Hjälp mig att komma igång.',
+  manualInstall: 'Du kan också ladda ner zip-filen själv, packa upp den i projektets mapp för skills och be agenten läsa eneo/SKILL.md.',
+  examples: [
+    'Skapa en upphandlingsassistent i Eneo som hjälper handläggare att granska förfrågningsunderlag mot våra riktlinjer. Välj en lämplig modell, skriv en systemprompt och testa assistenten.',
+    'Förklara hur ytor, assistenter och kunskap hänger ihop i Eneo.',
+    'Bygg en enkel chattsida mot min assistent.',
+  ],
+  caveat: 'Testmiljön kör en förhandsversion av Eneo. Skillen slår upp API:et i den installation du arbetar mot, så den går att använda även mot er egen Eneo, där en del funktioner kan saknas.',
+} as const;
+
 export const resources = [
   { title: 'Eneo på GitHub', description: 'Källkod, ärenden och utveckling av Eneo.', href: 'https://github.com/eneo-ai/eneo' },
   { title: 'Eneo-ai', description: 'Organisationens projekt och kodförråd.', href: 'https://github.com/eneo-ai' },

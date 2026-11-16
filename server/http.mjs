@@ -10,6 +10,7 @@ const TYPES = {
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif',
   '.ico': 'image/x-icon', '.pdf': 'application/pdf', '.json': 'application/json; charset=utf-8',
   '.woff': 'font/woff', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8',
+  '.md': 'text/plain; charset=utf-8', '.zip': 'application/zip',
   '.pptx': 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 };
 

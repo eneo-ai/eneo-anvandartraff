@@ -19,6 +19,7 @@ import { ProjectionView } from './Projection';
 import { Programme } from './Programme';
 import { LibraryCard } from './LibraryCard';
 import { WorkshopAccounts } from './WorkshopAccounts';
+import { EneoSkill } from './EneoSkill';
 
 type Route = { kind: 'page'; id: PageId }
   | { kind: 'example'; example: SolutionExample }
@@ -93,7 +94,7 @@ function Overview() {
       <ListItem href="#program" label={<Text weight="semibold">Program</Text>} description={<Text color="secondary">Tider, gemensamma pass och båda spåren.</Text>} />
       <ListItem href="#exempel" label={<Text weight="semibold">Moduler och integrationer</Text>} description={<Text color="secondary">Tal till text som Eneo-modul och API-integrationer från Sundsvall.</Text>} />
       <ListItem href="#presentationer" label={<Text weight="semibold">Presentationer</Text>} description={<Text color="secondary">Bildspel och underlag att öppna på dator eller telefon.</Text>} />
-      <ListItem href="#testkonto" label={<Text weight="semibold">Testkonto till det praktiska passet</Text>} description={<Text color="secondary">Skapa ett eget konto i Eneos testmiljö med träffkoden.</Text>} />
+      <ListItem href="#testkonto" label={<Text weight="semibold">Testkonto till det praktiska passet</Text>} description={<Text color="secondary">Skapa ett eget konto i Eneos testmiljö med träffkoden och hämta Eneo-skillen till din kodagent.</Text>} />
       <ListItem href="#lankar" label={<Text weight="semibold">Länkar</Text>} description={<Text color="secondary">Kod och resurser för att utforska vidare.</Text>} />
     </List>
   </>;
@@ -185,7 +186,7 @@ function PageContent({ route }: { route: Exclude<Route, { kind: 'projection' }> 
     case 'program': return <Programme />;
     case 'exempel': return <ExamplesLibrary />;
     case 'presentationer': return <PresentationLibrary />;
-    case 'testkonto': return <WorkshopAccounts />;
+    case 'testkonto': return <><WorkshopAccounts /><EneoSkill /></>;
     case 'lankar': return <Links />;
   }
 }

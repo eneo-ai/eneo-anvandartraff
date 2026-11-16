@@ -8,9 +8,13 @@ Här samlas program, presentationer och länkar. Besökare kan läsa materialet 
 
 Deltagare kan skapa egna konton till övningarna på [Testkonto](https://eneo-anvandartraff.sundsvall.dev/#testkonto) med egen e-postadress och arrangörens gemensamma träffkod. QR-koden på sidan leder till samma formulär. Konton, konfiguration och återställning beskrivs i [WORKSHOP.md](WORKSHOP.md).
 
+På samma sida finns **Eneo-skillen** för kodagenter som Claude Code och Codex. Den guidar deltagaren till en API-nyckel, förklarar hur Eneo fungerar och låter agenten skapa och testa assistenter eller bygga en enkel integration. Skillen laddas ner från [`/skills/eneo.zip`](https://eneo-anvandartraff.sundsvall.dev/skills/eneo.zip).
+
 ## Ändra innehållet
 
 [`src/content.ts`](src/content.ts) äger datum, navigation, program, presentationer, moduler, API-integrationer och länkar. Lägg dokument i `public/` och länka till dem med `/filnamn.pdf`.
+
+Skillens filer ligger i [`public/skills/eneo/`](public/skills/eneo/) och serveras även var för sig. `eneoSkill` i innehållsregistret äger texterna på sidan. Kör `python3 tools/package_skill.py` efter varje ändring i mappen, så att `public/skills/eneo.zip` stämmer med innehållet; `--check` avslöjar en inaktuell zip-fil. API-utdraget `references/openapi-core.json` är hämtat från testmiljöns `/openapi.json` och behöver förnyas om testmiljön byter version.
 
 Programmet är återgivet från [`public/program.pdf`](public/program.pdf). Teknikspårets bildspel är den levererade HTML-presentationen om hur Eneo utvecklas med hjälp av AI.
 
@@ -59,6 +63,7 @@ För inbyggda bildspel anges anteckningar i bildens valfria `notes`-fält i `src
 - `src/Projection.tsx` äger publik- och presentatörsvyn; `src/presentation-session.ts` äger bildsynkronisering, tangentbord och helskärm.
 - `src/Programme.tsx` återger PDF-programmets design från samma redigerbara programdata. Det använder tabell på breda innehållsytor och staplade rader på smala.
 - `src/astryx-themes.ts` äger färger och komponenternas anpassningar.
+- `src/EneoSkill.tsx` äger avsnittet om Eneo-skillen på testkontosidan.
 - Vite skapar statiska filer; Node serverar dem och kontotjänstens API på port 8080 i en container.
 - Läsmaterialet är publikt. Testkonton skapas via en separat serverdel och en beständig SQLite-databas; se [WORKSHOP.md](WORKSHOP.md).
 
