@@ -24,11 +24,21 @@ Varje presentation i `presentations` har `id`, `title`, `description` och `cover
 
 Det första diskussionsunderlaget är HTML. Ingen PPTX-fil har levererats ännu.
 
+### Presentera med talaranteckningar
+
+Öppna HTML-presentationens **Presentatörsvy**. Välj **Öppna publikvy**, flytta det nya fönstret till projektorn och välj **Helskärm** i publikfönstret. Presentatörsvyn behåller förhandsvisning, kontroller och talaranteckningar på den egna skärmen. Publikvyn renderar inte anteckningarna.
+
+Bildbyten synkroniseras mellan fönster på samma dator och i samma webbläsare via lokal lagring. Vid blockerad lagring kan bildbyten göras direkt i respektive fönster.
+
+Anteckningar anges i bildens valfria `notes`-fält i `src/content.ts`. De första anteckningarna är arbetsutkast inför träffen.
+
 ## Teknik och ägare
 
 - React, TypeScript och Astryx. Dokumentationsmallen från Astryx äger innehållsramen.
 - `src/MeetingPage.tsx` äger sidram, navigation och mötets innehållsvyer.
 - `src/Presentations.tsx` äger bibliotek, presentationssidor och visning av HTML/PPTX.
+- `src/Projection.tsx` äger publik- och presentatörsvyn; `src/presentation-session.ts` äger bildsynkronisering, tangentbord och helskärm.
+- `src/Programme.tsx` återger PDF-programmets design från samma redigerbara programdata. Det använder tabell på breda innehållsytor och staplade rader på smala.
 - `src/astryx-themes.ts` äger färger och komponenternas anpassningar.
 - Vite skapar statiska filer; Nginx serverar dem på port 8080 i en container.
 - Ingen databas eller inloggning behövs för lässidan.

@@ -16,10 +16,13 @@ import { Button } from '@astryxdesign/core/Button';
 import { useMediaQuery } from '@astryxdesign/core/hooks';
 import { meeting, pages, aiPresentation, presentations, programme, resources, type PageId, type Presentation, type HtmlPresentation } from './content';
 import { PresentationLibrary, PresentationPage } from './Presentations';
+import { ProjectionView } from './Projection';
+import { Programme } from './Programme';
 
 type Route = { kind: 'page'; id: PageId }
   | { kind: 'presentation'; presentation: Presentation }
   | { kind: 'slide'; presentation: HtmlPresentation; index: number }
+  | { kind: 'projection'; presentation: HtmlPresentation; mode: 'audience' | 'presenter'; initialIndex?: number }
   | { kind: 'missing' };
 
 const contentAnchor = '#astryx-app-shell-main';
@@ -28,6 +31,14 @@ function readRoute(): Route {
   const path = window.location.hash === contentAnchor ? 'oversikt' : window.location.hash.slice(1) || 'oversikt';
   const page = pages.find(page => page.id === path);
   if (page) return { kind: 'page', id: page.id };
+  const projection = /^(visa|presentator)\/([a-z-]+)(?:\/([1-9][0-9]*))?$/.exec(path);
+  const projectedPresentation = projection && presentations.find(item => item.id === projection[2]);
+  const projectedIndex = projection?.[3] ? Number(projection[3]) - 1 : undefined;
+  if (projectedPresentation?.format === 'html' && (projectedIndex === undefined || projectedIndex < projectedPresentation.slides.length)) return {
+    kind: 'projection', presentation: projectedPresentation,
+    mode: projection?.[1] === 'presentator' ? 'presenter' : 'audience',
+    initialIndex: projectedIndex,
+  };
   const detail = /^presentation\/([a-z-]+)$/.exec(path);
   const detailPresentation = detail && presentations.find(item => item.id === detail[1]);
   if (detailPresentation) return { kind: 'presentation', presentation: detailPresentation };
@@ -81,33 +92,6 @@ function Overview() {
   </>;
 }
 
-function Programme() {
-  const [showBoth, setShowBoth] = useState(false);
-  return <>
-    <Opening title="Dagens program" description="Tisdag 17 november. Gemensamma pass och teknikspåret visas från början. Du kan också visa huvudspåret." />
-    <HStack gap={4} wrap="wrap" vAlign="center">
-      <Button label={showBoth ? 'Visa teknikspåret' : 'Visa även huvudspåret'} onClick={() => setShowBoth(value => !value)} />
-      <Link href="/program.pdf" hasUnderline>Programmet som PDF</Link>
-    </HStack>
-    <List density="spacious" hasDividers edge="flush" header={<Heading level={2}>{showBoth ? 'Hela programmet' : 'Teknikspåret och gemensamma pass'}</Heading>}>
-      {programme.map(entry => <ListItem key={entry.time} align="start"
-        startContent={<VStack width="7rem"><Text hasTabularNumbers weight="semibold">{entry.time}</Text></VStack>}
-        label={entry.kind === 'shared'
-          ? <Text weight="semibold">{entry.session.title}</Text>
-          : <Text weight="semibold">{entry.technical?.title ?? 'Inget separat teknikpass i programmet'}</Text>}
-        description={<VStack gap={2}>
-          {entry.kind === 'shared'
-            ? <Text color="secondary">Gemensamt för alla{entry.session.detail ? ` · ${entry.session.detail}` : ''}</Text>
-            : <>
-              {entry.technical && <Text color="secondary">Teknikspåret</Text>}
-              {showBoth && <Text color="secondary">Huvudspåret: {entry.main.title}{entry.main.detail ? ` · ${entry.main.detail}` : ''}</Text>}
-            </>}
-        </VStack>} />)}
-    </List>
-    <Text as="p" type="supporting">Återgivet från arrangörernas inbjudan. Se PDF-programmet för originalet.</Text>
-  </>;
-}
-
 function TechnicalTrack() {
   const presentation = aiPresentation;
   return <>
@@ -153,7 +137,7 @@ function Links() {
   </>;
 }
 
-function PageContent({ route }: { route: Route }) {
+function PageContent({ route }: { route: Exclude<Route, { kind: 'projection' }> }) {
   if (route.kind === 'slide') return <PresentationPage presentation={route.presentation} index={route.index} />;
   if (route.kind === 'presentation') return <PresentationPage presentation={route.presentation} />;
   if (route.kind === 'missing') return <>
@@ -194,7 +178,8 @@ export default function MeetingPage() {
   useEffect(() => {
     const pageHeading = document.getElementById('page-title');
     const heading = document.fullscreenElement?.querySelector<HTMLElement>('#slide-title') ?? pageHeading;
-    document.title = `${pageHeading?.textContent ?? meeting.title} · Eneo 17 november`;
+    const title = route.kind === 'projection' ? route.presentation.title : pageHeading?.textContent ?? meeting.title;
+    document.title = `${title} · Eneo 17 november`;
     if (heading) {
       heading.tabIndex = -1;
       if (!firstRender.current) heading.focus({ preventScroll: true });
@@ -202,6 +187,7 @@ export default function MeetingPage() {
     firstRender.current = false;
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [route]);
+  if (route.kind === 'projection') return <ProjectionView presentation={route.presentation} mode={route.mode} initialIndex={route.initialIndex} />;
   return <AppShell height="auto" variant="section"
     mobileNav={{ isOpen: menuOpen, onOpenChange: setMenuOpen }}
     topNav={<TopNav label="Eneo användarträff"

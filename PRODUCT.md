@@ -20,6 +20,10 @@ Publik lässida, bekräftat av användaren. Innehållet uppdateras tillsammans m
 
 Användaren har också begärt Eneos logga, ett bibliotek med bild/rubrik per presentation, en egen sida per presentation samt val för helskärm. Presentationer kan vara HTML eller PPTX. HTML kan visas i webbläsaren; PPTX-filer laddas ner för visning i PowerPoint. Inga PPTX-filer har tillhandahållits ännu.
 
+Publikvyn ska vara läsbar på stor skärm och inte rendera talaranteckningar. Presentatörsvyn visar anteckningarna under förhandsvisningen och kan styra ett separat publikfönster i samma webbläsare. Mobil- och iPad-storlekar ingår i den responsiva visningen. Anteckningarna uppdateras i koden.
+
+Programmet ska återge PDF-inbjudans igenkännbara design men renderas från kodens programdata, så att tider och pass kan uppdateras. Original-PDF:en finns kvar för nedladdning.
+
 ## Evidence
 
 Programmet kommer från användarens inbjudan, `public/program.pdf`. Beskrivningen av AI-arbetssättet kommer från samtalet och är ett diskussionsunderlag; den är inte en verifierad beskrivning av hela Eneos utvecklingsorganisation. Inga presentationer från arrangörerna har levererats.
