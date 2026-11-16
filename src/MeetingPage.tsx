@@ -13,14 +13,14 @@ import { List, ListItem } from '@astryxdesign/core/List';
 import { Link } from '@astryxdesign/core/Link';
 import { Button } from '@astryxdesign/core/Button';
 import { useMediaQuery } from '@astryxdesign/core/hooks';
-import { meeting, pages, technicalTrackPresentation, presentations, resources, sundsvallExamples, type IntegrationExample, type PageId, type Presentation, type HtmlPresentation } from './content';
+import { meeting, pages, technicalTrackPresentation, presentations, resources, solutionExamples, exampleCategories, moduleMarketplace, type SolutionExample, type PageId, type Presentation, type HtmlPresentation } from './content';
 import { PresentationLibrary, PresentationPage } from './Presentations';
 import { ProjectionView } from './Projection';
 import { Programme } from './Programme';
 import { LibraryCard } from './LibraryCard';
 
 type Route = { kind: 'page'; id: PageId }
-  | { kind: 'integration'; example: IntegrationExample }
+  | { kind: 'example'; example: SolutionExample }
   | { kind: 'presentation'; presentation: Presentation }
   | { kind: 'slide'; presentation: HtmlPresentation; index: number }
   | { kind: 'projection'; presentation: HtmlPresentation; mode: 'audience' | 'presenter'; initialIndex?: number }
@@ -32,9 +32,9 @@ function readRoute(): Route {
   const path = window.location.hash === contentAnchor ? 'oversikt' : window.location.hash.slice(1) || 'oversikt';
   const page = pages.find(page => page.id === path);
   if (page) return { kind: 'page', id: page.id };
-  const integration = /^exempel\/([a-z-]+)$/.exec(path);
-  const example = integration && sundsvallExamples.find(item => item.id === integration[1]);
-  if (example) return { kind: 'integration', example };
+  const exampleMatch = /^exempel\/([a-z-]+)$/.exec(path);
+  const example = exampleMatch && solutionExamples.find(item => item.id === exampleMatch[1]);
+  if (example) return { kind: 'example', example };
   const projection = /^(visa|presentator)\/([a-z-]+)(?:\/([1-9][0-9]*))?$/.exec(path);
   const projectedPresentation = projection && presentations.find(item => item.id === projection[2]);
   const projectedIndex = projection?.[3] ? Number(projection[3]) - 1 : undefined;
@@ -89,31 +89,47 @@ function Overview() {
     </Grid>
     <List header={<Heading level={2}>Hitta materialet</Heading>} density="spacious" hasDividers edge="flush">
       <ListItem href="#program" label={<Text weight="semibold">Program</Text>} description={<Text color="secondary">Tider, gemensamma pass och båda spåren.</Text>} />
-      <ListItem href="#exempel" label={<Text weight="semibold">Exempel från Sundsvall</Text>} description={<Text color="secondary">Scenarioverktyget, webbmoduler och integrationer att utforska.</Text>} />
+      <ListItem href="#exempel" label={<Text weight="semibold">Moduler och integrationer</Text>} description={<Text color="secondary">Tal till text som Eneo-modul och API-integrationer från Sundsvall.</Text>} />
       <ListItem href="#presentationer" label={<Text weight="semibold">Presentationer</Text>} description={<Text color="secondary">Bildspel och underlag att öppna på dator eller telefon.</Text>} />
       <ListItem href="#lankar" label={<Text weight="semibold">Länkar</Text>} description={<Text color="secondary">Kod och resurser för att utforska vidare.</Text>} />
     </List>
   </>;
 }
 
-function SundsvallExamples() {
-  return <VStack gap={8}>
-    <Opening title="Exempel från Sundsvall" description="Vad kan ni bygga med AI? Utforska lösningar från Sundsvalls kommun och hitta idéer att ta vidare i er egen verksamhet." />
-    <Grid columns={{ minWidth: 280, max: 3 }} gap={6}>
-      {sundsvallExamples.map(example => <LibraryCard key={example.id}
-        title={example.title} description={example.summary} cover={example.cover}
-        href={`#exempel/${example.id}`} detail="Läs om lösningen" />)}
-    </Grid>
+function ExamplesLibrary() {
+  return <VStack gap={10}>
+    <Opening title="Moduler och integrationer" description="Se vad vi kan återanvända och bygga vidare på tillsammans. Här finns Eneo-moduler och exempel på verksamhetslösningar som ansluter via API." />
+    {exampleCategories.map(category => <VStack key={category.kind} gap={6}>
+      <VStack gap={3} maxWidth="72ch">
+        <Heading level={2}>{category.title}</Heading>
+        <Text as="p">{category.description}</Text>
+      </VStack>
+      <Grid columns={{ minWidth: 280, max: 3 }} gap={6}>
+        {solutionExamples.filter(example => example.kind === category.kind).map(example => <LibraryCard key={example.id}
+          title={example.title} description={example.summary} cover={example.cover} headingLevel={3}
+          href={`#exempel/${example.id}`} detail={example.kind === 'module' ? example.availability.label : 'Läs om integrationen'} />)}
+      </Grid>
+    </VStack>)}
+    <VStack gap={3} maxWidth="72ch">
+      <Heading level={2}>{moduleMarketplace.title}</Heading>
+      <Text as="p">{moduleMarketplace.description}</Text>
+      <Text as="p">{moduleMarketplace.nextStep}</Text>
+    </VStack>
     <Text as="p" type="supporting">Bilderna är illustrationer av användningsområdena. Beskrivningarna bygger på projektens öppna dokumentation.</Text>
-    <Link href="#lankar" hasUnderline isStandalone>Fler resurser och Eneos modul för tal till text</Link>
   </VStack>;
 }
 
-function IntegrationPage({ example }: { example: IntegrationExample }) {
+function ExamplePage({ example }: { example: SolutionExample }) {
   return <VStack gap={8}>
-    <Link href="#exempel" hasUnderline>Alla exempel från Sundsvall</Link>
+    <Link href="#exempel" hasUnderline>Alla moduler och integrationer</Link>
     <Opening title={example.title} description={example.summary} />
     <VStack gap={6} maxWidth="72ch">
+      {example.kind === 'module'
+        ? <VStack gap={2}>
+          <Text as="p" weight="semibold">{example.availability.label}</Text>
+          <Text as="p">{example.availability.description}</Text>
+        </VStack>
+        : <Text as="p" type="supporting">API-integration från Sundsvalls kommun.</Text>}
       <img src={example.cover} alt="" width={1200} height={675} decoding="async"
         style={{ width: '100%', height: 'auto', aspectRatio: '16 / 9', objectFit: 'cover', display: 'block' }} />
       <VStack gap={3}>
@@ -128,6 +144,10 @@ function IntegrationPage({ example }: { example: IntegrationExample }) {
         {example.inspiration.map(idea => <ListItem key={idea} label={<Text>{idea}</Text>} />)}
       </List>
       <Link href={example.href} hasUnderline isStandalone>Utforska {example.title} på GitHub</Link>
+      {example.kind === 'module' && <VStack gap={3}>
+        <Link href={example.productUrl} hasUnderline isStandalone>Läs om {example.title}</Link>
+        <Link href={example.documentationUrl} hasUnderline isStandalone>Kom igång med modulen</Link>
+      </VStack>}
       <Text as="p" type="supporting">Diskussionsunderlag baserat på projektets dokumentation. Beskrivningen gäller tillgänglig kod; aktuell produktionsdrift är inte verifierad.</Text>
     </VStack>
   </VStack>;
@@ -136,7 +156,7 @@ function IntegrationPage({ example }: { example: IntegrationExample }) {
 function Links() {
   return <>
     <Opening title="Länkar och resurser" description="Kod och material för att förbereda dig och fortsätta utforska efter träffen." />
-    <Link href="#exempel" hasUnderline isStandalone>Se moduler och integrationer från Sundsvall</Link>
+    <Link href="#exempel" hasUnderline isStandalone>Utforska Eneo-moduler och API-integrationer</Link>
     <List header={<Heading level={2}>Projekt på GitHub</Heading>} hasDividers density="spacious" edge="flush">
       {resources.map(resource => <ListItem key={resource.href} href={resource.href}
         label={<Text weight="semibold" color="accent">{resource.title}</Text>}
@@ -150,7 +170,7 @@ function Links() {
 }
 
 function PageContent({ route }: { route: Exclude<Route, { kind: 'projection' }> }) {
-  if (route.kind === 'integration') return <IntegrationPage example={route.example} />;
+  if (route.kind === 'example') return <ExamplePage example={route.example} />;
   if (route.kind === 'slide') return <PresentationPage presentation={route.presentation} index={route.index} />;
   if (route.kind === 'presentation') return <PresentationPage presentation={route.presentation} />;
   if (route.kind === 'missing') return <>
@@ -160,7 +180,7 @@ function PageContent({ route }: { route: Exclude<Route, { kind: 'projection' }> 
   switch (route.id) {
     case 'oversikt': return <Overview />;
     case 'program': return <Programme />;
-    case 'exempel': return <SundsvallExamples />;
+    case 'exempel': return <ExamplesLibrary />;
     case 'presentationer': return <PresentationLibrary />;
     case 'lankar': return <Links />;
   }
@@ -173,7 +193,7 @@ export default function MeetingPage() {
   const firstRender = useRef(true);
   const compact = useMediaQuery('(max-width: 48rem)');
   const activeId = route.kind === 'slide' || route.kind === 'presentation' ? 'presentationer'
-    : route.kind === 'integration' ? 'exempel' : route.kind === 'page' ? route.id : undefined;
+    : route.kind === 'example' ? 'exempel' : route.kind === 'page' ? route.id : undefined;
   useEffect(() => {
     let lastPageUrl = window.location.href;
     const navigate = () => {

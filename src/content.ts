@@ -10,7 +10,7 @@ export const meeting = {
 export const pages = [
   { id: 'oversikt', title: 'Översikt' },
   { id: 'program', title: 'Program' },
-  { id: 'exempel', title: 'Exempel från Sundsvall' },
+  { id: 'exempel', title: 'Moduler och integrationer' },
   { id: 'presentationer', title: 'Presentationer' },
   { id: 'lankar', title: 'Länkar' },
 ] as const;
@@ -84,7 +84,7 @@ export const technicalTrackPresentation: FilePresentation = {
 
 export const presentations: readonly Presentation[] = [technicalTrackPresentation];
 
-export interface IntegrationExample {
+interface ExampleContent {
   id: string;
   title: string;
   summary: string;
@@ -95,11 +95,58 @@ export interface IntegrationExample {
   href: string;
 }
 
-// Verified against each public repository's README on 2026-11-16.
-// These describe the available code, not confirmed production deployments.
-export const sundsvallExamples: readonly IntegrationExample[] = [
+export type SolutionExample = ExampleContent & (
+  | { kind: 'module'; availability: { label: string; description: string }; productUrl: string; documentationUrl: string }
+  | { kind: 'api-integration' }
+);
+
+export const exampleCategories = [
+  {
+    kind: 'module',
+    title: 'Moduler för Eneo',
+    description: 'Återanvändbara applikationer som ansluts genom Eneos nyare modulhantering. Inloggning och behörigheter hanteras via Eneo, så att varje lösning inte behöver bygga en egen inloggning.',
+  },
+  {
+    kind: 'api-integration',
+    title: 'API-integrationer från Sundsvall',
+    description: 'Verksamhetslösningar som kopplar egna gränssnitt och system till Eneo via API. De visar vad som redan har byggts i Sundsvalls kommun och använder egna integrationsupplägg utanför den nyare modulhanteringen.',
+  },
+] as const;
+
+export const moduleMarketplace = {
+  title: 'Mot en gemensam marknadsplats',
+  description: 'Målet är en gemensam marknadsplats där kommuner och myndigheter kan dela de Eneo-moduler vi bygger. Då kan fler återanvända och vidareutveckla en lösning, i stället för att lösa samma problem på flera håll.',
+  nextStep: 'Tal till text visar riktningen. Här samlar vi exempel att inspireras av på vägen mot marknadsplatsen.',
+};
+
+// Sources checked on 2026-11-16: the public repositories' documentation and
+// eneo.ai/tal-till-resultat.html. Category and marketplace direction supplied by the user.
+// These describe available code, not confirmed production deployments.
+export const solutionExamples: readonly SolutionExample[] = [
+  {
+    id: 'tal-till-text',
+    kind: 'module',
+    title: 'Tal till text',
+    summary: 'Från samtal till text och dokument, med inloggning via Eneo.',
+    cover: '/integrations/tal-till-text.jpg',
+    description: 'Spela in ett samtal i webbläsaren eller ladda upp en ljudfil. Ett publicerat flöde i Eneo transkriberar ljudet och kan skapa exempelvis mötesanteckningar eller ett Word-dokument. Verksamheten bestämmer flödet och var en människa ska granska resultatet.',
+    connection: 'Modulen registreras i Eneos modulhantering. Användaren loggar in via Eneo och får tillgång till flöden utifrån sina behörigheter. Modulen har ett eget gränssnitt, medan Eneo hanterar inloggning, åtkomst och körning av flöden.',
+    availability: {
+      label: 'Under utveckling',
+      description: 'Kräver Eneos nyare modul- och flödesstöd, som ännu inte ingår i en släppt version.',
+    },
+    inspiration: [
+      'Återanvänd samma modul i flera organisationer och anpassa flödena till verksamhetens behov.',
+      'Bygg på Eneos modulhantering och inloggning när ni utvecklar en ny applikation.',
+      'Dela källkod och erfarenheter så att fler kan bidra till samma lösning.',
+    ],
+    href: 'https://github.com/eneo-ai/eneo-mod-speech-to-text',
+    productUrl: 'https://eneo.ai/tal-till-resultat.html',
+    documentationUrl: 'https://eneo-ai.github.io/eneo-mod-speech-to-text/kom-igang/',
+  },
   {
     id: 'scenario',
+    kind: 'api-integration',
     title: 'Scenarioverktyget',
     summary: 'Utforska livsval tillsammans. AI låter berättelsen följa gruppens beslut.',
     cover: '/integrations/scenario.jpg',
@@ -113,19 +160,21 @@ export const sundsvallExamples: readonly IntegrationExample[] = [
   },
   {
     id: 'serviceassistent',
+    kind: 'api-integration',
     title: 'Serviceassistenten',
     summary: 'Gör AI-hjälpen tillgänglig direkt på webbplatsen där frågan uppstår.',
     cover: '/integrations/serviceassistent.jpg',
     description: 'En AI-assistent som kan köras fristående eller bäddas in i en webbplats. Assistent, texter och utseende konfigureras för sammanhanget. Repot har också stöd för att föra över bygget till en Sitevision-webbapp.',
-    connection: 'En återanvändbar webbmodul för att möta användaren där den redan befinner sig. Vilken assistent och API-adress den ansluter till styrs av konfigurationen.',
+    connection: 'Ett återanvändbart webbgränssnitt som ansluter till en assistent via API. Vilken assistent och API-adress det ansluter till styrs av konfigurationen. Detta är en API-integration, inte en modul registrerad i Eneos nyare modulhantering.',
     inspiration: [
       'Lägg en avgränsad assistent där användaren redan söker information, till exempel på intranätet.',
-      'Anpassa frågor och texter till målgruppen samtidigt som webbmodulen återanvänds.',
+      'Anpassa frågor och texter till målgruppen samtidigt som webbgränssnittet återanvänds.',
     ],
     href: 'https://github.com/Sundsvallskommun/web-app-ai-service-module-2',
   },
   {
     id: 'confluence',
+    kind: 'api-integration',
     title: 'Confluence till Eneo',
     summary: 'Låt befintlig dokumentation bli ett kunskapsunderlag som uppdateras när källan ändras.',
     cover: '/integrations/confluence.jpg',
@@ -139,6 +188,7 @@ export const sundsvallExamples: readonly IntegrationExample[] = [
   },
   {
     id: 'self-service',
+    kind: 'api-integration',
     title: 'Self Service AI',
     summary: 'Koppla frågor om fakturor och förbrukning till uppgifter i verksamhetens system.',
     cover: '/integrations/self-service.jpg',
@@ -153,7 +203,6 @@ export const sundsvallExamples: readonly IntegrationExample[] = [
 ];
 
 export const resources = [
-  { title: 'Tal till text – Eneo-modul', description: 'Spela in ett samtal eller ladda upp en ljudfil och låt ett publicerat Eneo-flöde omvandla ljudet till text. Modulen finns under eneo-ai.', href: 'https://github.com/eneo-ai/eneo-mod-speech-to-text' },
   { title: 'Eneo på GitHub', description: 'Källkod, ärenden och utveckling av Eneo.', href: 'https://github.com/eneo-ai/eneo' },
   { title: 'Eneo-ai', description: 'Organisationens projekt och kodförråd.', href: 'https://github.com/eneo-ai' },
   { title: 'Mötessajtens källkod', description: 'Innehåll och kod för den här sidan. Här fyller vi på materialet.', href: 'https://github.com/eneo-ai/eneo-anvandartraff' },

@@ -8,14 +8,15 @@ interface LibraryCardProps {
   cover: string;
   href: string;
   detail?: string;
+  headingLevel?: 2 | 3;
 }
 
-export function LibraryCard({ title, description, cover, href, detail }: LibraryCardProps) {
+export function LibraryCard({ title, description, cover, href, detail, headingLevel = 2 }: LibraryCardProps) {
   return <ClickableCard padding={0} href={href} label={`Öppna ${title}`}>
     <img src={cover} alt="" width={1200} height={675} decoding="async"
       style={{ width: '100%', height: 'auto', aspectRatio: '16 / 9', objectFit: 'cover', display: 'block' }} />
     <VStack gap={3} padding={5}>
-      <Heading level={2}>{title}</Heading>
+      <Heading level={headingLevel}>{title}</Heading>
       <Text color="secondary">{description}</Text>
       {detail && <Text type="supporting">{detail}</Text>}
     </VStack>
