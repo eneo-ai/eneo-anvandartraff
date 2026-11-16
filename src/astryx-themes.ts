@@ -18,6 +18,16 @@ const meetingTheme = defineTheme({
     'side-nav': { base: { width: '15rem' } },
     'heading': { base: { overflowWrap: 'anywhere' } },
     'text': { base: { overflowWrap: 'anywhere' } },
+    'stack': { base: {
+      ':fullscreen': {
+        backgroundColor: 'var(--color-background-surface)', padding: 'var(--spacing-6)',
+        width: '100%', height: '100dvh', overflow: 'auto',
+      },
+      ':fullscreen > .astryx-card': { flexGrow: '1', display: 'flex', alignItems: 'center', justifyContent: 'center' },
+      ':fullscreen .astryx-heading': { fontSize: 'clamp(1.8rem, 3.5vw, 4rem)' },
+      ':fullscreen .astryx-text[data-type="large"]': { fontSize: 'clamp(1.0625rem, 2vw, 2rem)' },
+      ':fullscreen > iframe': { flexGrow: '1' },
+    } },
   },
 });
 

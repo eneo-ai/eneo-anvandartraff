@@ -14,10 +14,12 @@ import { List, ListItem } from '@astryxdesign/core/List';
 import { Link } from '@astryxdesign/core/Link';
 import { Button } from '@astryxdesign/core/Button';
 import { useMediaQuery } from '@astryxdesign/core/hooks';
-import { meeting, pages, presentations, programme, resources, type PageId, type Presentation } from './content';
+import { meeting, pages, aiPresentation, presentations, programme, resources, type PageId, type Presentation, type HtmlPresentation } from './content';
+import { PresentationLibrary, PresentationPage } from './Presentations';
 
 type Route = { kind: 'page'; id: PageId }
-  | { kind: 'slide'; presentation: Presentation; index: number }
+  | { kind: 'presentation'; presentation: Presentation }
+  | { kind: 'slide'; presentation: HtmlPresentation; index: number }
   | { kind: 'missing' };
 
 const contentAnchor = '#astryx-app-shell-main';
@@ -26,10 +28,13 @@ function readRoute(): Route {
   const path = window.location.hash === contentAnchor ? 'oversikt' : window.location.hash.slice(1) || 'oversikt';
   const page = pages.find(page => page.id === path);
   if (page) return { kind: 'page', id: page.id };
+  const detail = /^presentation\/([a-z-]+)$/.exec(path);
+  const detailPresentation = detail && presentations.find(item => item.id === detail[1]);
+  if (detailPresentation) return { kind: 'presentation', presentation: detailPresentation };
   const match = /^presentation\/([a-z-]+)\/([1-9][0-9]*)$/.exec(path);
   const presentation = match && presentations.find(item => item.id === match[1]);
   const index = match ? Number(match[2]) - 1 : -1;
-  return presentation && index < presentation.slides.length
+  return presentation && presentation.format === 'html' && index < presentation.slides.length
     ? { kind: 'slide', presentation, index }
     : { kind: 'missing' };
 }
@@ -64,7 +69,7 @@ function Overview() {
       <VStack gap={4}>
         <Heading level={2}>Börja med utveckling med AI</Heading>
         <Text as="p">Hur förändras utvecklarens arbete när AI skriver en stor del av koden? Vi börjar i arkitekturen och tar med frågor om tillit och validering.</Text>
-        <Link href="#presentation/utveckling-med-ai/1" isStandalone hasUnderline>Öppna bildspelet: Utveckling med AI</Link>
+        <Link href="#presentation/utveckling-med-ai" isStandalone hasUnderline>Öppna presentationen: Utveckling med AI</Link>
         <Text as="p" type="supporting">Ett första diskussionsunderlag som vi bygger vidare på inför träffen.</Text>
       </VStack>
     </Grid>
@@ -104,7 +109,7 @@ function Programme() {
 }
 
 function TechnicalTrack() {
-  const presentation = presentations[0];
+  const presentation = aiPresentation;
   return <>
     <Opening title="Teknikspåret" description="Förberedelser för samtalet om hur Eneo utvecklas med hjälp av AI, följt av ett praktiskt pass med egen utveckling." />
     <List header={<Heading level={2}>Teknikpassen</Heading>} edge="flush" hasDividers density="spacious">
@@ -118,7 +123,7 @@ function TechnicalTrack() {
         <Heading level={2}>Så arbetar vi med AI</Heading>
         <Text as="p">Vi lägger mycket av arbetet på att diskutera problemet, arkitekturen och hur lösningen ska passa in i systemet. Uppgifterna behöver inte vara färdigspecificerade från början.</Text>
         <Text as="p">Sedan låter vi AI skriva en stor del av koden. Vi validerar resultatet både mänskligt och med AI, men detaljgranskar inte varje kodrad. Det innebär en viss tillit till implementationen, samtidigt som vi behåller ansvaret för lösningen.</Text>
-        <Link href={`#presentation/${presentation.id}/1`} hasUnderline isStandalone>Visa som bildspel</Link>
+        <Link href={`#presentation/${presentation.id}`} hasUnderline isStandalone>Öppna presentationen</Link>
         <Text as="p" type="supporting">Diskussionsunderlag utifrån vårt samtal inför träffen.</Text>
       </VStack>
     </Section>
@@ -129,26 +134,6 @@ function TechnicalTrack() {
       <Heading level={2}>Inför det praktiska passet</Heading>
       <Text as="p">Ta med egen dator och ha GitHub samt Claude Code och/eller Codex redo, enligt inbjudan. Passet med egen utveckling börjar 13.00.</Text>
       <Link href="#lankar" hasUnderline isStandalone>Gå till kod och länkar</Link>
-    </VStack>
-  </>;
-}
-
-function Presentations() {
-  return <>
-    <Opening title="Presentationer" description="Här samlar vi bildspel och underlag till träffen. Materialet fylls på efter hand." />
-    {presentations.map(presentation => <Section key={presentation.id} variant="transparent" padding={0}>
-      <VStack gap={4} maxWidth="72ch">
-        <Heading level={2}>{presentation.title}</Heading>
-        <Text as="p">{presentation.description}</Text>
-        <HStack gap={4} wrap="wrap" vAlign="center">
-          <Button href={`#presentation/${presentation.id}/1`} label="Öppna bildspelet" variant="primary" />
-          <Text type="supporting">{presentation.slides.length} bilder · Diskussionsunderlag</Text>
-        </HStack>
-      </VStack>
-    </Section>)}
-    <VStack gap={4} maxWidth="72ch">
-      <Heading level={2}>Mer material kommer</Heading>
-      <Text as="p">Vi fyller på med fler presentationer, dokument och länkar inför och efter träffen. Just nu finns vårt första underlag om utveckling med AI.</Text>
     </VStack>
   </>;
 }
@@ -168,48 +153,9 @@ function Links() {
   </>;
 }
 
-function Slides({ presentation, index }: { presentation: Presentation; index: number }) {
-  const slide = presentation.slides[index];
-  const href = (slideIndex: number) => `#presentation/${presentation.id}/${slideIndex + 1}`;
-  useEffect(() => {
-    function onKey(event: KeyboardEvent) {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-      if (event.target instanceof HTMLElement && event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
-      if (event.key === 'ArrowRight' && index < presentation.slides.length - 1) {
-        event.preventDefault(); window.location.hash = href(index + 1);
-      } else if (event.key === 'ArrowLeft' && index > 0) {
-        event.preventDefault(); window.location.hash = href(index - 1);
-      }
-    }
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [presentation, index]);
-  return <>
-    <HStack gap={4} hAlign="between" wrap="wrap">
-      <Link href="#presentationer" hasUnderline>Alla presentationer</Link>
-      <Text hasTabularNumbers>Bild {index + 1} av {presentation.slides.length}</Text>
-    </HStack>
-    <Card variant="gray" padding={10}>
-      <VStack gap={8} minHeight="22rem" maxWidth="72ch">
-        <Heading level={1} type="display-3" id="page-title" textWrap="balance">{slide.title}</Heading>
-        <Text as="p" type="large">{slide.opening}</Text>
-        <List listStyle="disc" edge="flush" density="spacious">
-          {slide.points.map(point => <ListItem key={point} label={<Text type="large">{point}</Text>} />)}
-        </List>
-      </VStack>
-    </Card>
-    <HStack gap={4} hAlign="between" wrap="wrap">
-      {index > 0 ? <Button href={href(index - 1)} label="Föregående bild" /> : <Text type="supporting">Första bilden</Text>}
-      {index < presentation.slides.length - 1
-        ? <Button href={href(index + 1)} label="Nästa bild" variant="primary" />
-        : <Button href="#presentationer" label="Till presentationerna" variant="primary" />}
-    </HStack>
-    <Text as="p" type="supporting">Diskussionsunderlag inför träffen. På dator kan du också byta bild med vänster och höger piltangent.</Text>
-  </>;
-}
-
 function PageContent({ route }: { route: Route }) {
-  if (route.kind === 'slide') return <Slides presentation={route.presentation} index={route.index} />;
+  if (route.kind === 'slide') return <PresentationPage presentation={route.presentation} index={route.index} />;
+  if (route.kind === 'presentation') return <PresentationPage presentation={route.presentation} />;
   if (route.kind === 'missing') return <>
     <Opening title="Sidan finns inte" description="Länken pekar på ett avsnitt eller en bild som inte finns. Gå tillbaka till översikten för att hitta materialet." />
     <Link href="#oversikt" hasUnderline>Till översikten</Link>
@@ -218,7 +164,7 @@ function PageContent({ route }: { route: Route }) {
     case 'oversikt': return <Overview />;
     case 'program': return <Programme />;
     case 'teknikspar': return <TechnicalTrack />;
-    case 'presentationer': return <Presentations />;
+    case 'presentationer': return <PresentationLibrary />;
     case 'lankar': return <Links />;
   }
 }
@@ -229,7 +175,7 @@ export default function MeetingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const firstRender = useRef(true);
   const compact = useMediaQuery('(max-width: 48rem)');
-  const activeId = route.kind === 'slide' ? 'presentationer' : route.kind === 'page' ? route.id : undefined;
+  const activeId = route.kind === 'slide' || route.kind === 'presentation' ? 'presentationer' : route.kind === 'page' ? route.id : undefined;
   useEffect(() => {
     let lastPageUrl = window.location.href;
     const navigate = () => {
@@ -246,8 +192,9 @@ export default function MeetingPage() {
     return () => window.removeEventListener('hashchange', navigate);
   }, []);
   useEffect(() => {
-    const heading = document.getElementById('page-title');
-    document.title = `${heading?.textContent ?? meeting.title} · Eneo 17 november`;
+    const pageHeading = document.getElementById('page-title');
+    const heading = document.fullscreenElement?.querySelector<HTMLElement>('#slide-title') ?? pageHeading;
+    document.title = `${pageHeading?.textContent ?? meeting.title} · Eneo 17 november`;
     if (heading) {
       heading.tabIndex = -1;
       if (!firstRender.current) heading.focus({ preventScroll: true });
@@ -258,7 +205,7 @@ export default function MeetingPage() {
   return <AppShell height="auto" variant="section"
     mobileNav={{ isOpen: menuOpen, onOpenChange: setMenuOpen }}
     topNav={<TopNav label="Eneo användarträff"
-      heading={<Link href="#oversikt" color="primary" weight="bold" size="xl">Eneo</Link>}
+      heading={<Link href="#oversikt"><img src="/eneo-logo.svg" alt="Eneo" style={{ height: 'var(--spacing-6)', width: 'auto', display: 'block' }} /></Link>}
       endContent={<Text type="supporting">{compact ? '17 november' : `${meeting.date} · Solna`}</Text>} />}
     sideNav={<SideNav aria-label="Mötets avsnitt" footer={<VStack padding={4} gap={3}>
       <Text type="supporting">En samlingsplats inför och efter träffen.</Text>

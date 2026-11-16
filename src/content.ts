@@ -52,17 +52,31 @@ export interface Slide {
   points: readonly string[];
 }
 
-export interface Presentation {
+interface PresentationMetadata {
   id: string;
   title: string;
   description: string;
-  slides: readonly Slide[];
+  cover: string;
 }
 
-export const presentations: readonly Presentation[] = [{
+export interface HtmlPresentation extends PresentationMetadata {
+  format: 'html';
+  slides: readonly [Slide, ...Slide[]];
+}
+
+export interface FilePresentation extends PresentationMetadata {
+  format: 'pptx' | 'html-file';
+  file: string;
+}
+
+export type Presentation = HtmlPresentation | FilePresentation;
+
+export const aiPresentation: HtmlPresentation = {
   id: 'utveckling-med-ai',
   title: 'Utveckling med AI',
   description: 'Vårt arbetssätt, från arkitekturdiskussion till implementation och validering. Ett diskussionsunderlag inför teknikspåret.',
+  cover: '/presentations/utveckling-med-ai.svg',
+  format: 'html',
   slides: [
     { title: 'Utveckling med AI',
       opening: 'Vi lägger mer av vårt arbete på arkitektur, krav och bedömning av resultatet. AI skriver en stor del av koden.',
@@ -80,7 +94,9 @@ export const presentations: readonly Presentation[] = [{
       opening: 'Hur mycket behöver vi förstå av implementationen för att kunna ansvara för den?',
       points: ['Vilka ändringar behöver alltid mänsklig detaljgranskning?', 'Hur får vi AI-granskningen att utmana lösningens antaganden?', 'Hur behåller vi förmågan att felsöka och vidareutveckla systemet?'] },
   ],
-}];
+};
+
+export const presentations: readonly Presentation[] = [aiPresentation];
 
 export const resources = [
   { title: 'Eneo på GitHub', description: 'Källkod, ärenden och utveckling av Eneo.', href: 'https://github.com/eneo-ai/eneo' },

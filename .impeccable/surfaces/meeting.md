@@ -14,4 +14,6 @@ FIRST VIEWPORT: Navigationsram med Eneo och träffens datum. Sidans rubrik, plat
 
 FORM: Astryx documentation, anpassad till den givna inbjudans visuella värld; seed: none (unavailable). Signaturen är programmets återkommande tidkolumn. Befintliga komponenters tillstånd styr rörelse.
 
+Utökning bekräftad av användaren: behåll sidramen och använd Eneos officiella ordmärke. Presentationsbiblioteket är en bildbaserad samling med klickbara omslag och rubriker. Varje presentation har en egen lässida och, för HTML, en verktygsrad med helskärm, delning och bildnavigation. PPTX har en tydlig filnedladdning för PowerPoint. Format och omslag ägs av samma innehållsregister.
+
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

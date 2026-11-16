@@ -12,12 +12,23 @@ Här samlas program, presentationer och länkar. Besökare kan läsa materialet 
 
 Programmet är återgivet från [`public/program.pdf`](public/program.pdf). Bildspelet om utveckling med AI är ett första diskussionsunderlag från förberedelserna inför träffen, inte arrangörernas presentation.
 
-Varje avsnitt och varje presentationsbild har en egen delbar adress, till exempel `/#teknikspar` och `/#presentation/utveckling-med-ai/1`. Bildspelet kan styras med föregående/nästa eller piltangenter på dator.
+Varje avsnitt, presentation och presentationsbild har en egen delbar adress, till exempel `/#teknikspar`, `/#presentation/utveckling-med-ai` och `/#presentation/utveckling-med-ai/1`. Presentationsbiblioteket visar klickbara kort med omslagsbild och rubrik. HTML-bildspel kan styras med föregående/nästa eller piltangenter och visas i helskärm där webbläsaren stöder det. Esc lämnar helskärm.
+
+### Lägg till en presentation
+
+Varje presentation i `presentations` har `id`, `title`, `description` och `cover`. Omslaget länkar till en bild under `public/`.
+
+- `format: 'html'`: ange minst en bild i `slides` för sajtens inbyggda HTML-bildspel.
+- `format: 'html-file'`: lägg en fristående HTML-presentation i `public/presentations/` och ange dess adress i `file`. Den visas i en inbäddad vy med helskärm och kan öppnas separat.
+- `format: 'pptx'`: lägg PowerPoint-filen i `public/presentations/` och ange dess adress i `file`. Presentationssidan visar omslaget och en nedladdningslänk. Filen visas i PowerPoint; ingen tredjepartsvisare tar emot materialet.
+
+Det första diskussionsunderlaget är HTML. Ingen PPTX-fil har levererats ännu.
 
 ## Teknik och ägare
 
 - React, TypeScript och Astryx. Dokumentationsmallen från Astryx äger innehållsramen.
-- `src/MeetingPage.tsx` äger sidram, navigation, innehållsvyer och bildspel.
+- `src/MeetingPage.tsx` äger sidram, navigation och mötets innehållsvyer.
+- `src/Presentations.tsx` äger bibliotek, presentationssidor och visning av HTML/PPTX.
 - `src/astryx-themes.ts` äger färger och komponenternas anpassningar.
 - Vite skapar statiska filer; Nginx serverar dem på port 8080 i en container.
 - Ingen databas eller inloggning behövs för lässidan.
