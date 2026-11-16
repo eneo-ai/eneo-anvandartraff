@@ -6,7 +6,7 @@ Publik mötessajt inför Eneos användarträff den **17 november 2026** i Solna,
 
 Här samlas program, presentationer och länkar. Besökare kan läsa materialet på telefon och dator. Innehållet uppdateras i repot.
 
-Deltagare kan skapa egna konton till övningarna på [Testkonto](https://eneo-anvandartraff.sundsvall.dev/#testkonto) med arrangörens gemensamma träffkod. QR-koden på sidan leder till samma formulär. Konton, konfiguration och återställning beskrivs i [WORKSHOP.md](WORKSHOP.md).
+Deltagare kan skapa egna konton till övningarna på [Testkonto](https://eneo-anvandartraff.sundsvall.dev/#testkonto) med egen e-postadress och arrangörens gemensamma träffkod. QR-koden på sidan leder till samma formulär. Konton, konfiguration och återställning beskrivs i [WORKSHOP.md](WORKSHOP.md).
 
 ## Ändra innehållet
 

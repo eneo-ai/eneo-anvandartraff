@@ -250,7 +250,13 @@
         "Link"
       ],
       "newTokens": [],
-      "review": "SHIP: independent source review, 16 focused tests, real Eneo account creation/recovery/login and manual remote UI checks at 390, 768 and 1280 CSS pixels. No physical-device or full WCAG audit."
+      "review": "SHIP: independent source review, 16 focused tests, real Eneo account creation/recovery/login and manual remote UI checks at 390, 768 and 1280 CSS pixels. No physical-device or full WCAG audit.",
+      "ownEmail": {
+        "creation": "Participant email and shared event code; no domain whitelist",
+        "recovery": "Same request ID and code, without email, including existing generated addresses",
+        "login": "Ordinary same-tab link available before and after creation",
+        "validation": "Typecheck and 26 focused behavior tests passed"
+      }
     }
   },
   "components": [

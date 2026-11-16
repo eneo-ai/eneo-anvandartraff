@@ -26,7 +26,7 @@ type Availability =
 
 type Account =
   | { kind: 'idle' }
-  | { kind: 'creating' }
+  | { kind: 'creating'; mode: 'create' | 'recover' }
   | { kind: 'created'; credentials: Credentials }
   | { kind: 'error'; message: string };
 
@@ -76,6 +76,7 @@ export function WorkshopAccounts() {
   const [account, setAccount] = useState<Account>({ kind: 'idle' });
   const [identity] = useState(requestIdentity);
   const [code, setCode] = useState('');
+  const [email, setEmail] = useState('');
   const [copyMessage, setCopyMessage] = useState('');
   const inFlight = useRef(false);
 
@@ -93,16 +94,17 @@ export function WorkshopAccounts() {
 
   useEffect(() => { void loadStatus(); }, []);
 
-  async function createAccount() {
+  async function requestAccount(mode: 'create' | 'recover') {
     if (inFlight.current || account.kind === 'created' || !code.trim()
       || availability.kind !== 'ready') return;
+    if (mode === 'create' && (!availability.status.enabled || !email.trim())) return;
     inFlight.current = true;
-    setAccount({ kind: 'creating' });
+    setAccount({ kind: 'creating', mode });
     try {
       const response = await fetch('/api/workshop/accounts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: code.trim(), requestId: identity.id }),
+        body: JSON.stringify({ code: code.trim(), requestId: identity.id, ...(mode === 'create' ? { email: email.trim() } : {}) }),
         cache: 'no-store',
         signal: AbortSignal.timeout(20_000),
       });
@@ -116,6 +118,7 @@ export function WorkshopAccounts() {
       if (!isCredentials(value)) throw new Error('Invalid account response');
       setAccount({ kind: 'created', credentials: value });
       setCode('');
+      setEmail('');
     } catch {
       setAccount({ kind: 'error', message: 'Vi fick inget svar. Försök igen på den här sidan för att hämta samma konto, utan att skapa ett till.' });
     } finally {
@@ -140,7 +143,7 @@ export function WorkshopAccounts() {
   return <VStack gap={8}>
     <VStack gap={4} maxWidth="72ch">
       <Heading level={1} id="page-title" textWrap="balance">Ditt testkonto till det praktiska passet</Heading>
-      <Text as="p" type="large" color="secondary">Skapa ett eget konto i Eneos testmiljö och börja prova din idé. Du får träffkoden av handledaren.</Text>
+      <Text as="p" type="large" color="secondary">Skapa ett konto med din egen e-postadress i Eneos testmiljö och börja prova din idé. Du får träffkoden av handledaren.</Text>
     </VStack>
     <Grid columns={{ minWidth: 280, max: 2 }} gap={8}>
       <VStack gap={5} maxWidth="72ch">
@@ -150,14 +153,27 @@ export function WorkshopAccounts() {
           <Button label="Försök igen" onClick={() => { void loadStatus(); }} />
         </>}
         {status && !status.enabled && <Banner status="info" title="Kontoskapandet är stängt" description="Du kan fortfarande hämta ett konto som redan skapats i samma flik. Ange träffkoden nedan. Be en handledare om hjälp om du behöver ett nytt konto." />}
+        {status && account.kind !== 'created' && <Link href={status.loginUrl} target="_self" hasUnderline isStandalone>Öppna Eneo</Link>}
         {status && account.kind !== 'created' && <>
+          {status.enabled && <TextInput label="E-post" value={email} onChange={setEmail} type="email" autoComplete="email"
+            description="Adressen blir din inloggning. Lösenordet visas här på sidan." isRequired isDisabled={creating}
+            onEnter={() => { void requestAccount('create'); }} width="100%" />}
           <TextInput label="Träffkod" value={code} onChange={setCode} type="password" autoComplete="off"
             description="Ange koden som handledaren visar på träffen." isRequired isDisabled={creating}
-            onEnter={() => { void createAccount(); }} width="100%" />
+            onEnter={() => { void requestAccount(status.enabled ? 'create' : 'recover'); }} width="100%" />
           {account.kind === 'error' && <Banner status="error" role="alert" title="Kontot kunde inte hämtas" description={account.message} />}
-          <Button label={!status.enabled ? 'Hämta mitt konto' : account.kind === 'error' ? 'Försök igen' : 'Skapa testkonto'} variant="primary" size="lg"
-            isLoading={creating} isDisabled={!code.trim()} onClick={() => { void createAccount(); }} />
-          {creating && <Text as="p" role="status">{status.enabled ? 'Skapar eller hämtar ditt konto.' : 'Hämtar ditt konto.'} Stanna kvar på sidan tills du får dina uppgifter.</Text>}
+          <HStack gap={3} wrap="wrap">
+            {status.enabled && <Button label="Skapa testkonto" variant="primary" size="lg"
+              isLoading={account.kind === 'creating' && account.mode === 'create'}
+              isDisabled={!code.trim() || !email.trim() || (account.kind === 'creating' && account.mode !== 'create')}
+              onClick={() => { void requestAccount('create'); }} />}
+            <Button label="Hämta mitt tidigare konto" variant={status.enabled ? 'secondary' : 'primary'} size="lg"
+              isLoading={account.kind === 'creating' && account.mode === 'recover'}
+              isDisabled={!code.trim() || (account.kind === 'creating' && account.mode !== 'recover')}
+              onClick={() => { void requestAccount('recover'); }} />
+          </HStack>
+          <Text as="p" type="supporting">Hämta ditt tidigare konto med träffkoden i samma flik. Då behöver du inte ange e-postadressen igen.</Text>
+          {account.kind === 'creating' && <Text as="p" role="status">{account.mode === 'create' ? 'Skapar ditt konto.' : 'Hämtar ditt konto.'} Stanna kvar på sidan tills du får dina uppgifter.</Text>}
           {status.enabled && <Text as="p" type="supporting">Kontoskapandet är öppet till {new Intl.DateTimeFormat('sv-SE', { dateStyle: 'long', timeStyle: 'short', timeZone: 'Europe/Stockholm' }).format(new Date(status.closesAt))}.</Text>}
         </>}
         {!identity.persisted && <Banner status="warning" title="Webbläsaren kan inte komma ihåg ditt konto" description="Stanna kvar på sidan och kopiera uppgifterna innan du laddar om eller lämnar den." />}
@@ -168,7 +184,7 @@ export function WorkshopAccounts() {
           <TextInput label="Lösenord" value={account.credentials.password} isReadOnly autoComplete="off" width="100%" />
           <HStack gap={3} wrap="wrap">
             <Button label="Kopiera inloggningsuppgifter" onClick={() => { void copyCredentials(); }} />
-            <Button label="Öppna Eneo" href={account.credentials.loginUrl} target="_blank" rel="noopener noreferrer" variant="primary" />
+            <Link href={account.credentials.loginUrl} target="_self" hasUnderline isStandalone>Öppna Eneo</Link>
           </HStack>
           {copyMessage && <Text as="p" role="status">{copyMessage}</Text>}
           <Text as="p" type="supporting">Uppgifterna sparas inte i webbläsaren. Behöver du hämta dem igen i samma flik, ange träffkoden på nytt.</Text>

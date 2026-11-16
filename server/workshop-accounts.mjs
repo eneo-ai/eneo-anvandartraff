@@ -2,12 +2,27 @@ import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, 
 import { chmodSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
+import { domainToASCII } from 'node:url';
 
 const ENEO_ORIGIN = 'https://eneo-modules.sundsvall.dev';
 const PUBLIC_ORIGIN = 'https://eneo-anvandartraff.sundsvall.dev';
 const UUID_V4 = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const BAD_CODE_WINDOW = 15 * 60 * 1000;
 const UNCERTAIN = 'Vi kunde inte bekräfta att kontot skapades. Försök inte skapa ett nytt konto. Kontakta träffens arrangör för hjälp.';
+const EXISTING_EMAIL = 'Det finns redan ett konto eller en pågående registrering med den e-postadressen. Logga in om kontot är ditt, använd en annan adress eller be arrangören om hjälp.';
+
+/** Eneo remains the final email validator. No participant domain is privileged here. */
+function participantEmail(value) {
+  if (typeof value !== 'string') throw new AccountError(400, 'Ange din egen e-postadress för att skapa ett testkonto.');
+  const supplied = value.trim().normalize('NFC').toLowerCase();
+  const separator = supplied.lastIndexOf('@');
+  const domain = separator > 0 ? domainToASCII(supplied.slice(separator + 1)) : '';
+  const email = `${supplied.slice(0, separator)}@${domain}`;
+  if (separator < 1 || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/u.test(email)) {
+    throw new AccountError(400, 'Ange en giltig e-postadress och försök igen.');
+  }
+  return email;
+}
 
 /**
  * @typedef {object} WorkshopConfig
@@ -171,25 +186,35 @@ export class WorkshopAccounts {
   #existing(row, requestId) {
     if (row.state === 'created') return this.#decrypt(requestId, row.credentials);
     if (row.state === 'pending') throw new AccountError(409, 'Ditt konto håller på att skapas. Vänta en stund och försök sedan igen med samma formulär.', 5);
-    if (row.state === 'uncertain') throw new AccountError(409, UNCERTAIN);
-    throw new AccountError(502, 'Eneo kunde inte skapa kontot. Be arrangören om hjälp innan du försöker skapa ett nytt.');
+    throw new AccountError(409, UNCERTAIN);
   }
 
-  #reserve(requestId) {
+  #reserve(requestId, suppliedEmail) {
     this.#db.exec('BEGIN IMMEDIATE');
     let transactionOpen = true;
     try {
-      const existing = this.#db.prepare('SELECT state, credentials FROM accounts WHERE request_id=?').get(requestId);
-      if (existing) {
+      const existing = this.#db.prepare('SELECT state, email, credentials FROM accounts WHERE request_id=?').get(requestId);
+      if (existing && existing.state !== 'failed') {
+        if (existing.state === 'created' && suppliedEmail !== undefined && participantEmail(suppliedEmail) !== existing.email) {
+          throw new AccountError(409, 'Det här formuläret är redan kopplat till ett konto med en annan e-postadress. Hämta det befintliga kontot utan att ange en ny adress, eller öppna formuläret i en ny webbläsarflik.');
+        }
         this.#db.exec('COMMIT');
         transactionOpen = false;
         return { existing };
       }
+      // Failed rows represent a definite upstream refusal. They alone may be
+      // replaced on an explicit retry; pending/uncertain rows must never retry.
+      const email = participantEmail(suppliedEmail);
       if (this.#now() >= this.#config.closesAt) throw new AccountError(403, 'Det går inte längre att skapa nya testkonton. Har du redan ett konto kan du hämta uppgifterna igen med samma formulär.');
+      const duplicate = this.#db.prepare("SELECT request_id FROM accounts WHERE email=? AND request_id!=? AND state!='failed'").get(email, requestId);
+      if (duplicate) throw new AccountError(409, EXISTING_EMAIL);
       const count = this.#db.prepare("SELECT COUNT(*) AS count FROM accounts WHERE state!='failed'").get().count;
       if (count >= this.#config.maxAccounts) throw new AccountError(409, 'Alla testkonton är upptagna. Be arrangören om hjälp.');
       const username = `traff-${randomBytes(8).toString('hex')}`;
-      const credentials = { email: `${username}@test.eneo-modules.sundsvall.dev`, password: `E!a9-${randomBytes(20).toString('base64url')}` };
+      const credentials = { email, password: `E!a9-${randomBytes(20).toString('base64url')}` };
+      // Definite refusals own neither an Eneo account nor an email reservation.
+      // Clear them in this same transaction before the UNIQUE email insert.
+      this.#db.prepare("DELETE FROM accounts WHERE state='failed' AND (request_id=? OR email=?)").run(requestId, email);
       this.#db.prepare('INSERT INTO accounts(request_id,state,email,credentials,created_at) VALUES (?, ?, ?, ?, ?)')
         .run(requestId, 'pending', credentials.email, this.#encrypt(requestId, credentials), this.#now());
       this.#db.exec('COMMIT');
@@ -202,7 +227,7 @@ export class WorkshopAccounts {
   }
 
   /**
-   * @param {{ code?: unknown, requestId?: unknown }} input Untrusted request body.
+   * @param {{ code?: unknown, requestId?: unknown, email?: unknown }} input Untrusted request body.
    * @param {string} clientAddress Direct socket peer; forwarded headers are not trusted.
    * @returns {Promise<AccountCredentials>}
    */
@@ -211,7 +236,7 @@ export class WorkshopAccounts {
     this.#authorize(input.code, clientAddress);
     if (typeof input.requestId !== 'string' || !UUID_V4.test(input.requestId)) throw new AccountError(400, 'Formulärets identifierare saknas. Ladda om sidan och försök igen.');
     const requestId = input.requestId.toLowerCase();
-    const reservation = this.#reserve(requestId);
+    const reservation = this.#reserve(requestId, input.email);
     if (reservation.existing) return this.#existing(reservation.existing, requestId);
     const { credentials, username } = reservation;
     let response;
@@ -229,11 +254,15 @@ export class WorkshopAccounts {
       await response.body?.cancel().catch(() => {});
       const definiteRefusal = response.status >= 400 && response.status < 500;
       this.#db.prepare('UPDATE accounts SET state=? WHERE request_id=?').run(definiteRefusal ? 'failed' : 'uncertain', requestId);
+      if (response.status === 409) throw new AccountError(409, EXISTING_EMAIL);
+      if (response.status === 400 || response.status === 422) {
+        throw new AccountError(422, 'Eneo kunde inte godkänna uppgifterna. Kontrollera e-postadressen och försök igen, eller be arrangören om hjälp.');
+      }
       throw new AccountError(502, definiteRefusal ? 'Eneo kunde inte skapa kontot. Be arrangören om hjälp innan du försöker skapa ett nytt.' : UNCERTAIN);
     }
     try {
       const created = await response.json();
-      if (!created || typeof created.id !== 'string' || created.email?.toLowerCase() !== credentials.email) throw new Error('Unexpected provisioning response');
+      if (!created || typeof created.id !== 'string' || participantEmail(created.email) !== credentials.email) throw new Error('Unexpected provisioning response');
       this.#db.prepare("UPDATE accounts SET state='created', eneo_user_id=? WHERE request_id=?").run(created.id, requestId);
     } catch {
       this.#db.prepare("UPDATE accounts SET state='uncertain' WHERE request_id=?").run(requestId);

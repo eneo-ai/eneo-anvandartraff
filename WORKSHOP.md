@@ -2,7 +2,7 @@
 
 ## Syfte och ägare
 
-Deltagaren öppnar `/#testkonto` via en länk eller QR-kod, anger arrangörens gemensamma träffkod och får ett eget konto till `https://eneo-modules.sundsvall.dev`.
+Deltagaren öppnar `/#testkonto` via en länk eller QR-kod, anger sin egen mejladress och arrangörens gemensamma träffkod och får ett eget konto till `https://eneo-modules.sundsvall.dev`.
 
 Eneo äger användare, lösenordspolicy, roller och inloggning. Träffsidan återanvänder dess `POST /api/v1/admin/users/`; ingen egen användardatabas eller inloggning införs för mötets läsmaterial. `server/workshop-accounts.mjs` äger kontobeställningen och dess tillstånd. `server/http.mjs` är HTTP-adaptern och serverar även Vites filer. `src/WorkshopAccounts.tsx` äger formuläret; `src/content.ts` äger sidans plats i navigationen.
 
@@ -31,16 +31,24 @@ Workshoprollen ger tillgång till chatt, AI, flöden, egna API-nycklar och de re
 
 Den första lösenordsinloggningen följer Eneos ordinarie krav på att välja eget lösenord. Återhämtning på träffsidan visar det ursprungliga lösenordet; efter bytet använder deltagaren sitt nya lösenord. Träffsidan kan inte återställa det.
 
+## Egen mejladress och inloggningslänk
+
+Alla giltiga mejladresser tillåts med träffkoden; inga mejldomäner vitlistas för den lokala lösenordsinloggningen. Eneos regler för federerad inloggning ändras inte. Mejladressen används för att logga in och lösenordet visas på kontosidan; flödet skickar inget bekräftelsemejl. Adressen markeras inte som verifierad. Eneo är fortsatt slutlig ägare av mejlvalidering och unikhet.
+
+En befintlig användare skrivs inte över. En upptagen adress ger en hänvisning till Eneos inloggning. Definitivt nekade försök kan rättas och skickas igen manuellt; skapade eller osäkra beställningar återanvänds aldrig för en annan adress. Samma flik kan återhämta sitt tidigare konto utan att ange mejladressen igen.
+
+Öppna Eneo är en vanlig länk i samma flik både före och efter kontoskapandet, så att popupregler inte blockerar navigeringen. Kopiera inloggningsuppgifterna först. Den leder till `/login`, medan `next=/admin` kräver administratörsbehörighet efter inloggning.
+
 ## Kontrakt och fel
 
 - QR-koden innehåller enbart sidans publika adress. Träffkoden delas separat av arrangören.
 - `GET /api/workshop/status` lämnar öppet/stängt, inloggningsadress och stängningstid.
-- `POST /api/workshop/accounts` tar en träffkod och ett slumpmässigt UUID per webbläsarflik. Samma UUID återanvänder samma beställning, även efter omstart.
+- `POST /api/workshop/accounts` tar en träffkod, en mejladress för ett nytt konto och ett slumpmässigt UUID per webbläsarflik. Återhämtning av ett tidigare konto skickar samma UUID utan mejladress, även för äldre automatiskt genererade adresser. Samma UUID återanvänder samma beställning, även efter omstart.
 - Kontot reserveras före Eneo-anropet. Ett parallellt försök skapar inte ytterligare en användare.
 - Ett osäkert svar, timeout eller avbrott blir ett uttryckligt osäkert tillstånd. Ingen automatisk omsändning av kontoskapandet görs. Arrangören får kontrollera kontot i Eneo.
 - Fel träffkod, stängt kontoskapande, fullt kontotak och nekande från Eneo ger begripliga fel utan att avslöja API-svar eller nycklar.
 - Endast beställningens UUID sparas i flikens `sessionStorage`. Kod och lösenord sparas inte i webbläsarlagring. Inloggningsuppgifter krypteras i serverns databas för återhämtning vid avbrutna svar.
-- Stängningstiden stoppar nya konton. Den inaktiverar inte redan skapade Eneo-användare. Hantera dessa i Eneos administration med workshoprollen och e-postprefixet `traff-` som identifiering.
+- Stängningstiden stoppar nya konton. Den inaktiverar inte redan skapade Eneo-användare. Hantera dessa i Eneos administration med workshoprollen som identifiering. Äldre konton har automatiskt skapade adresser med prefixet `traff-`.
 
 ## Acceptans och validering
 
@@ -62,3 +70,7 @@ Stoppa nya konton genom stängningstiden. Vid återställning av hela ändringen
 ## Lokala resultat
 
 Typkontrollen och samtliga 16 fokuserade backendtester godkändes den 16 november 2026. Resursvakten rapporterade toppar om 258,9 MiB respektive 12,6 MiB. Ingen lokal server, fullständig byggning eller webbläsartestrunner startades. En oberoende källkodsgranskning fann inga blockerande fel. På den publicerade miljön verifierades ett verkligt konto, identiska uppgifter vid upprepat beställnings-ID, exakt en användare i Eneo med rätt workshoproll och 50 MB kvot, fungerande lösenordsinloggning samt kravet på lösenordsbyte. Fel träffkod nekades med HTTP 403 och visades med återhämtningsknapp i formuläret. Vyer med bredderna 390, 768 och 1280 CSS-pixlar hade ingen horisontell sidrullning. QR-koden laddades korrekt och förstorades därefter till 16rem för bättre skanning.
+
+### Egen mejladress och direktlänk
+
+Utökningen till egen mejladress godkändes med typkontroll och 26 fokuserade tester den 16 november 2026 (resursvaktens toppar 245,0 MiB respektive 12,7 MiB). Testerna täcker normalisering av internationella domäner, upptagna adresser, rättning efter definitivt nekande, nya flikar efter misslyckade försök samt återhämtning av tidigare genererade adresser. Den levererade presentationen och programmets data ändras inte.
