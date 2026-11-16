@@ -22,7 +22,9 @@ Varje presentation i `presentations` har `id`, `title`, `description` och `cover
 - `format: 'html-file'`: lägg en fristående HTML-presentation i `public/presentations/` och ange dess adress i `file`. Den visas i en inbäddad vy med helskärm och kan öppnas separat.
 - `format: 'pptx'`: lägg PowerPoint-filen i `public/presentations/` och ange dess adress i `file`. Presentationssidan visar omslaget och en nedladdningslänk. Filen visas i PowerPoint; ingen tredjepartsvisare tar emot materialet.
 
-Det första diskussionsunderlaget är HTML. Ingen PPTX-fil har levererats ännu.
+Teknikspårets presentation **Hur Eneo utvecklas med hjälp av AI** finns på `/#presentation/hur-eneo-utvecklas-med-ai`. Originalfilen ligger i `public/presentations/hur-eneo-utvecklas-med-ai.html` och registreras som `html-file`. Den innehåller 27 bilder och egna kontroller: piltangenter byter bild/steg, F växlar helskärm och P öppnar den synkroniserade presentatörsvyn med talaranteckningar. Välj **Öppna separat** för att visa presentationen utan sajtens sidram. Tryck H för samtliga kortkommandon.
+
+Det tidigare diskussionsunderlaget finns kvar som ett separat inbyggt HTML-bildspel. Ingen PPTX-fil har levererats ännu.
 
 ### Presentera med talaranteckningar
 

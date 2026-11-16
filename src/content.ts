@@ -102,7 +102,16 @@ export const aiPresentation: HtmlPresentation = {
   ],
 };
 
-export const presentations: readonly Presentation[] = [aiPresentation];
+export const technicalTrackPresentation: FilePresentation = {
+  id: 'hur-eneo-utvecklas-med-ai',
+  title: 'Hur Eneo utvecklas med hjälp av AI',
+  description: 'Teknikspåret den 17 november 2026. Bildspel om vårt arbetssätt med AI och det praktiska passet, med talaranteckningar och egen presentatörsvy.',
+  cover: '/presentations/utveckling-med-ai.svg',
+  format: 'html-file',
+  file: '/presentations/hur-eneo-utvecklas-med-ai.html',
+};
+
+export const presentations: readonly Presentation[] = [technicalTrackPresentation, aiPresentation];
 
 export const resources = [
   { title: 'Eneo på GitHub', description: 'Källkod, ärenden och utveckling av Eneo.', href: 'https://github.com/eneo-ai/eneo' },

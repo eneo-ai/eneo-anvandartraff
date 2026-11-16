@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hur Eneo utvecklas med hjälp av AI: teknikspåret 17 november 2026</title>
+<style>
+@font-face{font-family:"Familjen Grotesk";font-style:normal;font-weight:400 700;font-display:block;
+  src:url(data:font/woff2;base64,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) format("woff2")}
+
+/* ------------------------------------------------------------------
+   Designsystem (allt i bildspelet använder bara dessa värden)
+   Färg:   rött = människan, blått = AI-agenten, marin = Eneo
+   Typ:    en familj, sju steg. Scenen är 1920 x 1080 och skalas.
+   Form:   en radie (--r). Inga kantränder som dekoration.
+   ------------------------------------------------------------------ */
+:root{
+  --ink:#12213A; --paper:#F4F7FB; --surface:#FFFFFF; --slate:#55647A; --line:#C8D4E3;
+  --blue:#1769E0; --blue-soft:#DCE9FC; --blue-ink:#0E4AA6;
+  --red:#C8351F;  --red-soft:#FBE3DD;  --red-ink:#8F2313;
+  --ink-2:#1B2E4D; --line-d:#3A5078; --mute-d:#B9C7DC; --blue-d:#86B6FF; --red-d:#FF7B66;
+  --t-hero:176px; --t-display:120px; --t-title:80px; --t-xl:56px; --t-l:44px; --t-m:36px; --t-s:28px;
+  --u-l:24px; --u-m:18px; --u-s:16px;
+  --r:12px;
+  --g1:12px; --g2:24px; --g3:40px; --g4:64px;
+  --s:1;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--ink);overflow:hidden}
+body{font-family:"Familjen Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+
+/* ---------- scen ---------- */
+#wrap{position:fixed;inset:0}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;overflow:hidden;
+  transform:translate(-50%,-50%) scale(var(--s));transform-origin:center;background:var(--paper)}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;padding:88px 110px 176px;
+  background:var(--paper);color:var(--ink);font-size:var(--t-m);line-height:1.38}
+.slide.on{display:flex}
+.slide.dark{background:var(--ink);color:var(--surface)}
+.slide p,.slide li,.slide .big,.slide .ds,.slide .nm,.slide .lead,.slide .rows > div,.slide .sfc{text-wrap:balance}
+.notes{display:none}
+.wait{visibility:hidden}
+
+/* ---------- typografi ---------- */
+.h{font-size:var(--t-title);line-height:1.08;font-weight:650;letter-spacing:-.012em;max-width:1600px;text-wrap:balance}
+.statement{font-size:var(--t-display);line-height:1.05;font-weight:650;letter-spacing:-.015em;max-width:1640px;text-wrap:balance}
+.hero{font-size:var(--t-hero);line-height:1;font-weight:650;letter-spacing:-.015em}
+.xl{font-size:var(--t-xl);line-height:1.16;font-weight:650;text-wrap:balance}
+.lead{font-size:var(--t-l);line-height:1.3;max-width:1560px}
+.s{font-size:var(--t-s);line-height:1.35}
+.mute{color:var(--slate)}
+.dark .mute{color:var(--mute-d)}
+.strong{font-weight:650}
+.hum{color:var(--red-ink)}
+.agt{color:var(--blue-ink)}
+.body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.split{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:var(--g4);align-items:center;min-height:0}
+.mt1{margin-top:var(--g1)} .mt2{margin-top:var(--g2)} .mt3{margin-top:var(--g3)} .mt4{margin-top:var(--g4)}
+
+/* ---------- den röda tråden: var i berättelsen vi är ---------- */
+#thread{position:absolute;left:110px;right:110px;bottom:44px;height:78px;z-index:5;pointer-events:none}
+#thread .rail{position:absolute;left:0;right:140px;top:12px;height:3px;background:var(--line)}
+#thread .fill{position:absolute;left:0;top:0;height:100%;width:0;background:var(--red);transition:width .3s ease-out}
+#thread .knot{position:absolute;top:-6px;margin-left:-7px}
+#thread .knot i{display:block;width:15px;height:15px;border-radius:50%;background:var(--paper);border:3px solid var(--line)}
+#thread .knot.passed i{background:var(--red);border-color:var(--red)}
+#thread .knot span{display:block;margin-top:11px;white-space:nowrap;font-size:var(--t-s);line-height:1;color:var(--slate)}
+#thread .knot.now span{color:var(--ink);font-weight:650}
+#thread .num{position:absolute;right:0;top:-2px;font-size:var(--t-s);line-height:1;color:var(--slate);font-variant-numeric:tabular-nums}
+.is-dark #thread .rail{background:var(--line-d)}
+.is-dark #thread .fill{background:var(--red-d)}
+.is-dark #thread .knot.passed i{background:var(--red-d);border-color:var(--red-d)}
+.is-dark #thread .knot i{background:var(--ink);border-color:var(--line-d)}
+.is-dark #thread .knot span,.is-dark #thread .num{color:var(--mute-d)}
+.is-dark #thread .knot.now span{color:var(--surface)}
+
+/* ---------- titelbilder ---------- */
+.people{display:flex;gap:120px;margin-top:auto}
+.people b{display:block;font-size:var(--t-l);font-weight:650;line-height:1.2}
+.people span{display:block;font-size:var(--t-s);line-height:1.35;color:var(--mute-d);margin-top:var(--g1);max-width:520px}
+
+/* ---------- tidslinje: en stapel är alltid tid ---------- */
+.tl{display:flex;gap:6px}
+.seg{min-width:0;display:flex;flex-direction:column}
+.seg .at{font-size:var(--t-m);font-weight:650;line-height:1.1;font-variant-numeric:tabular-nums}
+.seg .nm{font-size:var(--t-m);font-weight:650;line-height:1.18;padding-right:var(--g2)}
+.seg .ds{font-size:var(--t-s);line-height:1.3;color:var(--slate);margin-top:6px;padding-right:var(--g2)}
+.seg .blk{height:72px;background:var(--ink);color:var(--surface);display:flex;align-items:center;padding:0 var(--g2);
+  font-size:var(--t-m);font-weight:650;white-space:nowrap}
+.seg:first-child .blk{border-radius:var(--r) 0 0 var(--r)}
+.seg:last-child .blk{border-radius:0 var(--r) var(--r) 0}
+.seg.ppl .blk{background:var(--red)}
+.seg .pair{display:flex}
+.seg .pair .blk:first-child{flex:1}
+.seg .pair .blk.ai{background:var(--blue);border-radius:0}
+.tl.below .pair{margin-bottom:var(--g2)}
+.tl.below .pair .blk{margin-bottom:0}
+.seg.agent .blk{background:var(--blue)}
+.seg.other .blk{background:transparent;border:3px solid var(--line)}
+.seg.joint .blk{background:var(--slate)}
+.tl.above .seg{justify-content:flex-end}
+.tl.above .blk{margin-top:var(--g1)}
+.tl.below .blk{margin-bottom:var(--g2)}
+.tl.above .nm{font-size:var(--t-s);font-weight:400;line-height:1.3}
+.tl.above .seg.other .at,.tl.above .seg.other .nm{color:var(--slate)}
+.zoom{height:60px;background:var(--line);clip-path:polygon(0 0,13.15% 0,100% 100%,0 100%)}
+.tl.phase .nm{font-size:var(--t-l);line-height:1.15}
+.tl.phase .ds{font-size:var(--t-m);line-height:1.35;color:var(--ink);margin-top:var(--g1)}
+.tl.phase{gap:10px}
+.tl.phase .seg{padding-right:var(--g2)}
+
+/* ---------- resan: vem gör vad ---------- */
+.matrix{display:grid;grid-template-columns:320px repeat(5,1fr);gap:var(--g1);align-items:stretch}
+.matrix .col{font-size:var(--t-s);color:var(--slate);align-self:end;padding:0 0 4px var(--g2)}
+.matrix .rowh{display:flex;flex-direction:column;justify-content:center}
+.matrix .rowh b{font-size:var(--t-l);font-weight:650;line-height:1.1}
+.matrix .rowh span{font-size:var(--t-s);color:var(--slate);line-height:1.25;margin-top:6px;padding-right:var(--g2)}
+.cell{height:124px;border-radius:var(--r);display:flex;align-items:center;padding:0 var(--g2);font-size:var(--t-m);font-weight:650}
+.cell.h1{background:var(--red-soft);color:var(--red-ink)}
+.cell.a1{background:var(--blue-soft);color:var(--blue-ink)}
+.cell.two{padding:0;overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr}
+.cell.two span{display:flex;align-items:center;padding:0 18px;height:100%}
+.cell.two .h1{background:var(--red-soft);color:var(--red-ink)}
+.cell.two .a1{background:var(--blue-soft);color:var(--blue-ink)}
+
+/* ---------- rader: etikett bredvid innehåll ---------- */
+.rows{display:grid;grid-template-columns:var(--cols);border-top:3px solid var(--ink)}
+.rows > div{padding:22px var(--g3) 22px 0;border-bottom:2px solid var(--line);display:flex;align-items:center}
+.rows .hd{font-size:var(--t-s);color:var(--slate);padding-top:14px;padding-bottom:14px}
+.rows .k{color:var(--slate)}
+.rows .b{font-weight:650}
+.rows .v{font-weight:600;line-height:1.25}
+.rows .big{font-size:var(--t-l);font-weight:650;line-height:1.18}
+.rows.flat > div{border-bottom:0}
+.rows.tight > div{padding-top:15px;padding-bottom:15px}
+.rows.tight .hd{padding-top:10px;padding-bottom:10px}
+.dark .rows{border-top-color:var(--line-d)}
+.dark .rows .hd{color:var(--mute-d)}
+.rows.bare{border-top:0}
+.rows.bare > div{border-bottom:0;align-items:baseline;padding-top:var(--g2);padding-bottom:var(--g2)}
+.rows.bare .then{font-weight:400;color:var(--slate)}
+.plain li{font-size:var(--t-l);line-height:1.25;padding:var(--g2) 0;border-bottom:2px solid var(--line)}
+.plain li:first-child{border-top:3px solid var(--ink)}
+.plain li.strong{color:var(--red-ink)}
+
+/* ---------- team: glappen som försvinner ---------- */
+.relay{display:flex;align-items:center}
+.role{flex:0 0 auto;padding:20px 30px;border-radius:var(--r);font-weight:600;line-height:1.2}
+.relay.apart .role{border:3px solid var(--line);color:var(--slate)}
+.lag{flex:1;margin:0 var(--g1);display:flex;flex-direction:column;align-items:center;gap:var(--g1);transform:translateY(26px)}
+.lag::before{content:"";align-self:stretch;height:0;border-top:3px dashed var(--slate)}
+.lag span{font-size:var(--t-s);line-height:1.2;color:var(--slate)}
+.relay.joined{gap:4px}
+.relay.joined .role{flex:1;text-align:center;background:var(--red-soft);color:var(--red-ink);border-radius:0}
+.relay.joined .role:first-child{border-radius:var(--r) 0 0 var(--r)}
+.relay.joined .role:last-child{border-radius:0 var(--r) var(--r) 0}
+
+/* ---------- prototyp-slingan ---------- */
+.loopwrap{flex:1;display:grid;grid-template-columns:690px 1fr;gap:var(--g4);align-items:center;min-height:0}
+.loop text{font-family:inherit}
+.loop .ring{fill:none;stroke:var(--line);stroke-width:3}
+.loop .arc{fill:none;stroke:var(--red);stroke-width:6}
+.loop .tip{fill:var(--red)}
+.loop .pill{fill:var(--surface);stroke:var(--ink);stroke-width:3}
+.loop .nd{font-size:var(--t-m);font-weight:650;fill:var(--ink);text-anchor:middle}
+.loop .ct{font-size:var(--t-s);fill:var(--slate);text-anchor:middle}
+.loop .ct.strong{fill:var(--ink)}
+
+/* ---------- kontext: en källa, två läsare ---------- */
+.flow{display:grid;grid-template-columns:390px 90px 1fr 90px 430px;align-items:center}
+.node{border-radius:var(--r);padding:28px 32px;line-height:1.3}
+.node b{display:block;font-size:var(--t-l);font-weight:650;line-height:1.15;margin-bottom:var(--g1);text-wrap:balance}
+.node.src{border:3px solid var(--line)}
+.node.page{background:var(--surface);border:4px solid var(--ink)}
+.node.page ul{display:grid;grid-template-columns:1fr 1fr;gap:var(--g1) var(--g3)}
+.node.page li{padding-left:28px;position:relative}
+.node.page li::before{content:"";position:absolute;left:0;top:18px;width:12px;height:12px;background:var(--ink)}
+.readers{display:flex;flex-direction:column;gap:var(--g2)}
+.node.rh{background:var(--red-soft);color:var(--red-ink)}
+.node.ra{background:var(--blue-soft);color:var(--blue-ink)}
+.conn{padding:0 var(--g1)}
+.arrow{height:3px;background:var(--slate);position:relative}
+.arrow::after{content:"";position:absolute;right:-2px;top:-8px;border:9.5px solid transparent;border-left:15px solid var(--slate);border-right:0}
+
+/* ---------- frontendbytet: från -> till ---------- */
+.map{display:grid;grid-template-columns:1fr 110px 1.25fr;border-top:3px solid var(--ink)}
+.map > div{padding:26px 0;border-bottom:2px solid var(--line);min-height:112px;display:flex;align-items:center}
+.map .hd{min-height:0;padding:14px 0;font-size:var(--t-s);color:var(--slate)}
+.map .from{font-size:var(--t-xl);line-height:1.1;color:var(--slate)}
+.map .to{font-size:var(--t-xl);line-height:1.1;font-weight:650;gap:var(--g2);align-items:baseline}
+.map .to small{font-size:var(--t-s);font-weight:400;color:var(--slate)}
+.map .mid{padding-right:var(--g3)}
+.map .mid .arrow{flex:1}
+
+/* ---------- nivåer ---------- */
+.lv{display:grid;grid-template-columns:1fr 1fr;gap:var(--g4)}
+.lvl{display:grid;grid-template-columns:110px 1fr;align-items:start}
+.lvl .n{font-size:var(--t-display);line-height:.95;font-weight:650;color:var(--slate)}
+.lvl p{margin-top:var(--g2)}
+
+/* ---------- steg (verklig ordning, därför numrerade) ---------- */
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:var(--g3)}
+.steps li{counter-increment:s;display:grid;grid-template-columns:92px 1fr;align-items:start}
+.steps li::before{content:counter(s);width:64px;height:64px;border-radius:50%;background:var(--ink);color:var(--surface);
+  display:grid;place-items:center;font-size:var(--t-m);font-weight:650;line-height:1}
+.steps b{display:block;font-size:var(--t-l);font-weight:650;line-height:1.2}
+.steps .d{display:block;color:var(--slate);margin-top:6px}
+.todo{display:inline-block;margin-top:var(--g1);padding:var(--g1) 20px;border:3px dashed var(--red);border-radius:var(--r);
+  color:var(--red-ink);background:var(--surface);font-size:var(--t-s);font-weight:650;line-height:1.3}
+.prompt{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:var(--t-s);line-height:1.5;
+  background:var(--ink);color:var(--surface);border-radius:var(--r);padding:var(--g3);white-space:pre-wrap}
+.stack{display:flex;flex-direction:column;gap:var(--g1)}
+.sfc{border-radius:var(--r);padding:var(--g2) 28px;line-height:1.3;font-weight:600}
+.sfc.a1{background:var(--blue-soft);color:var(--blue-ink)}
+.sfc.h1{background:var(--red-soft);color:var(--red-ink)}
+
+/* ---------- gränssnitt runt bilderna ---------- */
+.ui,.ui button{font-family:"Familjen Grotesk",system-ui,sans-serif}
+#nav{position:fixed;right:14px;bottom:12px;display:flex;gap:8px;opacity:0;transition:opacity .15s;z-index:20}
+body.mouse #nav{opacity:.9}
+#nav button{width:48px;height:48px;border-radius:var(--r);border:1px solid var(--line-d);background:var(--ink-2);
+  color:var(--surface);font-size:var(--u-l);line-height:1;cursor:pointer}
+#nav button:focus-visible,.ov button:focus-visible{outline:3px solid var(--blue-d);outline-offset:2px}
+#blank{position:fixed;inset:0;background:#000;display:none;z-index:30}
+body.blank #blank{display:block}
+.overlay{position:fixed;inset:0;background:var(--ink);color:var(--surface);z-index:40;display:none;overflow:auto;padding:5vh 5vw}
+.overlay.open{display:block}
+.overlay h2{font-size:var(--u-l);font-weight:650;margin-bottom:18px}
+.ov{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.ov h3{grid-column:1/-1;font-size:var(--u-m);font-weight:650;color:var(--mute-d);margin:18px 0 2px}
+.ov button{text-align:left;padding:14px 16px;border-radius:var(--r);border:1px solid var(--line-d);background:var(--ink-2);
+  color:var(--surface);cursor:pointer;font-size:var(--u-m);line-height:1.3;display:flex;gap:12px}
+.ov button.cur{border-color:var(--red-d);border-width:2px}
+.ov button i{font-style:normal;color:var(--mute-d);font-variant-numeric:tabular-nums;min-width:24px}
+.keys{display:grid;grid-template-columns:max-content 1fr;gap:12px 28px;font-size:var(--u-m);line-height:1.4;max-width:820px}
+.keys kbd{font-family:inherit;font-weight:650;color:var(--surface);background:var(--ink-2);border:1px solid var(--line-d);
+  border-radius:var(--r);padding:2px 12px}
+#notesbar{position:fixed;left:0;right:0;bottom:0;max-height:40vh;overflow:auto;background:var(--surface);color:var(--ink);z-index:25;
+  display:none;padding:18px 26px 22px;border-top:4px solid var(--ink);font-size:var(--u-m);line-height:1.5}
+body.shownotes #notesbar{display:block}
+.nmeta{font-size:var(--u-m);font-weight:650;color:var(--ink);margin-bottom:10px}
+.ntext p{margin:0 0 .65em;max-width:70ch;text-wrap:pretty}
+.ntext p.cue{font-weight:650;color:var(--red-ink)}
+.ntext p.next{color:var(--slate)}
+
+/* ---------- presentatörsvy (?presenter) ---------- */
+#pv{display:none;color:var(--surface)}
+body.presenter #wrap{left:20px;top:20px;right:auto;bottom:auto;width:50vw;height:28.125vw}
+body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--surface);pointer-events:none;
+  grid-template-columns:50vw 1fr;grid-template-rows:28.125vw 1fr;gap:20px}
+#pv > *{pointer-events:auto}
+#pv .pn{grid-column:2;grid-row:1/3;background:var(--surface);color:var(--ink);border-radius:var(--r);padding:26px 30px;overflow:auto;
+  font-size:clamp(20px,1.6vw,28px);line-height:1.5}
+#pv .pn .nmeta{font-size:clamp(20px,1.6vw,28px)}
+#pv .pb{grid-column:1;grid-row:2;background:var(--ink);display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-content:start}
+#pv .card{background:var(--ink-2);border-radius:var(--r);padding:14px 18px}
+#pv .card small{display:block;font-size:var(--u-s);color:var(--mute-d);margin-bottom:4px}
+#pv .big{font-size:clamp(26px,2.6vw,44px);font-weight:650;font-variant-numeric:tabular-nums;line-height:1.1}
+#pv .wide{grid-column:1/-1}
+#pv .nx{font-size:clamp(18px,1.5vw,26px);font-weight:650;line-height:1.3}
+#pv .hint{grid-column:1/-1;font-size:var(--u-s);line-height:1.4;color:var(--mute-d);text-wrap:pretty}
+
+@media (prefers-reduced-motion:reduce){#thread .fill,#nav{transition:none}}
+
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{height:auto;overflow:visible;background:var(--surface)}
+  #wrap{position:static}
+  #stage{position:static;transform:none;width:1920px;height:auto;overflow:visible}
+  .slide{display:flex !important;position:relative;inset:auto;width:1920px;height:1080px;break-after:page;page-break-after:always}
+  .wait{visibility:visible !important}
+  #thread,.ui,#pv{display:none !important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+<main id="stage">
+
+<!-- ================= DEL 1: FÖRMIDDAG 09.30–10.30 ================= -->
+
+<section class="slide dark" data-ch="Start" data-title="Hur Eneo utvecklas med hjälp av AI" data-at="09.30" data-min="1" data-who="Båda">
+  <h1 class="statement">Hur Eneo utvecklas med hjälp av AI</h1>
+  <p class="lead mute mt3">Teknikspåret på Eneos användarträff, 17 november 2026</p>
+  <div class="people">
+    <div><b>Çagri Çimen</b><span>Systemutvecklare och tekniskt ansvarig för AI-plattformen Eneo</span></div>
+    <div><b>Max Eriksson</b><span>Systemutvecklare i AI-teamet och Eneo</span></div>
+  </div>
+  <aside class="notes">
+    <p>Folk kommer från den gemensamma introduktionen och byter rum. Låt titelbilden ligga uppe medan de sätter sig, och börja när dörren stängs.</p>
+    <p>Eneo är redan presenterat i introduktionen 09.00. Förklara inte vad Eneo är en gång till, gå direkt på hur ni bygger det.</p>
+    <p>Presentera er kort. Handuppräckning: ”Hur många använder Claude Code eller Codex varje vecka?” Svaret avgör hur mycket ni behöver förklara.</p>
+    <p class="next">Övergång: ”Först hur dagen ser ut för er i teknikspåret.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Start" data-title="Dagen och den här timmen" data-at="09.31" data-min="1" data-who="Çagri">
+  <h2 class="h">Dagen och den här timmen</h2>
+  <div class="body">
+    <div class="tl above">
+      <div class="seg" style="flex:60"><span class="at">09.30</span><span class="nm">Det här passet</span><span class="blk"></span></div>
+      <div class="seg other" style="flex:150"><span class="at">10.30</span><span class="nm">Paus, huvudspåret och lunch</span><span class="blk"></span></div>
+      <div class="seg" style="flex:90"><span class="at">13.00</span><span class="nm">Praktiskt pass: ni bygger själva</span><span class="blk"></span></div>
+      <div class="seg other" style="flex:60"><span class="at">14.30</span><span class="nm">Fika och huvudspåret</span><span class="blk"></span></div>
+      <div class="seg joint" style="flex:90"><span class="at">15.30</span><span class="nm">Alla tillsammans: vart Eneo är på väg</span><span class="blk"></span></div>
+    </div>
+    <div class="zoom"></div>
+    <div class="tl below">
+      <div class="seg" style="flex:10"><span class="blk"></span><span class="at">09.30</span><span class="nm">Resan</span><span class="ds">Från handskriven kod till AI-native</span></div>
+      <div class="seg" style="flex:17"><span class="blk"></span><span class="at">09.40</span><span class="nm">Arbetssättet</span><span class="ds">Team, kontext, verifiering och förvaltning</span></div>
+      <div class="seg ppl" style="flex:4;min-width:132px"><span class="blk"></span><span class="at">09.57</span><span class="nm">Frågor</span></div>
+      <div class="seg" style="flex:17"><span class="blk"></span><span class="at">10.01</span><span class="nm">Eneo</span><span class="ds">Frontendbytet och tal till text, live</span></div>
+      <div class="seg ppl" style="flex:12"><span class="blk"></span><span class="at">10.18</span><span class="nm">Frågor och samtal</span></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Trettio sekunder. Övre raden är dagen för teknikspåret, nedre raden är den här timmen.</p>
+    <p>Säg tre saker: det finns två frågestopp, klockan 13.00 bygger alla själva, och frågor om roadmap tar vi när alla ses 15.30.</p>
+    <p>Bestäm i förväg vad teknikspåret gör 10.45–11.45 och 15.00–15.30, då programmet inte har något eget pass. Bilden utgår från att ni går till huvudspåret.</p>
+    <p class="next">Övergång: ”Vi börjar med en fråga.”</p>
+  </aside>
+</section>
+
+<section class="slide dark" data-ch="Start" data-title="Frågan: agenterna skriver koden, vad gör vi?" data-at="09.32" data-min="1" data-who="Çagri">
+  <div class="body">
+    <p class="statement">Agenterna skriver koden. Vad gör vi?</p>
+    <p class="lead mute mt4">Den här timmen handlar om vår del: behovet, arkitekturen, kontrollen och förvaltningen.</p>
+  </div>
+  <aside class="notes">
+    <p>Ställ frågan och låt den hänga en sekund. Det är den här frågan hela timmen svarar på.</p>
+    <p>Lova de fyra sakerna på bilden. De kommer tillbaka i tur och ordning: behovet, arkitekturen, kontrollen och förvaltningen.</p>
+    <p class="next">Övergång: ”För att svara börjar vi där vi själva började.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Resan" data-title="Från handskriven kod till AI-native" data-at="09.33" data-min="3" data-who="Çagri">
+  <h2 class="h">Från handskriven kod till AI-native</h2>
+  <div class="body">
+    <div class="matrix">
+      <div></div><div class="col">Förstå behovet</div><div class="col">Forma arkitekturen</div><div class="col">Skriva koden</div><div class="col">Köra kontroller</div><div class="col">Bedöma resultatet</div>
+      <div class="rowh"><b>För hand</b><span>Där Eneo började</span></div>
+      <div class="cell h1">Vi</div><div class="cell h1">Vi</div><div class="cell h1">Vi</div><div class="cell h1">Vi</div><div class="cell h1">Vi</div>
+      <div class="rowh" data-step="1"><b>AI som hjälp</b><span>Förslag och chatt</span></div>
+      <div class="cell h1" data-step="1">Vi</div><div class="cell h1" data-step="1">Vi</div><div class="cell two" data-step="1"><span class="h1">Vi</span><span class="a1">+ AI</span></div><div class="cell h1" data-step="1">Vi</div><div class="cell h1" data-step="1">Vi</div>
+      <div class="rowh" data-step="2"><b>AI-native</b><span>Där vi arbetar i dag</span></div>
+      <div class="cell h1" data-step="2">Vi</div><div class="cell two" data-step="2"><span class="h1">Vi</span><span class="a1">+ AI</span></div><div class="cell a1" data-step="2">Agenterna</div><div class="cell a1" data-step="2">Agenterna</div><div class="cell h1" data-step="2">Vi</div>
+    </div>
+    <p class="lead strong mt3" data-step="3">Vår del har inte försvunnit. Den ligger före och efter koden.</p>
+  </div>
+  <aside class="notes">
+    <p>Första raden: Eneo byggdes i Svelte, för hand. Vi gjorde allt själva.</p>
+    <p class="cue">Klick 1: AI som hjälp. Förslag och chatt bredvid, men vi skrev fortfarande.</p>
+    <p class="cue">Klick 2: AI-native. Agenterna skriver koden och kör kontrollerna.</p>
+    <p>Peka på arkitekturkolumnen: där är AI ett bollplank som får ifrågasätta oss, inte något som ersätter oss. I kodningen skriver AI koden, och vi ansvarar för den.</p>
+    <p class="cue">Klick 3: slutsatsen. De röda kolumnerna ligger före och efter koden.</p>
+    <p>Lägg gärna till ungefär när ni bytte läge.</p>
+    <p class="next">Övergång: ”Vad betyder det för oss som utvecklare?”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Resan" data-title="Rollen: vi arbetar mer som lösningsarkitekter" data-at="09.36" data-min="2" data-who="Çagri">
+  <h2 class="h">Vi arbetar mer som lösningsarkitekter</h2>
+  <div class="body">
+    <div class="map">
+      <div class="hd">Mindre av vår uppmärksamhet</div><div class="hd"></div><div class="hd">Mer av vår uppmärksamhet</div>
+      <div class="from">Syntaxen</div><div class="mid"><div class="arrow"></div></div><div class="to">Problembilden</div>
+      <div class="from">Hur koden ser ut</div><div class="mid"><div class="arrow"></div></div><div class="to">Arkitektur och designmönster</div>
+      <div class="from">Var kommentarerna står</div><div class="mid"><div class="arrow"></div></div><div class="to">En lösning som håller över tid</div>
+    </div>
+    <p class="lead mt3">Detaljerna engagerar oss fortfarande där användaren märker dem: i design och UX.</p>
+  </div>
+  <aside class="notes">
+    <p>Utvecklarrollen har förändrats. Vi agerar mer som lösningsarkitekter: vi är intresserade av lösningen som helhet, av att förstå problembilden och av att bygga något som går att förvalta.</p>
+    <p>Vi är inte längre fokuserade på hur syntaxen ser ut, hur snygg koden blir eller hur kommentarerna läggs. Vi tänker igenom arkitekturen och designmönstren, för att få en ren lösning som håller över tid.</p>
+    <p>Det finns stunder då detaljerna blir intressanta, och då handlar det mest om design och UX.</p>
+    <p class="next">Övergång: ”Och det gör nya saker möjliga.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Resan" data-title="Det som var för dyrt går nu att göra" data-at="09.38" data-min="1" data-who="Çagri">
+  <h2 class="h">Det som var för dyrt går nu att göra</h2>
+  <div class="body">
+    <div class="rows bare" style="--cols:190px 1fr">
+      <div class="xl then">Förr</div><div class="xl then">För dyrt och för långsamt. Vi lät det vara.</div>
+      <div class="xl" data-step="1">Nu</div><div class="xl" data-step="1">Vi tar tag i det, och bygger det så att andra kan ta del av det.</div>
+    </div>
+    <p class="lead mute mt3" data-step="1">Vårt exempel är Eneos frontendbyte. Det visar vi om en stund.</p>
+  </div>
+  <aside class="notes">
+    <p>Exempel: Eneos frontendbyte. Det hade vi inte ens gett oss på förr, det hade varit för kostsamt. Nämn det bara här, själva bytet visar ni senare.</p>
+    <p class="cue">Klick 1: nu. Vi tar tag i det.</p>
+    <p>Lägg till löftet: att det går fortare får inte betyda att vi bygger slarvigare. Vi försöker göra saker långsiktigt bra och delbara.</p>
+    <p class="next">Övergång: ”Så vad är det som tar tid nu?”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Resan" data-title="Flaskhalsen har flyttat" data-at="09.39" data-min="1" data-who="Çagri">
+  <div class="split">
+    <p class="statement">Att skriva koden är inte längre det som tar tid.</p>
+    <div class="rows" style="--cols:1fr 1.15fr" data-step="1">
+      <div class="hd">Det som tar tid nu</div><div class="hd">Så möter vi det</div>
+      <div class="k">Förstå vad som behövs</div><div class="big">Ett team kring behovet</div>
+      <div class="k">Ge agenten rätt sammanhang</div><div class="big">Kontext för människor och AI</div>
+      <div class="k">Avgöra om resultatet håller</div><div class="big">Verifiering vid kontrollpunkter</div>
+      <div class="k">Äga det som byggs</div><div class="big">Förvaltning som tål takten</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Förr var skrivandet flaskhalsen. Låt påståendet stå ensamt ett ögonblick.</p>
+    <p class="cue">Klick 1: det som tar tid nu, och hur vi möter det. De fyra raderna är resten av förmiddagen.</p>
+    <p class="next">Övergång: ”Vi börjar med teamet.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Team: från beställa och leverera till ett team" data-at="09.40" data-min="3" data-who="Çagri">
+  <h2 class="h">Från beställa och leverera till ett team</h2>
+  <div class="body">
+    <div class="relay apart">
+      <div class="role">Verksamhet</div><div class="lag"><span>väntan</span></div>
+      <div class="role">Projektledning</div><div class="lag"><span>väntan</span></div>
+      <div class="role">UX</div><div class="lag"><span>väntan</span></div>
+      <div class="role">Frontend</div><div class="lag"><span>väntan</span></div>
+      <div class="role">Backend</div>
+    </div>
+    <p class="mute mt3">Varje överlämning ger ledtid, och ett ”vi” och ett ”ni”.</p>
+    <div class="relay joined mt4" data-step="1">
+      <div class="role">Verksamhet</div><div class="role">Projektledning</div><div class="role">UX</div><div class="role">Frontend</div><div class="role">Backend</div>
+    </div>
+    <p class="lead strong mt2" data-step="1">Samma kompetenser, sida vid sida, med gemensamt ansvar för hela lösningen.</p>
+  </div>
+  <aside class="notes">
+    <p>API-exemplet: den som skriver ett API kan inte räkna med att frontend förstår det utan samtal. Och frontend kan inte räkna med att backend förstår behoven av sig självt.</p>
+    <p class="cue">Klick 1: samma roller utan glapp.</p>
+    <p>Vi samlar kompetenserna i samma team och sitter bredvid varandra. Alla tar ansvar för helheten. Det bygger tillit, och det blir aldrig ”vi och ni”.</p>
+    <p>Koppla till AI: en agent löser inte otydlig kommunikation. Den gör den bara snabbare.</p>
+    <p class="next">Övergång: ”Och verksamheten sitter med från början.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Prototypen byggs under samtalet" data-at="09.43" data-min="3" data-who="Çagri">
+  <h2 class="h">Prototypen byggs under samtalet</h2>
+  <div class="loopwrap">
+    <svg class="loop" viewBox="0 0 760 680" width="690" height="617" role="img" aria-label="Slinga: behov, prototyp, återkoppling, och tillbaka till behov">
+      <defs><marker id="tip" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="4.6" markerHeight="4.6" orient="auto"><path class="tip" d="M0 0L10 5L0 10z"/></marker></defs>
+      <circle class="ring" cx="380" cy="340" r="232"/>
+      <path class="arc" d="M516.4 152.3 A232 232 0 0 1 610.7 364.3" marker-end="url(#tip)"/>
+      <path class="arc" d="M509.7 532.3 A232 232 0 0 1 250.3 532.3" marker-end="url(#tip)"/>
+      <path class="arc" d="M149.3 364.3 A232 232 0 0 1 243.6 152.3" marker-end="url(#tip)"/>
+      <rect class="pill" x="270" y="66" width="220" height="84" rx="42"/><text class="nd" x="380" y="121">Behov</text>
+      <rect class="pill" x="456" y="414" width="250" height="84" rx="42"/><text class="nd" x="581" y="469">Prototyp</text>
+      <rect class="pill" x="29" y="414" width="300" height="84" rx="42"/><text class="nd" x="179" y="469">Återkoppling</text>
+      <text class="ct" x="380" y="296">Verksamhet, projektledare</text>
+      <text class="ct" x="380" y="334">och utvecklare</text>
+      <text class="ct strong" x="380" y="378" font-weight="650">i samma rum</text>
+    </svg>
+    <div>
+      <p class="xl">Att översätta behov till en teknisk lösning är vårt ansvar.</p>
+      <p class="lead mt3">Den som ska använda lösningen vet sällan i detalj vad den vill ha, och inte alltid vad som har blivit möjligt.</p>
+      <p class="lead mute mt2">Därför visar vi tidigt vad som går att göra. Det öppnar för andra lösningar än den man först tänkte sig.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>I Sundsvall arbetar vi prototypdrivet. Vi sitter med projektledare, verksamhet och utvecklare och bygger en prototyp på plats, under samtalet.</p>
+    <p>I de flesta fall vet inte den som ska använda produkten exakt vad den vill ha. Det är en iterativ process.</p>
+    <p>Verksamheten har oftast inte den tekniska kompetens som krävs för att beskriva exakt vad den vill ha, och vi räknar inte med att få det. Ansvaret att förstå helheten och översätta behoven ligger hos oss tekniska. Annars får vi en lösning som inte rimmar med det som förväntas.</p>
+    <p>Med AI-utvecklingen vet verksamheten inte heller alltid vad som är möjligt. Vi testar gränser och visar det tidigt, så att det blir en öppen dialog och gärna en ögonöppnare för lösningar som är mycket effektivare än den man hade tänkt sig.</p>
+    <p>Ge ett kort exempel på en prototyp som ändrade riktning efter första visningen, om ni har ett.</p>
+    <p class="next">Övergång, lämna över till Max: ”Den förståelsen måste gå att hitta även för nästa person.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Kontext: samma källa för människor och AI" data-at="09.46" data-min="3" data-who="Max">
+  <h2 class="h">Samma källa för människor och AI</h2>
+  <div class="body">
+    <div class="flow">
+      <div class="node src"><b>Teamet som äger systemet</b>skriver och håller aktuellt</div>
+      <div class="conn"><div class="arrow"></div></div>
+      <div class="node page"><b>Systemets sida i devportalen</b>
+        <ul><li>Vad det gör</li><li>Hur det fungerar</li><li>Vem som ansvarar</li><li>API eller MCP</li></ul></div>
+      <div class="conn"><div class="arrow"></div></div>
+      <div class="readers">
+        <div class="node rh"><b>Ny kollega</b>får koll utan att behöva fråga runt</div>
+        <div class="node ra"><b>AI-agent</b>får sammanhang och ger bättre stöd</div>
+      </div>
+    </div>
+    <p class="lead strong mt4">Metakatalogen, vår IDM, byggs så: kunskapen och datat går att nå för båda.</p>
+    <p class="s mute mt1">devportal.sundsvall.dev</p>
+  </div>
+  <aside class="notes">
+    <p>Devportalen är vårt exempel på visionen: varje team dokumenterar sina egna system, hur de fungerar och vem som ansvarar.</p>
+    <p>Samma underlag läses av en utvecklare som ska använda systemet och av en LLM som behöver förstå det för att kunna hjälpa till.</p>
+    <p>Vår bedömning: tjänster bör exponera dokumentation och något slags API eller MCP, så att både människan och modellen får kontext och saker hålls uppdaterade.</p>
+    <p>Metakatalogen är byggd så. Det gör att vi kan automatisera processer som tidigare var kostsamma och tidskrävande.</p>
+    <p>Visa gärna devportalen i 30 sekunder. Säg att den är ett koncept under arbete.</p>
+    <p class="next">Övergång: ”Vad får organisationen ut av det?”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Från personberoende till organisationens förmåga" data-at="09.49" data-min="2" data-who="Max">
+  <h2 class="h">Från personberoende till organisationens förmåga</h2>
+  <div class="body">
+    <div class="rows" style="--cols:330px 1fr 1.05fr">
+      <div class="hd"></div><div class="hd">När kunskapen sitter hos en person</div><div class="hd">När kunskapen går att nå</div>
+      <div class="b">Ny i teamet</div><div class="k">Väntar på att någon har tid att förklara</div><div class="big">Börjar med sammanhanget på plats</div>
+      <div class="b">Nytt projekt</div><div class="k">Börjar från noll och bygger eget</div><div class="big">Bygger på tjänster och data som redan finns</div>
+      <div class="b">Nya idéer</div><div class="k">”Det tar flera år”, och blir inte av</div><div class="big">Går att genomföra, och går att dela</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>När nya utvecklare kommer in i ett team, eller något nytt ska påbörjas, finns kontexten redan. Vi kan använda interna system och data på ett vettigt sätt i stället för att bygga på personberoendet.</p>
+    <p>Att bygga på organisationens förmåga ger också innovation: det som förr skulle ta flera år är plötsligt görbart.</p>
+    <p class="next">Övergång: ”Den tredje delen är den svåraste: hur vet vi att det agenterna gör är bra?”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Verifiering: något måste ta över det vi slutar göra" data-at="09.51" data-min="2" data-who="Max">
+  <h2 class="h">Något måste ta över det vi slutar göra</h2>
+  <div class="body">
+    <div class="rows tight" style="--cols:520px 270px 1fr">
+      <div class="hd">Förr gjorde vi det</div><div class="hd">Nu gör</div><div class="hd">genom</div>
+      <div class="k">Styrde varje steg</div><div class="big agt">modellen</div><div>att förstå avsikten, om sammanhanget finns</div>
+      <div class="k">Godkände varje kommando</div><div class="big">verktyget</div><div>regler och behörigheter som inte går att prata sig förbi</div>
+      <div class="k">Läste varje rad</div><div class="big">miljön</div><div>tester, bygge och CI vid bestämda kontrollpunkter</div>
+      <div class="k" data-step="1">Avgjorde om det var rätt</div><div class="big hum" data-step="1">vi</div><div class="strong hum" data-step="1">Det gör vi fortfarande.</div>
+    </div>
+    <p class="lead strong mt3" data-step="2">Det som inte går att ta tillbaka ska stoppas tekniskt. En uppmaning i en prompt räcker inte.</p>
+    <p class="s mute mt1">Fritt efter Lydia Hallie, Anthropic: Rethinking Claude Code best practices</p>
+  </div>
+  <aside class="notes">
+    <p>Ramen kommer från Lydia Hallies föredrag: överallt där människan kliver ur loopen måste modellen, verktyget eller miljön ta över.</p>
+    <p class="cue">Klick 1: sista raden. Bedömningen är fortfarande vår.</p>
+    <p class="cue">Klick 2: tumregeln. Fel kod kan backas, så det kan modellen få sköta. Raderade ändringar eller en läckt nyckel går inte att ta tillbaka, så det ska vara en hård spärr.</p>
+    <p>Poängen för publiken: instruktioner i en fil är inte samma sak som behörigheter.</p>
+    <p class="next">Övergång: ”Så här ser vår egen del ut i praktiken.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Human in the loop: före, under och efter" data-at="09.53" data-min="2" data-who="Max">
+  <h2 class="h">Vi tänker före och bedömer efter</h2>
+  <div class="body">
+    <div class="tl below phase">
+      <div class="seg ppl" style="flex:1.15"><span class="pair"><span class="blk">Före: vi</span><span class="blk ai">+ AI</span></span><span class="nm">Vi bollar arkitekturen</span>
+        <span class="ds">Med varandra och med AI, som får ifrågasätta hur vi tänker. Vi bestämmer också vad klart betyder.</span></div>
+      <div class="seg agent" style="flex:1.15"><span class="blk">Under: agenterna</span><span class="nm">Skriver, kontrollerar och rättar</span>
+        <span class="ds">Agenterna kör tester och bygge, och går tillbaka tills kontrollerna går igenom.</span></div>
+      <div class="seg ppl" style="flex:1"><span class="blk">Efter: vi</span><span class="nm">Klickar igenom och läser logiken</span>
+        <span class="ds">Första bästa versionen går sällan vidare. Vi återkopplar tills det håller.</span></div>
+    </div>
+    <p class="lead strong mt4">Högre tempo och bättre kvalitet kommer från samma sak: tydliga kontrollpunkter.</p>
+  </div>
+  <aside class="notes">
+    <p>Före: när vi har förstått behovet funderar vi mycket över arkitekturen innan vi bygger. Vi bollar fram och tillbaka och ifrågasätter varandras tankar: ”hur hade jag gjort det här?”</p>
+    <p>Vi diskuterar också med AI i det här skedet och låter den ifrågasätta oss, för att säkerställa att vi tänker rätt och hållbart. Här är AI ett stöd, inte något som ersätter oss.</p>
+    <p>Praktiskt tips: modeller håller gärna med. Be den uttryckligen leta svagheter, eller ge den alternativen utan att säga vilket ni föredrar.</p>
+    <p>Under: agenterna arbetar och verifierar ändringarna själva.</p>
+    <p>Efter: vi klickar igenom och kollar logiken där det behövs. Vi går inte med på första bästa version som AI:n trycker ut.</p>
+    <p class="next">Övergång: ”När takten ökar märks en sak snabbare än allt annat.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Förvaltning: högre takt kräver bättre förvaltning" data-at="09.55" data-min="2" data-who="Max">
+  <h2 class="h">Högre takt kräver bättre förvaltning</h2>
+  <div class="body">
+    <div class="rows tight" style="--cols:600px 1fr">
+      <div class="hd">Bestämt innan takten ökar</div><div class="hd"></div>
+      <div class="big">Struktur</div><div>Hur ett projekt ser ut, så att nästa person eller agent hittar</div>
+      <div class="big">Stack</div><div>Vad vi bygger med, och vad vi låter bli att ta in</div>
+      <div class="big">Beroenden</div><div>Hur och när bibliotek uppdateras</div>
+      <div class="big">Bygga eller återanvända</div><div>Öppen källkod som redan håller går före eget bygge</div>
+    </div>
+    <p class="lead strong mt3" data-step="1">Takten förstärker den förvaltning man redan har.<br>Brister märks hårdare och snabbare.</p>
+    <p class="lead mute mt1" data-step="1">Ett bra första uppdrag för AI: gå igenom beroenden, tester och dokumentation.</p>
+  </div>
+  <aside class="notes">
+    <p>Öppna med: ”Det blir billigt att bygga. Det blir inte billigare att äga.”</p>
+    <p>Högre utvecklingstakt följer av AI-driven utveckling. Då måste förvaltningen hanteras långsiktigt: bygg med hög kvalitet så slipper ni buggar och slarviga beslut senare, och gör förvaltningen så billig som möjligt.</p>
+    <p>Gå igenom de fyra raderna. Koppla till devportalen: riktlinjer som står där följs av varje agent, inte bara av den som minns dem.</p>
+    <p class="cue">Klick 1: tesen. Har man bra förvaltning sedan tidigare är problemet litet och mycket redan löst. Har man brister märks de hårdare och snabbare.</p>
+    <p>Säg tydligt att det inte är ett skäl att vänta. Använd AI just här, för att utvärdera och säkra förvaltningen framåt.</p>
+    <p class="next">Övergång: ”Innan vi visar Eneo: frågor så här långt?”</p>
+  </aside>
+</section>
+
+<section class="slide dark" data-ch="Arbetssättet" data-title="Frågestopp" data-at="09.57" data-min="4" data-who="Båda">
+  <div class="body">
+    <p class="statement">Frågor så här långt?</p>
+    <p class="lead mute mt4">Och en till er: vad kräver hos er i dag att en viss person finns på plats?</p>
+  </div>
+  <aside class="notes">
+    <p>Fyra minuter, håll tiden. Klockan 10.01 går ni vidare oavsett.</p>
+    <p>Om det är tyst: ställ frågan på bilden och låt två eller tre svara. Svaren är bra exempel att återkomma till i eftermiddag.</p>
+    <p>Frågor om roadmap och lansering: ”Den tar vi när alla ses 15.30.” Större tekniska frågor: ”Den tar vi vid datorerna 13.00.”</p>
+    <p class="next">Övergång, till Çagri: ”Nu till exemplet: Eneo självt.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Eneo" data-title="Eneos frontendbyte" data-at="10.01" data-min="4" data-who="Çagri">
+  <h2 class="h">Eneos frontendbyte</h2>
+  <div class="body">
+    <div class="map">
+      <div class="hd">Från</div><div class="hd"></div><div class="hd">Till</div>
+      <div class="from">Svelte</div><div class="mid"><div class="arrow"></div></div><div class="to">React</div>
+      <div class="from">SvelteKit</div><div class="mid"><div class="arrow"></div></div><div class="to">Vite</div>
+      <div class="from">Melt UI</div><div class="mid"><div class="arrow"></div></div><div class="to">Astryx från Meta <small>i beta</small></div>
+    </div>
+    <p class="lead strong mt3">Ett långsiktigt val: en stack som går att underhålla, och som fler kan bidra till.</p>
+    <p class="lead mt1">Utan AI hade vi inte gett oss på bytet. Det hade blivit för kostsamt.</p>
+    <p class="lead mute mt1">I samma arbete går vi igenom tillgänglighet, skärmstorlekar och prestanda.</p>
+  </div>
+  <aside class="notes">
+    <p>Eneo är byggt från grunden i Svelte, SvelteKit och Melt UI. Det har fungerat bra, och de flesta av oss har föredragit att skriva Svelte för hand. Det är en smaksak, gå inte in i ramverksdebatten.</p>
+    <p>Eneo har vuxit till flera kommuner och myndigheter, tack vare er. Därför fräschar vi upp: React och Vite, och Astryx som underhålls av Meta i stället för av en hobbyutvecklare. Fler kan bidra.</p>
+    <p>Samtidigt går vi igenom tillgänglighet, responsiv design (surfplatta, mobil, större och mindre skärmar) och prestanda. Säg ”mål”, om ni inte har mätvärden att visa.</p>
+    <p>Det här är inget beslut vi tar för att det är roligt att byta ramverk. Vi väljer en stack som är långsiktig och rimlig att underhålla, och fler kan bidra eftersom fler kan React.</p>
+    <p>Det visar också vad som har blivit möjligt: utan AI hade vi inte ens försökt, det hade varit för kostsamt. Agenterna har skrivit och verifierat koden. Gå sedan direkt till nästa bild.</p>
+    <p>Om någon frågar ”ni säger enas om en stack, men ni bytte själva”: bytet är ett förvaltningsbeslut. Ett bibliotek med en stor aktör bakom är billigare att äga än ett hobbyprojekt eller ett eget, och AI gjorde själva flytten överkomlig.</p>
+    <p>Målet är att vara bättre på tillgänglighet, skärmstorlekar och prestanda vid lansering. Frågor om när det lanseras: hänvisa till roadmap-passet 15.30.</p>
+    <p class="next">Övergång: ”Har det varit problemfritt?”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Eneo" data-title="Har det varit problemfritt? Absolut inte." data-at="10.05" data-min="4" data-who="Çagri">
+  <h2 class="h">Har det varit problemfritt?</h2>
+  <div class="split">
+    <p class="statement" data-step="1">Absolut inte.</p>
+    <ul class="plain" data-step="2">
+      <li>Första versionen ser färdig ut, men håller sällan hela vägen.</li>
+      <li>Ingen har läst varje rad. Därför behövs kontrollpunkterna.</li>
+      <li class="strong">Vi avgör vad som är bra nog, och ansvarar för det som går ut.</li>
+    </ul>
+  </div>
+  <aside class="notes">
+    <p>Ställ frågan och vänta.</p>
+    <p class="cue">Klick 1: ”Absolut inte.” Berätta nu ett verkligt fel från omskrivningen: vad agenten gjorde, hur ni upptäckte det, vad ni ändrade. Det är det publiken minns.</p>
+    <p class="cue">Klick 2: lärdomarna. Det gäller att inte gå med på första bästa version. Här kommer human in the loop och vår kompetens som utvecklare in.</p>
+    <p class="next">Övergång, till Max: ”Och nu det ni har väntat på.”</p>
+  </aside>
+</section>
+
+<section class="slide dark" data-ch="Eneo" data-title="Demo: tal till text" data-at="10.09" data-min="7" data-who="Max">
+  <div class="body">
+    <p class="hero">Tal till text</p>
+    <div class="rows flat mt4" style="--cols:1fr 1fr 1fr">
+      <div class="hd">Byggd som</div><div class="hd">Bygger på</div><div class="hd">Körs i</div>
+      <div class="big">en modul i Eneo</div><div class="big">flöden, ett nytt koncept</div><div class="big">nya frontenden</div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Demo. Visa ett helt flöde från ljud till färdig text, och visa det på mobilbredd också. Det knyter ihop med målen på förra bilden.</p>
+    <p>Säg de tre sakerna på bilden högt: det är en modul, den bygger på flöden och den är byggd i den nya frontenden med React, Vite och Astryx. I eftermiddag bygger deltagarna en egen modul.</p>
+    <p>Tipsa om KB-labb 15.00 i huvudspåret för den som vill veta mer om data, träning och utvärdering bakom tal till text.</p>
+    <p>Reserv: ha en inspelad skärmvideo redo om nätet eller instansen krånglar. Tryck B för svart skärm medan ni växlar fönster.</p>
+    <p class="next">Övergång: ”I eftermiddag är det er tur.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Eneo" data-title="13.00 bygger ni själva" data-at="10.16" data-min="2" data-who="Max">
+  <h2 class="h">13.00 bygger ni själva</h2>
+  <div class="body">
+    <div class="lv">
+      <div class="lvl"><span class="n">1</span><div><h3 class="xl">Be din agent skapa en assistent i Eneo</h3>
+        <p>En skill ger agenten kunskap om Eneos API. Du beskriver vad du vill ha, i stället för att klicka fram det.</p></div></div>
+      <div class="lvl"><span class="n">2</span><div><h3 class="xl">Bygg en egen modul och koppla på den</h3>
+        <p>Samma väg som tal till text: agenten får veta hur moduler fungerar, och du bestämmer vad den ska göra.</p></div></div>
+    </div>
+    <p class="lead mt4"><span class="strong">Gör det här i pausen:</span> starta Claude Code eller Codex och kontrollera att du är inloggad, även på GitHub.</p>
+  </div>
+  <aside class="notes">
+    <p>Alla gör nivå 1. Nivå 2 är för den som hinner, och det är helt i sin ordning att stanna på nivå 1.</p>
+    <p>Lunchen är en gemensam promenad till restaurangen, så ingen sitter vid datorn då. Be dem kontrollera verktygen nu i pausen, medan ni finns kvar i rummet.</p>
+    <p class="next">Övergång: ”Nu har vi tid för era frågor.”</p>
+  </aside>
+</section>
+
+<section class="slide dark" data-ch="Eneo" data-title="Frågor och samtal" data-at="10.18" data-min="12" data-who="Båda">
+  <div class="body">
+    <p class="statement">Frågor och samtal</p>
+    <p class="lead mute mt4">Hur arbetar ni med AI i er utveckling i dag, och vad hindrar er?</p>
+    <p class="mute mt3">Frågor om roadmap tar vi när alla ses 15.30. Koden finns på github.com/eneo-ai/eneo.</p>
+  </div>
+  <aside class="notes">
+    <p>Tolv minuter. Börja med de frågor ni parkerade vid första stoppet.</p>
+    <p>Om det är tyst: ställ frågan på bilden. Be någon från en annan kommun berätta hur de gör.</p>
+    <p>Pausen 10.30 är gemensam med smoothie. Sluta 10.29 med en mening: ”Vi ses här 13.00, ta med datorn.” Säg också vad teknikspåret gör 10.45.</p>
+  </aside>
+</section>
+
+<!-- ================= DEL 2: EFTERMIDDAG 13.00–14.30 ================= -->
+
+<section class="slide dark" data-ch="Ni bygger" data-title="Praktiskt pass: bygg mot Eneo med din egen agent" data-at="13.00" data-min="2" data-who="Båda">
+  <h1 class="statement">Bygg mot Eneo med din egen agent</h1>
+  <p class="lead mute mt3">Slå upp datorn och starta Claude Code eller Codex.</p>
+  <aside class="notes">
+    <p>Tryck T för att nollställa klockan.</p>
+    <p>Folk kommer från lunchen i klungor. Låt bilden ligga uppe och be alla starta sitt verktyg direkt, så syns problem med inloggning tidigt.</p>
+    <p>Para ihop den som saknar konto med en granne.</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Ni bygger" data-title="Så här gör vi i 90 minuter" data-at="13.02" data-min="2" data-who="Max">
+  <h2 class="h">Så här gör vi i 90 minuter</h2>
+  <div class="body">
+    <div class="tl below">
+      <div class="seg" style="flex:15"><span class="blk"></span><span class="at">13.00</span><span class="nm">Kom igång</span><span class="ds">Installera, skapa nyckel, testa</span></div>
+      <div class="seg" style="flex:30"><span class="blk"></span><span class="at">13.15</span><span class="nm">Nivå 1</span><span class="ds">Skapa en assistent genom din agent</span></div>
+      <div class="seg" style="flex:35"><span class="blk"></span><span class="at">13.45</span><span class="nm">Nivå 2</span><span class="ds">Bygg en egen modul, eller bygg vidare på nivå 1</span></div>
+      <div class="seg ppl" style="flex:10"><span class="blk"></span><span class="at">14.20</span><span class="nm">Visa och summera</span></div>
+    </div>
+    <p class="lead mt4">Fastnar du? Räck upp handen eller fråga grannen. Vi går runt hela tiden.</p>
+  </div>
+  <aside class="notes">
+    <p>Alla gör nivå 1. Nivå 2 är valfri. Den som hellre förfinar sin assistent gör det.</p>
+    <p>En av er står vid skärmen och visar, den andra går runt i rummet.</p>
+    <p>Fikat 14.30 är gemensamt, så sluttiden är hård. Börja summera 14.20 även om folk är mitt i något.</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Ni bygger" data-title="Kom igång: tre steg" data-at="13.04" data-min="11" data-who="Max visar, Çagri går runt">
+  <h2 class="h">Kom igång</h2>
+  <div class="body">
+    <ol class="steps">
+      <li><div><b>Installera Eneo-skillen i ditt verktyg</b>
+        <span class="d">Den ger din agent kunskap om Eneos API, API-nycklar och moduler.</span>
+        <span class="todo">Fyll i före passet: länk och installationskommando</span></div></li>
+      <li><div><b>Skapa en API-nyckel i Eneo</b>
+        <span class="d">Nyckeln avgör vad din agent får göra.</span>
+        <span class="todo">Fyll i före passet: adress till workshop-instansen</span></div></li>
+      <li><div><b>Testa att agenten har fått sammanhanget</b>
+        <span class="d">Fråga: ”Hur fungerar moduler i Eneo, och vad får min API-nyckel göra?”</span></div></li>
+    </ol>
+  </div>
+  <aside class="notes">
+    <p>Gör stegen live på skärmen i samma takt som rummet. Vänta in.</p>
+    <p>Steg 3 är första verifieringen: om agenten svarar rätt har skillen laddats. Samma tanke som i förmiddags, sammanhanget först.</p>
+    <p>Låt bilden ligga kvar tills de flesta är klara.</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Ni bygger" data-title="Nivå 1: be om en assistent" data-at="13.15" data-min="30" data-who="Çagri visar, Max går runt">
+  <h2 class="h">Nivå 1: be om en assistent</h2>
+  <div class="split" style="align-items:start;margin-top:var(--g4)">
+    <div>
+      <div class="prompt">&gt; Skapa en upphandlingsassistent i Eneo. Den ska hjälpa handläggare att granska förfrågningsunderlag mot våra riktlinjer.
+
+Välj en lämplig modell, skriv en systemprompt och testa assistenten med tre frågor. Visa mig svaren.</div>
+      <p class="s mute mt2">Byt gärna till ett exempel från din egen verksamhet.</p>
+    </div>
+    <div>
+      <div class="stack">
+        <div class="sfc a1">Skillen berättar för agenten hur Eneos API fungerar</div>
+        <div class="sfc a1">Agenten anropar API:et med din nyckel</div>
+        <div class="sfc h1">Du läser systemprompten och provar assistenten</div>
+      </div>
+      <p class="lead mt3"><span class="strong">Klart när</span> du har chattat med assistenten i Eneo och håller med om det agenten skrev.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p>Visa själv först, två minuter. Sedan arbetar alla.</p>
+    <p>Poängen: agenten kan skapa assistenter, appar och prompter och byta modell genom befintliga API:er. Man ber om en upphandlingsassistent i stället för att göra det manuellt.</p>
+    <p>Påminn om förmiddagen: läs vad agenten skrev. Den som bara godkänner har hoppat över sin egen del.</p>
+    <p>Efter 20 minuter: fråga om någon vill visa sin assistent.</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Ni bygger" data-title="Nivå 2: bygg en egen modul" data-at="13.45" data-min="35" data-who="Max visar, Çagri går runt">
+  <h2 class="h">Nivå 2: bygg en egen modul</h2>
+  <div class="body">
+    <ol class="steps">
+      <li><div><b>Be agenten förklara moduler och föreslå en liten modul</b>
+        <span class="d">Välj något litet, och låt agenten ifrågasätta upplägget innan den bygger.</span></div></li>
+      <li><div><b>Bestäm vad klart betyder, innan agenten börjar</b>
+        <span class="d">Skriv ner det. Det är din kontrollpunkt.</span></div></li>
+      <li><div><b>Låt agenten bygga och driftsätta</b>
+        <span class="todo">Fyll i före passet: hur driftsättningen går till</span></div></li>
+      <li><div><b>Koppla på modulen i Eneo och prova den själv</b>
+        <span class="d">Gör den det du skrev i steg 2?</span></div></li>
+    </ol>
+  </div>
+  <aside class="notes">
+    <p>Tal till text är byggd på samma sätt. Visa var modulen syns i Eneo när den är påkopplad.</p>
+    <p>Steg 2 är det viktigaste. Den som hoppar över det får en modul som ”fungerar” utan att någon vet vad det betyder.</p>
+    <p>Den som inte hinner driftsätta har ändå lärt sig hur moduler hänger ihop. Det räcker.</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Ni bygger" data-title="Arbeta som i förmiddags" data-at="" data-min="" data-who="Ligger uppe under arbetet">
+  <h2 class="h">Arbeta som i förmiddags</h2>
+  <div class="body">
+    <div class="rows" style="--cols:400px 1fr">
+      <div class="xl">Kontext</div><div class="lead">Låt agenten läsa skillen först. Fråga vad den har förstått innan den börjar bygga.</div>
+      <div class="xl">Kriterium</div><div class="lead">Bestäm vad klart betyder. En mening räcker, men skriv den före arbetet.</div>
+      <div class="xl">Kontroll</div><div class="lead">Prova själv. Att något ser färdigt ut betyder inte att det är det.</div>
+    </div>
+    <p class="lead mute mt3">Sitt gärna två och två. Den ena styr agenten, den andra granskar.</p>
+  </div>
+  <aside class="notes">
+    <p>Låt den här bilden ligga uppe medan folk arbetar. Den är bryggan till förmiddagens tre delar.</p>
+    <p>Två och två speglar teamtanken: ingen sitter ensam med sin agent.</p>
+    <p>Hoppa tillbaka till nivå 1 eller nivå 2 med O (översikt) när någon behöver se stegen igen.</p>
+  </aside>
+</section>
+
+<section class="slide dark" data-ch="Ni bygger" data-title="Visa och summera" data-at="14.20" data-min="10" data-who="Båda">
+  <div class="body">
+    <p class="statement">Vad byggde ni? Och vad saknade agenten?</p>
+    <p class="lead mute mt4">Det agenten saknade är det vi ska dokumentera härnäst. Lägg en issue eller en PR på github.com/eneo-ai/eneo.</p>
+    <p class="mute mt3">15.00 KB-labb om tal till text i huvudspåret. 15.30 ses vi alla: vart Eneo är på väg.</p>
+  </div>
+  <aside class="notes">
+    <p>Be två eller tre deltagare visa vad de byggde, en minut var.</p>
+    <p>Samla svaren på ”vad saknade agenten?”. Det är den bästa återkopplingen ni kan få på skillen och dokumentationen.</p>
+    <p>Ta med det viktigaste till det gemensamma passet 15.30: ”det här byggde teknikspåret på 90 minuter, och det här saknades”. Fråga gärna om någon deltagare vill visa sitt bygge där.</p>
+    <p>Avsluta 14.29. Fikat är gemensamt 14.30.</p>
+  </aside>
+</section>
+
+<div id="thread" aria-hidden="true"><div class="rail"><div class="fill"></div></div><div class="num"></div></div>
+</main>
+</div>
+
+<!-- presentatörsvy -->
+<div id="pv" class="ui">
+  <div class="pn"><div class="nmeta"></div><div class="ntext"></div></div>
+  <div class="pb">
+    <div class="card"><small>Klockan är</small><div class="big" id="pvClock">--.--</div></div>
+    <div class="card"><small>Bilden ska börja</small><div class="big" id="pvAt">--.--</div></div>
+    <div class="card"><small>Sedan start</small><div class="big" id="pvTimer">00:00</div></div>
+    <div class="card"><small>Klick kvar här</small><div class="big" id="pvSteps">0</div></div>
+    <div class="card wide"><small>Nästa bild</small><div class="nx" id="pvNext"></div></div>
+    <p class="hint">Piltangenter här styr också publikens fönster. T nollställer tidtagningen. Båda fönstren måste vara öppna från samma adress.</p>
+  </div>
+</div>
+
+<div id="notesbar" class="ui"><div class="nmeta"></div><div class="ntext"></div></div>
+<div id="blank" class="ui"></div>
+<div id="nav" class="ui"><button id="bPrev" aria-label="Föregående">‹</button><button id="bNext" aria-label="Nästa">›</button></div>
+
+<div id="overview" class="overlay ui" role="dialog" aria-label="Översikt"><h2>Översikt</h2><div class="ov"></div></div>
+<div id="help" class="overlay ui" role="dialog" aria-label="Tangenter"><h2>Tangenter</h2>
+  <div class="keys">
+    <kbd>→ Mellanslag PgDn</kbd><span>Nästa klick eller nästa bild (fungerar med klickare)</span>
+    <kbd>← PgUp</kbd><span>Bakåt</span>
+    <kbd>O</kbd><span>Översikt, hoppa till valfri bild</span>
+    <kbd>P</kbd><span>Öppna presentatörsvy i eget fönster: anteckningar, klocka, nästa bild</span>
+    <kbd>N</kbd><span>Visa anteckningar i det här fönstret (för repetition)</span>
+    <kbd>F</kbd><span>Helskärm</span>
+    <kbd>B</kbd><span>Svart skärm, till exempel under demo</span>
+    <kbd>T</kbd><span>Nollställ tidtagningen</span>
+    <kbd>Home / End</kbd><span>Första / sista bilden</span>
+    <kbd>Esc</kbd><span>Stäng</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var N=slides.length, cur=0, step=0;
+  var stage=document.getElementById('stage'), wrap=document.getElementById('wrap');
+  var thread=document.getElementById('thread'), rail=thread.querySelector('.rail');
+  var fill=thread.querySelector('.fill'), num=thread.querySelector('.num');
+  var isPresenter=/[?&]presenter\b/.test(location.search);
+  if(isPresenter) document.body.classList.add('presenter');
+  function $(id){return document.getElementById(id);}
+  function each(list,fn){[].forEach.call(list,fn);}
+
+  /* kapitelknutar på tråden */
+  var chapters=[], knots=[];
+  slides.forEach(function(s,i){
+    var c=s.getAttribute('data-ch');
+    if(!chapters.length||chapters[chapters.length-1].name!==c) chapters.push({name:c,start:i});
+  });
+  chapters.forEach(function(c,k){
+    var el=document.createElement('div'); el.className='knot';
+    el.style.left=(c.start/(N-1)*100)+'%';
+    el.appendChild(document.createElement('i'));
+    if(k>0){var sp=document.createElement('span'); sp.textContent=c.name; el.appendChild(sp);}
+    rail.appendChild(el); knots.push(el);
+  });
+
+  function fit(){
+    var r=wrap.getBoundingClientRect();
+    stage.style.setProperty('--s', Math.min(r.width/1920, r.height/1080));
+  }
+
+  /* klick inom en bild: element med data-step visas i tur och ordning */
+  function maxStep(i){
+    var m=0; each(slides[i].querySelectorAll('[data-step]'),function(e){ m=Math.max(m,+e.getAttribute('data-step')); });
+    return m;
+  }
+  function applyStep(){
+    each(slides[cur].querySelectorAll('[data-step]'),function(e){
+      e.classList.toggle('wait', +e.getAttribute('data-step')>step);
+    });
+  }
+
+  function renderNotes(){
+    var s=slides[cur], a=s.querySelector('.notes');
+    var who=s.getAttribute('data-who')||'', min=s.getAttribute('data-min')||'', at=s.getAttribute('data-at')||'';
+    var meta='Bild '+(cur+1)+' av '+N+(who?': '+who:'')+(min?', '+min+' min':'');
+    each(document.querySelectorAll('.nmeta'),function(e){ e.textContent=meta; });
+    each(document.querySelectorAll('.ntext'),function(e){ e.innerHTML=a?a.innerHTML:''; });
+    $('pvAt').textContent=at||'--.--';
+    $('pvSteps').textContent=maxStep(cur)-step;
+    $('pvNext').textContent=cur<N-1?(cur+2)+'. '+slides[cur+1].getAttribute('data-title'):'Slut';
+  }
+
+  function show(i,st,remote){
+    i=Math.max(0,Math.min(N-1,i));
+    var prev=cur;
+    each(slides[cur].querySelectorAll('.wait'),function(e){ e.classList.remove('wait'); });
+    slides[cur].classList.remove('on'); cur=i; slides[cur].classList.add('on');
+    step=Math.max(0,Math.min(maxStep(cur),st||0)); applyStep();
+    stage.classList.toggle('is-dark',slides[cur].classList.contains('dark'));
+    fill.style.width=(cur/(N-1)*100)+'%';
+    num.textContent=(cur+1)+' / '+N;
+    var active=0; chapters.forEach(function(c,k){ if(c.start<=cur) active=k; });
+    knots.forEach(function(el,k){
+      el.classList.toggle('passed',chapters[k].start<=cur);
+      el.classList.toggle('now',k===active);
+    });
+    renderNotes();
+    var h='#'+(cur+1)+(step?'.'+step:'');
+    try{history.replaceState(null,'',h);}catch(e){location.hash=h;}
+    if(!remote){
+      if(prev===0&&cur===1){ var t0=getT0(); if(!t0||Date.now()-t0>90*60000) setT0(Date.now()); }
+      send({type:'pos',i:cur,st:step});
+    }
+  }
+  function next(){ if(step<maxStep(cur)) show(cur,step+1); else if(cur<N-1) show(cur+1,0); }
+  function back(){ if(step>0) show(cur,step-1); else if(cur>0) show(cur-1,maxStep(cur-1)); }
+
+  /* synk mellan publikfönster och presentatörsvy */
+  var bc=null; try{ bc=new BroadcastChannel('eneo-teknikspar'); }catch(e){}
+  var me=Math.random().toString(36).slice(2), lastN=0;
+  function send(m){
+    m.from=me; m.n=Date.now()+Math.random();
+    if(bc){ try{bc.postMessage(m);}catch(e){} }
+    try{ localStorage.setItem('eneo-teknikspar-msg',JSON.stringify(m)); }catch(e){}
+  }
+  function recv(m){
+    if(!m||m.from===me||m.n===lastN) return; lastN=m.n;
+    if(m.type==='pos') show(m.i,m.st,true);
+    if(m.type==='hello'&&!isPresenter) send({type:'pos',i:cur,st:step});
+  }
+  if(bc) bc.onmessage=function(e){recv(e.data);};
+  window.addEventListener('storage',function(e){
+    if(e.key==='eneo-teknikspar-msg'&&e.newValue){ try{recv(JSON.parse(e.newValue));}catch(x){} }
+  });
+
+  /* klocka och tidtagning */
+  function getT0(){ try{return +localStorage.getItem('eneo-teknikspar-t0')||0;}catch(e){return window.__t0||0;} }
+  function setT0(t){ window.__t0=t; try{localStorage.setItem('eneo-teknikspar-t0',String(t));}catch(e){} }
+  function two(x){return (x<10?'0':'')+x;}
+  function tick(){
+    var d=new Date(); $('pvClock').textContent=two(d.getHours())+'.'+two(d.getMinutes());
+    var t0=getT0();
+    if(!t0){ $('pvTimer').textContent='00:00'; return; }
+    var s=Math.max(0,Math.floor((Date.now()-t0)/1000));
+    $('pvTimer').textContent=two(Math.floor(s/60))+':'+two(s%60);
+  }
+  setInterval(tick,1000); tick();
+
+  /* översikt */
+  var ovWrap=$('overview'), ov=ovWrap.querySelector('.ov'), help=$('help');
+  function buildOverview(){
+    ov.innerHTML=''; var last=null;
+    slides.forEach(function(s,i){
+      var c=s.getAttribute('data-ch');
+      if(c!==last){ var h=document.createElement('h3'); h.textContent=c; ov.appendChild(h); last=c; }
+      var b=document.createElement('button'); if(i===cur) b.className='cur';
+      var n=document.createElement('i'); n.textContent=i+1; b.appendChild(n);
+      b.appendChild(document.createTextNode(s.getAttribute('data-title')));
+      b.onclick=function(){ closeOverlays(); show(i,maxStep(i)); };
+      ov.appendChild(b);
+    });
+  }
+  function closeOverlays(){ ovWrap.classList.remove('open'); help.classList.remove('open'); }
+  function toggle(el){
+    var open=el.classList.contains('open'); closeOverlays();
+    if(!open){ if(el===ovWrap) buildOverview(); el.classList.add('open'); var c=el.querySelector('.cur'); if(c) c.focus(); }
+  }
+  function fullscreen(){
+    var d=document, e=d.documentElement;
+    if(d.fullscreenElement||d.webkitFullscreenElement){ (d.exitFullscreen||d.webkitExitFullscreen).call(d); }
+    else { (e.requestFullscreen||e.webkitRequestFullscreen||function(){}).call(e); }
+  }
+  function openPresenter(){
+    window.open(location.pathname+'?presenter#'+(cur+1)+(step?'.'+step:''),'eneoPresenter','width=1360,height=800');
+  }
+
+  document.addEventListener('keydown',function(e){
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    var k=e.key;
+    if(k==='Escape'){ closeOverlays(); document.body.classList.remove('blank'); return; }
+    if(ovWrap.classList.contains('open')||help.classList.contains('open')){
+      if(k==='o'||k==='O'||k==='?'||k==='h'||k==='H'){ closeOverlays(); e.preventDefault(); }
+      return;
+    }
+    var handled=true;
+    if(k==='ArrowRight'||k==='ArrowDown'||k==='PageDown'||k===' '||k==='Enter') next();
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace') back();
+    else if(k==='Home') show(0,0);
+    else if(k==='End') show(N-1,maxStep(N-1));
+    else if(k==='f'||k==='F') fullscreen();
+    else if(k==='n'||k==='N') document.body.classList.toggle('shownotes');
+    else if(k==='o'||k==='O') toggle(ovWrap);
+    else if(k==='?'||k==='h'||k==='H') toggle(help);
+    else if(k==='p'||k==='P') openPresenter();
+    else if(k==='b'||k==='B'||k==='.') document.body.classList.toggle('blank');
+    else if(k==='t'||k==='T'){ setT0(Date.now()); tick(); }
+    else handled=false;
+    if(handled) e.preventDefault();
+  });
+
+  $('bPrev').onclick=back; $('bNext').onclick=next;
+  var mt=null;
+  document.addEventListener('mousemove',function(){
+    document.body.classList.add('mouse'); clearTimeout(mt);
+    mt=setTimeout(function(){document.body.classList.remove('mouse');},1800);
+  });
+  var tx=null;
+  document.addEventListener('touchstart',function(e){ tx=e.changedTouches[0].clientX; },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(tx===null) return; var dx=e.changedTouches[0].clientX-tx; tx=null;
+    if(Math.abs(dx)>60){ if(dx<0) next(); else back(); }
+  },{passive:true});
+
+  function parseHash(){
+    var m=/^#(\d+)(?:\.(\d+))?/.exec(location.hash);
+    return m?{i:+m[1]-1,st:m[2]?+m[2]:0}:null;
+  }
+  window.addEventListener('resize',fit);
+  window.addEventListener('hashchange',function(){
+    var h=parseHash(); if(h&&(h.i!==cur||h.st!==step)) show(h.i,h.st);
+  });
+
+  fit();
+  var h0=parseHash();
+  show(h0?h0.i:0,h0?h0.st:0,true);
+  if(isPresenter){ document.title='Presentatörsvy: '+document.title; send({type:'hello'}); }
+})();
+</script>
+</body>
+</html>
