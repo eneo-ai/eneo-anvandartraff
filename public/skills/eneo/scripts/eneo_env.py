@@ -43,6 +43,11 @@ HINTS = {
     "origin_not_allowed": "A public (pk_) key only works from the web "
     "origins it lists. Use a secret (sk_) key on a server.",
     "rate_limit_exceeded": "Rate limit reached. Wait and try again.",
+    "forbidden_action": "The user's role in this space does not allow this, "
+    "whatever the key's permission. Publishing, for one, is not possible in a "
+    "personal space: there is no one to publish to.",
+    "file_not_supported": "Eneo does not accept this file type here. Convert "
+    "the file, for example to PDF, Word or plain text.",
     "file_in_use": "The file is still used, for example by a conversation. "
     "Delete what uses it first (deleting an assistant removes its "
     "conversations), then the file. 'details' lists the uses under 'blockers'.",

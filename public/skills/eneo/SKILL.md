@@ -1,6 +1,6 @@
 ---
 name: eneo
-description: Work with Eneo, the open-source AI platform for the public sector - explain how it works, guide the user through it, and act in it through its REST API. Use this whenever the user mentions Eneo or wants to create, configure or test an Eneo assistant or space, choose a model, write a system prompt, add knowledge, get or use an Eneo API key, call an assistant from their own code, run a flow, or build a simple chat page or widget on top of Eneo. Also use it for Swedish requests such as "skapa en assistent i Eneo", "välj en lämplig modell", "skriv en systemprompt", "hur fungerar ytor i Eneo", "skaffa en API-nyckel" or "bygg en chatt mot Eneo", and for addresses such as eneo-modules.sundsvall.dev.
+description: Work with Eneo, the open-source AI platform for the public sector - explain how it works, guide the user through it, and act in it through its REST API. Use this whenever the user mentions Eneo or wants to create, configure or test an Eneo assistant, app or space, choose a model, write a system prompt, add knowledge, get or use an Eneo API key, call an assistant from their own code, run a flow, or build a simple chat page or widget on top of Eneo. Also use it for Swedish requests such as "skapa en assistent i Eneo", "välj en lämplig modell", "skriv en systemprompt", "hur fungerar ytor i Eneo", "skaffa en API-nyckel" or "bygg en chatt mot Eneo", and for addresses such as eneo-modules.sundsvall.dev.
 ---
 
 # Eneo
@@ -56,6 +56,7 @@ files.
 | --- | --- |
 | Understand Eneo: spaces, assistants, knowledge, models, roles | `references/concepts.md` |
 | Create, configure or test an assistant or space ("skapa en assistent som ...") | `references/manage.md` |
+| Create, configure, run or publish an app: one input, one result ("skapa en app som ...") | `references/apps.md` |
 | Call an assistant from their own program or script | `references/api.md` |
 | A simple chat page, or an assistant embedded on a website | `references/chat-ui.md` |
 | Run a published flow, for example audio to meeting notes | `references/flows.md` |
@@ -89,6 +90,9 @@ reference files do not show, look it up in the installation's own specification:
 python3 <this-skill-folder>/scripts/eneo_spec.py search groups
 python3 <this-skill-folder>/scripts/eneo_spec.py show POST "/api/v1/spaces/{id}/applications/assistants/"
 ```
+
+Add `--request-only` to `show` when you only need what to send: the parameters
+and the body's fields, without the response schemas.
 
 The API has its own names for some things: a collection is a `group`, and a
 document in a collection is an `info-blob`. Search for the API's word.

@@ -160,6 +160,7 @@ How the organisation's material reaches the assistant:
 | --- | --- |
 | A page or two of rules | Put the text in the prompt. Simplest and most reliable. |
 | Longer or several documents that stay the same | A collection attached to the assistant. |
+| Pages on a website that are kept up to date there | A website attached to the assistant. |
 | A different document each time, such as the tender to review | The user attaches it to the question. |
 
 To create a collection, upload to it and attach it:
@@ -176,10 +177,44 @@ Choose an embedding model that is accessible and not deprecated. When the
 assistant's model was chosen for where it is hosted, choose the embedding model
 the same way: the documents pass through it too.
 
-The upload returns a job. Wait until its `status` is `complete` before testing;
-`failed` comes with a `failure_code` such as `no_extractable_text` for a scanned
-PDF without a text layer. `groups` replaces the assistant's list of collections,
-so include the ones it should keep.
+The upload returns a job. Wait until its `status` is `complete` before testing.
+`groups` replaces the assistant's list of collections, so include the ones it
+should keep.
+
+A job with status `failed` says why in `failure_code`. Tell the user what to do:
+
+| `failure_code` | Cause | The user should |
+| --- | --- | --- |
+| `no_extractable_text` | No readable text: a scanned PDF without a text layer, or an empty file | Run text recognition (OCR) on the file, or export it with selectable text, and upload again |
+| `encrypted` | The file is password-protected | Remove the password protection and upload again |
+| `unsupported_format` | Eneo cannot read the file's content | Convert it to PDF, Word or plain text and upload again |
+| `user_quota_exceeded` | The user's storage quota is full | Remove knowledge they own, or ask an administrator to raise the quota |
+| `storage_limit_exceeded` | The file is larger than the installation's limit for background processing | Ask an administrator; this is a server setting, not something a new upload fixes |
+
+A file type Eneo does not accept at all never becomes a job: the upload itself
+answers `415` with code `file_not_supported`. For any other code, upload once
+more; if it fails again, give the administrators the file name and the job id.
+
+### A website as knowledge
+
+Choose a website instead of a collection when the material already lives on web
+pages that someone keeps up to date, such as the organisation's own guidance
+pages: Eneo reads the pages and can read them again on a schedule, so the
+assistant follows the site. Choose a collection for files, for material that is
+not on the web, and for text that must stay exactly as it was approved.
+
+```bash
+CALL POST "/api/v1/spaces/<space_id>/knowledge/websites/" --json '{"name": "Avfallsguiden", "url": "https://www.example.se/avfall", "update_interval": "weekly", "embedding_model": {"id": "<embedding_model_id>"}}' --fields id,name,url
+CALL GET  "/api/v1/websites/<website_id>/runs/latest/" --fields status,outcome,pages_crawled,pages_failed,failure_code
+CALL POST "/api/v1/assistants/<assistant_id>/" --json '{"websites": [{"id": "<website_id>"}]}' --select websites --fields id,name,url
+```
+
+The crawl starts when the website is created. Give the most specific address
+that covers the material, and wait until the latest run has status `complete`;
+`pages_crawled` says how much it found. `update_interval` is `never` (the
+default), `daily`, `every_other_day` or `weekly`. Like `groups`, `websites`
+replaces the assistant's list. Only add sites the organisation may use this way,
+and say which address you added.
 
 ## 7. Test and improve
 

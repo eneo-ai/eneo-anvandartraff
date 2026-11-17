@@ -7,7 +7,8 @@
     python3 eneo_spec.py schema <Name>          one schema by name
 
 Options: --base-url URL (default: ENEO_BASE_URL or .env), --file PATH (use a
-local copy), --refresh (download again), --depth N (schema nesting, default 2).
+local copy), --refresh (download again), --depth N (schema nesting, default 2),
+--request-only (with show: the parameters and the request body, no responses).
 
 The document is downloaded once and cached in the system temp folder.
 """
@@ -146,7 +147,7 @@ def search(spec, text):
         )
 
 
-def show(spec, method, path, depth):
+def show(spec, method, path, depth, request_only=False):
     path = api_path(path)
     operations = spec["paths"].get(path) or spec["paths"].get(path.rstrip("/") + "/")
     operation = (operations or {}).get(method.lower())
@@ -167,6 +168,8 @@ def show(spec, method, path, depth):
         print(f"\nRequest body ({content_type}): {type_of(media.get('schema', {}))}")
         for name in ref_names(media.get("schema", {})):
             print_schema(spec, name, depth, "  ")
+    if request_only:
+        return
     print("\nResponses:")
     for status, response in operation.get("responses", {}).items():
         schema = (response.get("content") or {}).get("application/json", {}).get("schema", {})
@@ -186,6 +189,7 @@ def main():
     options.add_argument("--file")
     options.add_argument("--refresh", action="store_true")
     options.add_argument("--depth", type=int)
+    options.add_argument("--request-only", action="store_true")
     parser = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -197,13 +201,15 @@ def main():
     show_parser.add_argument("method")
     show_parser.add_argument("path")
     commands.add_parser("schema", parents=[options]).add_argument("name")
-    args = parser.parse_args(namespace=argparse.Namespace(base_url=None, file=None, refresh=False, depth=2))
+    args = parser.parse_args(
+        namespace=argparse.Namespace(base_url=None, file=None, refresh=False, depth=2, request_only=False)
+    )
 
     spec = load_spec(args)
     if args.command == "search":
         search(spec, args.text)
     elif args.command == "show":
-        show(spec, args.method, args.path, args.depth)
+        show(spec, args.method, args.path, args.depth, args.request_only)
     else:
         print_schema(spec, args.name, args.depth)
 
