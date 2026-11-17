@@ -515,7 +515,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Verifiering: något måste ta över det vi slutar göra" data-at="10.02" data-min="4" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="Verifiering: något måste ta över det vi slutar göra" data-at="10.02" data-min="3" data-who="Max">
   <h2 class="h">Något måste ta över det vi slutar göra</h2>
   <div class="body">
     <div class="rows tight" style="--cols:520px 270px 1fr">
@@ -534,7 +534,7 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Human in the loop: före, under och efter" data-at="10.06" data-min="4" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="Human in the loop: före, under och efter" data-at="10.05" data-min="3" data-who="Max">
   <h2 class="h">Vi tänker före och bedömer efter</h2>
   <div class="body">
     <div class="tl below phase">
@@ -553,11 +553,35 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
     <p>Praktiskt tips: modeller håller gärna med. Be den uttryckligen leta svagheter, eller ge den alternativen utan att säga vilket ni föredrar.</p>
     <p>Under: agenterna arbetar och verifierar ändringarna själva.</p>
     <p>Efter: vi klickar igenom och kollar logiken där det behövs. Vi går inte med på första bästa version som AI:n trycker ut.</p>
-    <p class="next">Övergång: ”När takten ökar märks en sak snabbare än allt annat.”</p>
+    <p class="next">Övergång, till Çagri: ”En av kontrollpunkterna är vår review-agent.”</p>
   </aside>
 </section>
 
-<section class="slide" data-ch="Arbetssättet" data-title="Förvaltning: högre takt kräver bättre förvaltning" data-at="10.10" data-min="5" data-who="Max">
+<section class="slide" data-ch="Arbetssättet" data-title="En kontrollpunkt: review-agenten" data-at="10.08" data-min="3" data-who="Çagri">
+  <h2 class="h">En kontrollpunkt: review-agenten</h2>
+  <div class="body">
+    <div class="rows tight" style="--cols:520px 1fr">
+      <div class="hd">En AI-granskning på varje PR</div><div class="hd"></div>
+      <div class="big">/review</div><div>Utvecklaren skriver det som kommentar på sin PR och får koden granskad</div>
+      <div class="big">Regler per repo</div><div>Skills och fördefinierade regler för just det kodförrådet</div>
+      <div class="big">Några varv</div><div>Vi rättar det den hittar och kör igen, tills den inte hittar mer</div>
+      <div class="big">En annan modell</div><div>Skriven med Claude Code, granskad med Codex: vi litar inte blint på en modell</div>
+    </div>
+    <p class="lead strong mt3" data-step="1">Agenten ger råd. Vi avgör, och det är vi som mergar.</p>
+    <p class="s mute mt1">Koden finns på github.com/CCimen/review-agent</p>
+  </div>
+  <aside class="notes">
+    <p>Vi kör en review-agent på våra PR:ar. Utvecklaren skriver /review i en kommentar och får en granskning av källkoden.</p>
+    <p>Den har skills och fördefinierade regler som den går igenom beroende på vilket repo det gäller. Ett repo kan lägga till egna instruktioner, teknisk kontext och designbeslut som redan är fattade.</p>
+    <p>Den granskar exakt den commit som PR:en pekar på, i två pass, och publicerar bara det den kan belägga i koden.</p>
+    <p>Oftast hittar den buggar eller saker som går att förbättra. Då rättar vi och kör /review igen, och håller på tills den inte hittar något mer.</p>
+    <p>Skriver vi kod med Claude Code korskör vi den med Codex, som review-agenten kör på. Vi litar inte blint på en modell, utan låter flera modeller gå igenom samma kod och jämför för att hitta det som kan bli bättre.</p>
+    <p class="cue">Klick 1: agenten är rådgivande. Den har ingen skrivåtkomst till repot och kan inte merga. Bedömningen är fortfarande vår.</p>
+    <p class="next">Övergång, till Max: ”När takten ökar märks en sak snabbare än allt annat.”</p>
+  </aside>
+</section>
+
+<section class="slide" data-ch="Arbetssättet" data-title="Förvaltning: högre takt kräver bättre förvaltning" data-at="10.11" data-min="4" data-who="Max">
   <h2 class="h">Högre takt kräver bättre förvaltning</h2>
   <div class="body">
     <div class="rows tight" style="--cols:600px 1fr">
