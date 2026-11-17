@@ -525,13 +525,10 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
       <div class="k">Läste varje rad</div><div class="big">miljön</div><div>tester, bygge och CI vid bestämda kontrollpunkter</div>
       <div class="k" data-step="1">Avgjorde om det var rätt</div><div class="big hum" data-step="1">vi</div><div class="strong hum" data-step="1">Det gör vi fortfarande.</div>
     </div>
-    <p class="lead strong mt3" data-step="2">Det som inte går att ta tillbaka ska stoppas tekniskt. En uppmaning i en prompt räcker inte.</p>
-    <p class="s mute mt1">Fritt efter Lydia Hallie, Anthropic: Rethinking Claude Code best practices</p>
   </div>
   <aside class="notes">
-    <p>Ramen kommer från Lydia Hallies föredrag: överallt där människan kliver ur loopen måste modellen, verktyget eller miljön ta över.</p>
+    <p>Överallt där människan kliver ur loopen måste modellen, verktyget eller miljön ta över.</p>
     <p class="cue">Klick 1: sista raden. Bedömningen är fortfarande vår.</p>
-    <p class="cue">Klick 2: tumregeln. Fel kod kan backas, så det kan modellen få sköta. Raderade ändringar eller en läckt nyckel går inte att ta tillbaka, så det ska vara en hård spärr.</p>
     <p>Poängen för publiken: instruktioner i en fil är inte samma sak som behörigheter.</p>
     <p class="next">Övergång: ”Så här ser vår egen del ut i praktiken.”</p>
   </aside>
@@ -617,13 +614,14 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
       <div class="from">SvelteKit</div><div class="mid"><div class="arrow"></div></div><div class="to">Vite</div>
       <div class="from">Melt UI</div><div class="mid"><div class="arrow"></div></div><div class="to">Astryx från Meta <small>i beta</small></div>
     </div>
-    <p class="lead strong mt3">Ett långsiktigt val: en stack som går att underhålla, och som fler kan bidra till.</p>
-    <p class="lead mt1">Utan AI hade vi inte gett oss på bytet. Det hade blivit för kostsamt.</p>
-    <p class="lead mute mt1">I samma arbete går vi igenom tillgänglighet, skärmstorlekar och prestanda.</p>
+    <p class="lead strong mt3">Ett praktiskt exempel: en större ändring som vi inte hade gett oss på utan AI.</p>
+    <p class="lead mt1">Vi gör den för långsiktigheten: ett större ekosystem som fler underhåller och kan bidra till.</p>
+    <p class="lead mute mt1">Mycket får vi gratis genom öppen källkod, till exempel komponentbiblioteket Astryx från Meta.</p>
   </div>
   <aside class="notes">
+    <p>Det här är vårt praktiska exempel på ett större utvecklingsmoment där vi har använt AI. Utan AI hade vi nog inte ens funderat på det.</p>
     <p>Eneo är byggt från grunden i Svelte, SvelteKit och Melt UI. Det har fungerat bra, och de flesta av oss har föredragit att skriva Svelte för hand. Det är en smaksak, gå inte in i ramverksdebatten.</p>
-    <p>Eneo har vuxit till flera kommuner och myndigheter, tack vare er. Därför fräschar vi upp: React och Vite, och Astryx som underhålls av Meta i stället för av en hobbyutvecklare. Fler kan bidra.</p>
+    <p>Varför vi gör det: vi tänker långsiktigt och byter till något som underhålls mer och har ett större ekosystem. Med React och Vite får vi mycket gratis genom öppen källkod, till exempel komponentbiblioteket Astryx som Meta ligger bakom, i stället för ett bibliotek som en hobbyutvecklare underhåller. Fler kan bidra.</p>
     <p>Samtidigt går vi igenom tillgänglighet, responsiv design (surfplatta, mobil, större och mindre skärmar) och prestanda. Säg ”mål”, om ni inte har mätvärden att visa.</p>
     <p>Det här är inget beslut vi tar för att det är roligt att byta ramverk. Vi väljer en stack som är långsiktig och rimlig att underhålla, och fler kan bidra eftersom fler kan React.</p>
     <p>Det visar också vad som har blivit möjligt: utan AI hade vi inte ens försökt, det hade varit för kostsamt. Agenterna har skrivit och verifierat koden. Gå sedan direkt till nästa bild.</p>
@@ -638,15 +636,17 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
   <div class="split">
     <p class="statement" data-step="1">Absolut inte.</p>
     <ul class="plain" data-step="2">
-      <li>Första versionen ser färdig ut, men håller sällan hela vägen.</li>
-      <li>Ingen har läst varje rad. Därför behövs kontrollpunkterna.</li>
-      <li class="strong">Vi avgör vad som är bra nog, och ansvarar för det som går ut.</li>
+      <li>”One shot” räcker sällan. Det krävs några varv för att hitta rätt lösning.</li>
+      <li>Det hör till utvecklingen. Vi väntar oss inte att modellen bygger allt rätt direkt.</li>
+      <li class="strong">Modellerna blir bättre, men vi behöver vara med i processen ändå.</li>
     </ul>
   </div>
   <aside class="notes">
     <p>Ställ frågan och vänta.</p>
     <p class="cue">Klick 1: ”Absolut inte.” Berätta nu ett verkligt fel från omskrivningen: vad agenten gjorde, hur ni upptäckte det, vad ni ändrade. Det är det publiken minns.</p>
-    <p class="cue">Klick 2: lärdomarna. Det gäller att inte gå med på första bästa version. Här kommer human in the loop och vår kompetens som utvecklare in.</p>
+    <p class="cue">Klick 2: lärdomarna. Det blir sällan bra genom att köra ”one shot”. Oftast krävs några iterationer för att hitta den lämpligaste lösningen på problemet vi försöker lösa.</p>
+    <p>Det är en del av utvecklingsprocessen, så vi förväntar oss inte heller att modellerna bygger allt perfekt på första försöket.</p>
+    <p>I takt med att modellerna blir bättre höjs kvaliteten, deras förståelse för problemområdet och deras generella förmåga. Men vi behöver vara med i processen ändå.</p>
     <p class="next">Övergång, till Max: ”Och nu det ni har väntat på.”</p>
   </aside>
 </section>
