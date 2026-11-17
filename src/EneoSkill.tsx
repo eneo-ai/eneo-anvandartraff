@@ -23,6 +23,7 @@ export function EneoSkill() {
     <List header={<Heading level={3}>Prova sedan att be om</Heading>} hasDividers density="spacious" edge="flush">
       {eneoSkill.examples.map(example => <ListItem key={example} label={<Text>{example}</Text>} />)}
     </List>
+    <Text as="p">{eneoSkill.moduleHint.text} <Link href={eneoSkill.moduleHint.href} hasUnderline>{eneoSkill.moduleHint.label}</Link>.</Text>
     <Text as="p" type="supporting">{eneoSkill.caveat}</Text>
   </VStack>;
 }
