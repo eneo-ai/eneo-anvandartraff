@@ -60,6 +60,7 @@ files.
 | Call an assistant from their own program or script | `references/api.md` |
 | A simple chat page, or an assistant embedded on a website | `references/chat-ui.md` |
 | Run a published flow, for example audio to meeting notes | `references/flows.md` |
+| An interface and logic of their own, beyond what assistants and apps give (a module) | Not this skill. Clone `https://github.com/eneo-ai/eneo-module-kit` and follow the quick start in its README |
 
 Read only what the task needs. Many requests combine two of these: "create a
 procurement assistant and test it" is `manage.md`; adding "and give me a page
