@@ -540,16 +540,28 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
 
 <section class="slide" data-ch="Arbetssättet" data-title="Ett extra steg för kvalitet: review-agenten" data-at="10.06" data-min="4" data-who="Çagri">
   <h2 class="h">Ett extra steg för kvalitet: review-agenten</h2>
-  <div class="body">
-    <div class="rows tight" style="--cols:520px 1fr">
-      <div class="hd">Hittar buggar och det som kan bli bättre, innan vi mergar</div><div class="hd"></div>
-      <div class="big">/review</div><div>Utvecklaren skriver det som kommentar på sin PR och får koden granskad</div>
-      <div class="big">Regler per repo</div><div>Skills och fördefinierade regler för just det kodförrådet</div>
-      <div class="big">Några varv</div><div>Vi rättar det den hittar och kör igen, tills den inte hittar mer</div>
-      <div class="big">En annan modell</div><div>Skriven med Claude Code, granskad med Codex: vi litar inte blint på en modell</div>
+  <div class="loopwrap">
+    <svg class="loop" viewBox="-60 0 880 680" width="690" height="533" role="img" aria-label="Slinga: begär /review, bedöm fynden, åtgärda och testa, pusha, och begär /review igen">
+      <defs><marker id="tip-review" viewBox="0 0 10 10" refX="7.5" refY="5" markerWidth="4.6" markerHeight="4.6" orient="auto"><path class="tip" d="M0 0L10 5L0 10z"/></marker></defs>
+      <circle class="ring" cx="380" cy="340" r="232"/>
+      <path class="arc" d="M502.9 143.3 A232 232 0 0 1 600.6 268.3" marker-end="url(#tip-review)"/>
+      <path class="arc" d="M600.6 411.7 A232 232 0 0 1 532.2 515.1" marker-end="url(#tip-review)"/>
+      <path class="arc" d="M227.8 515.1 A232 232 0 0 1 158.1 407.8" marker-end="url(#tip-review)"/>
+      <path class="arc" d="M159.4 268.3 A232 232 0 0 1 257.1 143.3" marker-end="url(#tip-review)"/>
+      <rect class="pill" x="265" y="66" width="230" height="84" rx="42"/><text class="nd" x="380" y="121">/review</text>
+      <rect class="pill" x="462" y="298" width="300" height="84" rx="42"/><text class="nd" x="612" y="353">Bedöm fynden</text>
+      <rect class="pill" x="180" y="530" width="400" height="84" rx="42"/><text class="nd" x="380" y="585">Åtgärda och testa</text>
+      <rect class="pill" x="48" y="298" width="200" height="84" rx="42"/><text class="nd" x="148" y="353">Pusha</text>
+      <text class="ct strong" x="355" y="350" font-weight="650">Några varv</text>
+    </svg>
+    <div>
+      <ul class="plain">
+        <li>Hittar buggar och det som kan bli bättre, med skills och regler för just det kodförrådet.</li>
+        <li>Skriven med Claude Code, granskad med Codex. Vi litar inte blint på en modell.</li>
+        <li class="strong">Agenten ger råd. Vi avgör, och det är vi som mergar.</li>
+      </ul>
+      <p class="s mute mt2">Koden finns på github.com/CCimen/review-agent</p>
     </div>
-    <p class="lead strong mt3" data-step="1">Agenten ger råd. Vi avgör, och det är vi som mergar.</p>
-    <p class="s mute mt1">Koden finns på github.com/CCimen/review-agent</p>
   </div>
   <aside class="notes">
     <p>Ett extra steg vi använder för kvalitet och för att hitta potentiella problem. En kodagent kan bygga vidare på ett antagande som är fel, och ett separat granskningssteg kan upptäcka det som missades.</p>
@@ -558,7 +570,8 @@ body.presenter #pv{display:grid;position:fixed;inset:0;padding:20px;color:var(--
     <p>Den granskar exakt den commit som PR:en pekar på, i två pass, och publicerar bara det den kan belägga i koden.</p>
     <p>Oftast hittar den buggar eller saker som går att förbättra. Då rättar vi och kör /review igen, och håller på tills den inte hittar något mer.</p>
     <p>Skriver vi kod med Claude Code korskör vi den med Codex, som review-agenten kör på. Vi litar inte blint på en modell, utan låter flera modeller gå igenom samma kod och jämför för att hitta det som kan bli bättre.</p>
-    <p class="cue">Klick 1: agenten är rådgivande. Den har ingen skrivåtkomst till repot och kan inte merga. Bedömningen är fortfarande vår.</p>
+    <p>Slingan: begär /review, bedöm fynden, åtgärda och testa, pusha och begär /review igen. Har agenten fel säger vi det i PR:en.</p>
+    <p>Agenten är rådgivande. Den har ingen skrivåtkomst till repot och kan inte merga. Bedömningen är fortfarande vår, tillsammans med CI och mänsklig granskning.</p>
     <p class="next">Övergång, till Max: ”När takten ökar märks en sak snabbare än allt annat.”</p>
   </aside>
 </section>
