@@ -6,8 +6,9 @@ document, a recording or an image and gets one result back, for example
 conversation. Choose an assistant instead when the user wants to ask follow-up
 questions.
 
-`CALL` is shorthand for `python3 <this-skill-folder>/scripts/eneo_call.py`, as
-in `manage.md`; write it out in full in each command.
+`CALL` is shorthand for `python3 <this-skill-folder>/scripts/eneo_call.py`
+(`python` or `py -3` on Windows). Write it out in full in each command; a shell
+variable holding it fails in zsh, the default shell on macOS.
 
 The key needs scope **Yta** (or wider) and permission **Skriv**. Choose the
 space and the model as in `manage.md`, sections 2 and 3.
